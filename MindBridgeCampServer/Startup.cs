@@ -1,18 +1,14 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace MindBridgeCampServer
 {
+    using Common.Core.DependencyInjection;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -26,6 +22,15 @@ namespace MindBridgeCampServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddMemoryCache();
+
+            DIModule.RegisterDomain(services, new List<string>
+              {
+                  "Application.Services",
+                  "Domain.Services",
+                  "Infrastructure.Data.Sql"
+              });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
