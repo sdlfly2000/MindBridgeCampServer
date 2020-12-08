@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 namespace MindBridgeCampServer
 {
     using Common.Core.DependencyInjection;
+    using Infrastructure.Data.Sql;
+    using Microsoft.EntityFrameworkCore;
 
     public class Startup
     {
@@ -24,6 +26,11 @@ namespace MindBridgeCampServer
             services.AddControllers();
 
             services.AddMemoryCache();
+
+            services.AddDbContext<MindBridgeCampDbContext>(
+                options => options.UseMySql(
+                    Configuration.GetConnectionString("MindBridgeCampDatabase"),
+                    b => b.MigrationsAssembly("Infrastructure.Data.Sql")));
 
             DIModule.RegisterDomain(services, new List<string>
               {
