@@ -8,6 +8,7 @@ namespace Infrastructure.Data.Sql.User.Entities
         [Key]
         public Guid hobbyId { get; set; }
 
+        [Required]
         public string name { get; set; }
     }
 }
