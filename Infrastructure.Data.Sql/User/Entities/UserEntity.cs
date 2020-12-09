@@ -7,7 +7,7 @@ namespace Infrastructure.Data.Sql.User.Entities
     public class UserEntity
     {
         [Key]
-        public Guid openId { get; set; }
+        public Guid userId { get; set; }
 
         public int? gender { get; set; }
 
