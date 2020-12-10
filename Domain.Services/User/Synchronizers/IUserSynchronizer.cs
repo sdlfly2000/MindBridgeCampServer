@@ -2,8 +2,10 @@
 
 namespace Domain.Services.User.Synchronizers
 {
-    interface IUserSynchronizer
+    public interface IUserSynchronizer
     {
         void Synchronize(IUser user);
+
+        void Add(IUser user);
     }
 }

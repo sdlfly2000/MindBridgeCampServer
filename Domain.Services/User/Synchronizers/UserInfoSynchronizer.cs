@@ -15,6 +15,22 @@ namespace Domain.Services.User.Synchronizers
             _uow = uow;
         }
 
+        public void Add(IUser user)
+        {
+            var entity = new UserInfoEntity
+            {
+                openId = user.OpenId,
+                avatarUrl = user.AvatarUrl,
+                city = user.City,
+                country = user.City,
+                language = user.Language,
+                nickName = user.NickName,
+                province = user.Province
+            };
+
+            _uow.Add(entity);
+        }
+
         public void Sychronize(IUser user)
         {
             var entity = new UserInfoEntity

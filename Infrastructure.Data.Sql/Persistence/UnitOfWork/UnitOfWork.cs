@@ -12,6 +12,11 @@ namespace Infrastructure.Data.Sql.Persistence.UnitOfWork
             _context = context;
         }
 
+        public void Add<TEntity>(TEntity entity) where TEntity : class
+        {
+            _context.Get<TEntity>().Add(entity);
+        }
+
         public void Persist<TEntity>(TEntity entity) where TEntity : class
         {
             _context.Get<TEntity>().Update(entity);
