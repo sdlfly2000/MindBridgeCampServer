@@ -1,5 +1,6 @@
 ﻿using Common.Core.DependencyInjection;
 using Infrastructure.Data.Sql.User.Entities;
+using System;
 using System.Linq;
 
 namespace Infrastructure.Data.Sql.User.Repositories
@@ -21,7 +22,7 @@ namespace Infrastructure.Data.Sql.User.Repositories
 
         public UserEntity FindByGuid(string guid)
         {
-            return FindAll().FirstOrDefault();
+            return FindAll().FirstOrDefault(u => u.userId.Equals(Guid.Parse(guid)));
         }
     }
 }

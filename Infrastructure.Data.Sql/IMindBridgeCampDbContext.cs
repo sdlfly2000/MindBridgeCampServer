@@ -6,5 +6,7 @@ namespace Infrastructure.Data.Sql
     public interface IMindBridgeCampDbContext
     {
         DbSet<UserEntity> Users { get; set; }
+
+        DbSet<UserInfoEntity> UserInfos { get; set; }
     }
 }

@@ -13,5 +13,6 @@ namespace Infrastructure.Data.Sql
         }
 
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<UserInfoEntity> UserInfos { get; set; }
     }
 }
