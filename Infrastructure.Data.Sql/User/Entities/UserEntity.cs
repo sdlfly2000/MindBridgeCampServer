@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Infrastructure.Data.Sql.Persistence;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Sql.User.Entities
 {
-    public class UserEntity
+    public class UserEntity : IEntity
     {
         [Key]
         public Guid userId { get; set; }

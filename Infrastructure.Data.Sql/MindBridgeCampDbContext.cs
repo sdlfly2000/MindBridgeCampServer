@@ -10,9 +10,20 @@ namespace Infrastructure.Data.Sql
         public MindBridgeCampDbContext(DbContextOptions options) : base(options)
         {
 
-        }
+        }        
 
         public DbSet<UserEntity> Users { get; set; }
+
         public DbSet<UserInfoEntity> UserInfos { get; set; }
+
+        public DbSet<TEntity> Get<TEntity>() where TEntity : class
+        {
+            return Set<TEntity>();
+        }
+
+        public void Save()
+        {
+            SaveChanges();
+        }
     }
 }

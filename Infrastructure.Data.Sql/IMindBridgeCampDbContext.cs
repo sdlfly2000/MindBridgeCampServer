@@ -8,5 +8,9 @@ namespace Infrastructure.Data.Sql
         DbSet<UserEntity> Users { get; set; }
 
         DbSet<UserInfoEntity> UserInfos { get; set; }
+
+        DbSet<TEntity> Get<TEntity>() where TEntity : class;
+
+        void Save();
     }
 }

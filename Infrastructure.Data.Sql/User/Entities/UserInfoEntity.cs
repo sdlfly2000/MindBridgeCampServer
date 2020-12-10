@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Infrastructure.Data.Sql.Persistence;
+using System;
 
 namespace Infrastructure.Data.Sql.User.Entities
 {
-    public class UserInfoEntity
+    public class UserInfoEntity : IEntity
     {
         public Guid openId { get; set; }
 

@@ -1,9 +1,11 @@
-﻿using Domain.Services.User.Loaders.Mappers;
+﻿using Common.Core.DependencyInjection;
+using Domain.Services.User.Loaders.Mappers;
 using Domain.User;
 using Infrastructure.Data.Sql.User.Repositories;
 
 namespace Domain.Services.User.Loaders
 {
+    [ServiceLocate(typeof(IUserInfoAspectLoader))]
     public class UserInfoAspectLoader : IUserInfoAspectLoader
     {
         private readonly IUserInfoAspectMapper _userInfoAspectMapper;
