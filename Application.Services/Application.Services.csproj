@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\Domain.Services\Domain.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="User\Processes\" />
   </ItemGroup>
 
 </Project>
