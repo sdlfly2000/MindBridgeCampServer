@@ -1,28 +1,32 @@
 ﻿using Application.Services.User.Contracts;
+using Application.Services.User.Processes;
+using Application.User;
 using Common.Core.DependencyInjection;
-using Domain.Services.User;
 
 namespace Application.Services.User
 {
     [ServiceLocate(typeof(IUserService))]
     public class UserService : IUserService
     {
-        private readonly IUserGateway _userGateway;
+        private readonly IAddUserProcess _addUserProcess;
+        private readonly IGetUserProcess _getUserProcess;
 
         public UserService(
-            IUserGateway userGateway)
+            IAddUserProcess addUserProcess,
+            IGetUserProcess getUserProcess)
         {
-            _userGateway = userGateway;
+            _addUserProcess = addUserProcess;
+            _getUserProcess = getUserProcess;
+        }
+
+        public GetResponse Add(UserModel model)
+        {
+            return _addUserProcess.Add(model);
         }
 
         public GetResponse Get(GetByIdRequest request)
         {
-            var user = _userGateway.Load(request.UserId);
-
-            return new GetResponse
-            {
-                User = user
-            };
+            return _getUserProcess.Get(request);
         }
     }
 }
