@@ -2,7 +2,6 @@
 using Domain.User;
 using Infrastructure.Data.Sql.Persistence.UnitOfWork;
 using Infrastructure.Data.Sql.User.Entities;
-using System;
 
 namespace Domain.Services.User.Synchronizers
 {
@@ -18,11 +17,6 @@ namespace Domain.Services.User.Synchronizers
 
         public void Add(IUser user)
         {
-            if (user.OpenId.Equals(Guid.Empty))
-            { 
-                return; 
-            }
-
             var entity = new UserInfoEntity
             {
                 openId = user.OpenId,
@@ -34,16 +28,11 @@ namespace Domain.Services.User.Synchronizers
                 province = user.Province
             };
 
-            _uow.Add(entity);            
+            _uow.Add(entity);
         }
 
         public void Sychronize(IUser user)
         {
-            if (user.OpenId.Equals(Guid.Empty))
-            {
-                return;
-            }
-
             var entity = new UserInfoEntity
             {
                 openId = user.OpenId,
@@ -55,7 +44,7 @@ namespace Domain.Services.User.Synchronizers
                 province = user.Province
             };
 
-            _uow.Persist<UserInfoEntity>(entity);            
+            _uow.Persist<UserInfoEntity>(entity);
         }
     }
 }

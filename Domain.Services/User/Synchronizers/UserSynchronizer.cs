@@ -19,11 +19,6 @@ namespace Domain.Services.User.Synchronizers
 
         public void Add(IUser user)
         {
-            if (user.UserId.Equals(Guid.Empty))
-            {
-                return;
-            }
-
             var entity = new UserEntity
             {
                 userId = user.UserId,
@@ -41,16 +36,11 @@ namespace Domain.Services.User.Synchronizers
                 }).ToList()
             };
 
-            _uow.Add(entity);            
+            _uow.Add(entity);
         }
 
         public void Synchronize(IUser user)
         {
-            if (user.UserId.Equals(Guid.Empty))
-            { 
-                return;             
-            }
-
             var entity = new UserEntity
             {
                 userId = user.UserId,
@@ -65,10 +55,10 @@ namespace Domain.Services.User.Synchronizers
                 {
                     hobbyId = hobby.id,
                     name = hobby.name
-                }).ToList()
+                }).ToList()                
             };
 
-            _uow.Persist(entity);            
+            _uow.Persist(entity);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Data.Sql.Persistence.UnitOfWork
 {
-    [ServiceLocate(typeof(IUnitOfWork<>))]
+    [ServiceLocate(typeof(IUnitOfWork<IEntity>))]
     public class UnitOfWork<TEntity> : IUnitOfWork<TEntity> where TEntity : class
     {
         private readonly IMindBridgeCampDbContext _context;

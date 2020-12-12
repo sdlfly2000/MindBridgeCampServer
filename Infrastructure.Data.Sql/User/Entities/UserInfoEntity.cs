@@ -1,12 +1,10 @@
 ﻿using Infrastructure.Data.Sql.Persistence;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Sql.User.Entities
 {
     public class UserInfoEntity : IEntity
     {
-        [Key]
         public Guid openId { get; set; }
 
         public string nickName { get; set; }
