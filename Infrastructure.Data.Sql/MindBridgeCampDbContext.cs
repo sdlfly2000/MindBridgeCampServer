@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Sql
 {
-    [ServiceLocate(typeof(IMindBridgeCampDbContext))]
+    [ServiceLocate(typeof(IMindBridgeCampDbContext), ServiceType.Scoped)]
     public class MindBridgeCampDbContext : DbContext, IMindBridgeCampDbContext
     {
         public MindBridgeCampDbContext(DbContextOptions options) : base(options)
