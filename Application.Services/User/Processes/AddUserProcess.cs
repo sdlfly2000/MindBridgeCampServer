@@ -25,7 +25,7 @@ namespace Application.Services.User.Processes
             },
             new UserInfoAspect
             {
-                OpenId = Guid.Parse(model.OpenId),
+                OpenId = Guid.NewGuid(),
                 NickName = model.NickName
             });
 

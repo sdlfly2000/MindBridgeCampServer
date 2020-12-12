@@ -6,7 +6,6 @@ namespace Application.User
 {
     public class UserModel
     {
-        public string OpenId { get; set; }
         public string NickName { get; set; }
     }
 }
