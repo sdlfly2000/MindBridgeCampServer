@@ -10,13 +10,16 @@ namespace Application.Services.User
     {
         private readonly IAddUserProcess _addUserProcess;
         private readonly IGetUserProcess _getUserProcess;
+        private readonly IUpdateUserProcess _updateUserProcess;
 
         public UserService(
             IAddUserProcess addUserProcess,
-            IGetUserProcess getUserProcess)
+            IGetUserProcess getUserProcess,
+            IUpdateUserProcess updateUserProcess)
         {
             _addUserProcess = addUserProcess;
             _getUserProcess = getUserProcess;
+            _updateUserProcess = updateUserProcess;
         }
 
         public GetResponse Add(UserModel model)
@@ -27,6 +30,11 @@ namespace Application.Services.User
         public GetResponse Get(GetByIdRequest request)
         {
             return _getUserProcess.Get(request);
+        }
+
+        public GetResponse Update(UserModel model)
+        {
+            return _updateUserProcess.Update(model);
         }
     }
 }

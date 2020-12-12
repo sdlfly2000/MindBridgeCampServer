@@ -7,5 +7,7 @@ namespace Domain.Services.User
         IUser Load(string userId);
 
         void Add(IUser user);
+
+        void Save(IUser user);
     }
 }

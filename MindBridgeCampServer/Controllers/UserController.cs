@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace MindBridgeCampServer.Controllers
 {
-    [Route("api/[controller]/")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -29,17 +29,20 @@ namespace MindBridgeCampServer.Controllers
             return Ok(JsonConvert.SerializeObject(response.User));
         }
 
-        // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] UserModel userModel)
+        public IActionResult AddUser([FromBody] UserModel userModel)
         {
-            var response = _userService.Add(userModel);
+            _userService.Add(userModel);
+
+            return Ok();
         }
 
-        // PUT api/<UserController>/5
-        [HttpPut("{userId}")]
-        public void Put(string userId, [FromBody] string value)
+        [HttpPost]
+        public IActionResult UpdateUser([FromBody] UserModel userModel)
         {
+            _userService.Update(userModel);
+
+            return Ok();
         }
 
         // DELETE api/<UserController>/5

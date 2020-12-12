@@ -48,7 +48,6 @@ namespace Domain.Services.User
             _userSynchronizer.Synchronize(user);
             _userInfoSynchronizer.Sychronize(user);
             _persistence.Complete();
-
         }
     }
 }
