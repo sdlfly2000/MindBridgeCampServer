@@ -10,5 +10,7 @@ namespace Application.Services.User
         GetResponse Add(UserModel model);
 
         GetResponse Update(UserModel model);
+
+        GetResponse GetByToken(string accessToken);
     }
 }

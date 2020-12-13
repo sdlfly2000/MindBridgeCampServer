@@ -29,6 +29,17 @@ namespace MindBridgeCampServer.Controllers
             return Ok(JsonConvert.SerializeObject(response.User));
         }
 
+        [HttpGet("{accessToken}")]
+        public IActionResult GetByToken(string accessToken)
+        {
+            var response = _userService.Get(new GetByIdRequest
+            {
+                UserId = userId
+            });
+
+            return Ok(JsonConvert.SerializeObject(response.User));
+        }
+
         [HttpPost]
         public IActionResult AddUser([FromBody] UserModel userModel)
         {
