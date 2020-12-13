@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Services", "App
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Data.Sql", "Infrastructure.Data.Sql\Infrastructure.Data.Sql.csproj", "{0A554AFD-5437-4047-8C2B-0FCB5E2437E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{BEA07987-5D80-4165-AFE5-2D0EDA7A6C56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{BEA07987-5D80-4165-AFE5-2D0EDA7A6C56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Data.CacheAgent", "Infrastructure.Data.CacheAgent\Infrastructure.Data.CacheAgent.csproj", "{C01E6834-96CD-49E2-90D8-F51BB9D10781}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{BEA07987-5D80-4165-AFE5-2D0EDA7A6C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEA07987-5D80-4165-AFE5-2D0EDA7A6C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEA07987-5D80-4165-AFE5-2D0EDA7A6C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C01E6834-96CD-49E2-90D8-F51BB9D10781}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C01E6834-96CD-49E2-90D8-F51BB9D10781}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C01E6834-96CD-49E2-90D8-F51BB9D10781}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C01E6834-96CD-49E2-90D8-F51BB9D10781}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{380820BD-ECDE-4B53-A1CE-4D4E1E5AF7AC} = {1A7DDD40-89D4-4457-8A11-3EFF4C8B7FA0}
 		{0A554AFD-5437-4047-8C2B-0FCB5E2437E6} = {A3F1CDA2-2B74-41ED-84B8-ABB1BC02E098}
 		{BEA07987-5D80-4165-AFE5-2D0EDA7A6C56} = {CEDC0E73-AD53-4C28-8772-3B389C03E5B1}
+		{C01E6834-96CD-49E2-90D8-F51BB9D10781} = {A3F1CDA2-2B74-41ED-84B8-ABB1BC02E098}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6EDDC32A-5854-448B-A003-D441FF8A022D}
