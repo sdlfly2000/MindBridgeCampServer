@@ -17,7 +17,7 @@ namespace Infrastructure.Data.Sql.User.Repositories
 
         public UserInfoEntity FindByGuid(string guid)
         {
-            return FindAll().FirstOrDefault(u => u.openId.Equals(Guid.Parse(guid)));
+            return FindAll().FirstOrDefault(u => u.openId.Equals(guid));
         }
 
         private IQueryable<UserInfoEntity> FindAll()

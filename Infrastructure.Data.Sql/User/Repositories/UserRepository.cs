@@ -22,7 +22,7 @@ namespace Infrastructure.Data.Sql.User.Repositories
 
         public UserEntity FindByGuid(string guid)
         {
-            return FindAll().FirstOrDefault(u => u.userId.Equals(Guid.Parse(guid)));
+            return FindAll().FirstOrDefault(u => u.userId.Equals(guid));
         }
     }
 }
