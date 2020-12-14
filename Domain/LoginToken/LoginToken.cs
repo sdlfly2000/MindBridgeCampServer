@@ -1,10 +1,10 @@
-﻿namespace Domain.AccessToken
+﻿namespace Domain.LoginToken
 {
-    public class AccessToken : IAccessToken
+    public class LoginToken : ILoginToken
     {
-        private readonly IAccessTokenAspect _accessTokenAspect;
+        private readonly ILoginTokenAspect _accessTokenAspect;
 
-        public AccessToken(IAccessTokenAspect accessTokenAspect)
+        public LoginToken(ILoginTokenAspect accessTokenAspect)
         {
             _accessTokenAspect = accessTokenAspect;
         }

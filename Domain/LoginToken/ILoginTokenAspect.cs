@@ -1,6 +1,6 @@
-﻿namespace Domain.AccessToken
+﻿namespace Domain.LoginToken
 {
-    public interface IAccessTokenAspect
+    public interface ILoginTokenAspect
     {
         OpenIdReference OpenId { get; set; }
 

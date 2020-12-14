@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.AccessToken
+namespace Domain.LoginToken
 {
     public class OpenIdReference
     {
