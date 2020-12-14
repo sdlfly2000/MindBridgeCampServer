@@ -32,9 +32,9 @@ namespace Application.Services.User
             return _getUserProcess.Get(request);
         }
 
-        public GetResponse GetByToken(string accessToken)
+        public GetResponse Get(GetByLoginTokenRequest request)
         {
-            throw new System.NotImplementedException();
+            return _getUserProcess.Get(request);
         }
 
         public GetResponse Update(UserModel model)

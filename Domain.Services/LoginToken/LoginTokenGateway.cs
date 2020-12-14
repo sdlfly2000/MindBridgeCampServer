@@ -1,13 +1,24 @@
-﻿using Domain.LoginToken;
-using System;
+﻿using Common.Core.DependencyInjection;
+using Domain.LoginToken;
+using Domain.Services.LoginToken.Loaders;
 
 namespace Domain.Services.LoginToken
 {
+    [ServiceLocate(typeof(ILoginTokenGateway))]
     public class LoginTokenGateway : ILoginTokenGateway
     {
-        public ILoginToken Get(string accessToken)
+        private readonly ILoginTokenAspectLoader _loginTokenAspectLoader;
+
+        public LoginTokenGateway(ILoginTokenAspectLoader loginTokenAspectLoader)
         {
-            throw new NotImplementedException();
+            _loginTokenAspectLoader = loginTokenAspectLoader;
+        }
+
+        public ILoginToken Get(string loginToken)
+        {
+            var loginTokenAspect = _loginTokenAspectLoader.Load(loginToken);
+
+            return new LoginTokenDomain(loginTokenAspect);
         }
     }
 }

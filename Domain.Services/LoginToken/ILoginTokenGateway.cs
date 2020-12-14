@@ -4,6 +4,6 @@ namespace Domain.Services.LoginToken
 {
     public interface ILoginTokenGateway
     {
-        ILoginToken Get(string accessToken);
+        ILoginToken Get(string loginToken);
     }
 }

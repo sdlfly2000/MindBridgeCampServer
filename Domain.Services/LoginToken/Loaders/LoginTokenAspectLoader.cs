@@ -1,9 +1,11 @@
-﻿using Domain.LoginToken;
+﻿using Common.Core.DependencyInjection;
+using Domain.LoginToken;
 using Domain.Services.LoginToken.Loaders.Mappers;
 using Infrastructure.Data.CacheAgent.AccessToken.Repositories;
 
 namespace Domain.Services.LoginToken.Loaders
 {
+    [ServiceLocate(typeof(ILoginTokenAspectLoader))]
     public class LoginTokenAspectLoader : ILoginTokenAspectLoader
     {
         private readonly IWeixinAuthorityRepository _repository;

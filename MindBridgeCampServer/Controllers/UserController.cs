@@ -29,12 +29,12 @@ namespace MindBridgeCampServer.Controllers
             return Ok(JsonConvert.SerializeObject(response.User));
         }
 
-        [HttpGet("{accessToken}")]
-        public IActionResult GetByToken(string accessToken)
+        [HttpGet("{loginToken}")]
+        public IActionResult GetByToken(string loginToken)
         {
-            var response = _userService.Get(new GetByIdRequest
+            var response = _userService.Get(new GetByLoginTokenRequest
             {
-                //UserId = userId
+                LoginToken = loginToken
             });
 
             return Ok(JsonConvert.SerializeObject(response.User));

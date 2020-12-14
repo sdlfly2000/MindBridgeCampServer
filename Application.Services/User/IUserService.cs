@@ -11,6 +11,6 @@ namespace Application.Services.User
 
         GetResponse Update(UserModel model);
 
-        GetResponse GetByToken(string accessToken);
+        GetResponse Get(GetByLoginTokenRequest request);
     }
 }
