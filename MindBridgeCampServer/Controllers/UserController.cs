@@ -34,7 +34,7 @@ namespace MindBridgeCampServer.Controllers
         {
             var response = _userService.Get(new GetByIdRequest
             {
-                UserId = userId
+                //UserId = userId
             });
 
             return Ok(JsonConvert.SerializeObject(response.User));
