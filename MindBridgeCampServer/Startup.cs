@@ -36,7 +36,8 @@ namespace MindBridgeCampServer
               {
                   "Application.Services",
                   "Domain.Services",
-                  "Infrastructure.Data.Sql"
+                  "Infrastructure.Data.Sql",
+                  "Infrastructure.Data.CacheAgent"
               });
         }
 

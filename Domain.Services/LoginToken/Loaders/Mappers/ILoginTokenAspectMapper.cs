@@ -1,5 +1,5 @@
 ﻿using Domain.LoginToken;
-using Infrastructure.Data.CacheAgent.AccessToken.Entities;
+using Infrastructure.Data.CacheAgent.LoginToken.Entities;
 
 namespace Domain.Services.LoginToken.Loaders.Mappers
 {

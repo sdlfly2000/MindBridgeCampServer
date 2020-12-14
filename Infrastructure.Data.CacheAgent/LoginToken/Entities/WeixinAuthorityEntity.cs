@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure.Data.CacheAgent.AccessToken.Entities
+namespace Infrastructure.Data.CacheAgent.LoginToken.Entities
 {
     public class WeixinAuthorityEntity
     {

@@ -1,7 +1,7 @@
 ﻿using Common.Core.DependencyInjection;
 using Domain.LoginToken;
 using Domain.Services.LoginToken.Loaders.Mappers;
-using Infrastructure.Data.CacheAgent.AccessToken.Repositories;
+using Infrastructure.Data.CacheAgent.LoginToken.Repositories;
 
 namespace Domain.Services.LoginToken.Loaders
 {

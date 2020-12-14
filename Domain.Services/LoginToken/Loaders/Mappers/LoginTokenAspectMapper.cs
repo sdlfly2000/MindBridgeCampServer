@@ -1,8 +1,8 @@
 ﻿using Domain.AccessToken;
 using System;
-using Infrastructure.Data.CacheAgent.AccessToken.Entities;
 using Common.Core.DependencyInjection;
 using Domain.LoginToken;
+using Infrastructure.Data.CacheAgent.LoginToken.Entities;
 
 namespace Domain.Services.LoginToken.Loaders.Mappers
 {

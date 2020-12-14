@@ -1,7 +1,7 @@
 ﻿using Common.Core.DependencyInjection;
-using Infrastructure.Data.CacheAgent.AccessToken.Entities;
+using Infrastructure.Data.CacheAgent.LoginToken.Entities;
 
-namespace Infrastructure.Data.CacheAgent.AccessToken.Repositories
+namespace Infrastructure.Data.CacheAgent.LoginToken.Repositories
 {
     [ServiceLocate(typeof(IWeixinAuthorityRepository))]
     public class WeixinAuthorityRepository : IWeixinAuthorityRepository
