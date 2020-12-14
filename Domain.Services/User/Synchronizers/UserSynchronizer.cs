@@ -19,7 +19,7 @@ namespace Domain.Services.User.Synchronizers
 
         public void Add(IUser user)
         {
-            if (user.UserId.Equals(Guid.Empty))
+            if (user.UserId.Code.Equals(string.Empty))
             {
                 return;
             }
@@ -46,7 +46,7 @@ namespace Domain.Services.User.Synchronizers
 
         public void Synchronize(IUser user)
         {
-            if (user.UserId.Equals(Guid.Empty))
+            if (user.UserId.Code.Equals(string.Empty))
             { 
                 return;             
             }
