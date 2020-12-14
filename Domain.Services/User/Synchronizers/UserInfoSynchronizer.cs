@@ -18,7 +18,7 @@ namespace Domain.Services.User.Synchronizers
 
         public void Add(IUser user)
         {
-            if (user.OpenId.Equals(Guid.Empty))
+            if (user.OpenId.Code.Equals(string.Empty))
             { 
                 return; 
             }
@@ -39,7 +39,7 @@ namespace Domain.Services.User.Synchronizers
 
         public void Sychronize(IUser user)
         {
-            if (user.OpenId.Equals(Guid.Empty))
+            if (user.OpenId.Code.Equals(string.Empty))
             {
                 return;
             }
