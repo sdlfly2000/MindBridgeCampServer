@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Sql.Migrations
 {
     [DbContext(typeof(MindBridgeCampDbContext))]
-    [Migration("20201212062932_init")]
-    partial class init
+    [Migration("20201214173844_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,8 +25,8 @@ namespace Infrastructure.Data.Sql.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("UserEntityuserId")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UserEntityuserId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("name")
                         .IsRequired()
@@ -41,9 +41,8 @@ namespace Infrastructure.Data.Sql.Migrations
 
             modelBuilder.Entity("Infrastructure.Data.Sql.User.Entities.UserEntity", b =>
                 {
-                    b.Property<Guid>("userId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                    b.Property<string>("userId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("expectationAfterGraduation")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -73,9 +72,8 @@ namespace Infrastructure.Data.Sql.Migrations
 
             modelBuilder.Entity("Infrastructure.Data.Sql.User.Entities.UserInfoEntity", b =>
                 {
-                    b.Property<Guid>("openId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                    b.Property<string>("openId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("avatarUrl")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

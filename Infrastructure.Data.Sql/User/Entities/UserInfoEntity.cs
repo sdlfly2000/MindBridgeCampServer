@@ -7,7 +7,7 @@ namespace Infrastructure.Data.Sql.User.Entities
     public class UserInfoEntity : IEntity
     {
         [Key]
-        public Guid openId { get; set; }
+        public string openId { get; set; }
 
         public string nickName { get; set; }
 

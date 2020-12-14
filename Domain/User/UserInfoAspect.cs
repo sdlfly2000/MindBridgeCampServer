@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Domain.LoginToken;
 
 namespace Domain.User
 {
     public class UserInfoAspect : IUserInfoAspect
     {
-        public Guid OpenId { get; set; }
+        public OpenIdReference OpenId { get; set; }
 
         public string NickName { get; set; }
 

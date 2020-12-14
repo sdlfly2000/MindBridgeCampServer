@@ -25,7 +25,7 @@ namespace Domain.Services.User.Synchronizers
 
             var entity = new UserInfoEntity
             {
-                openId = user.OpenId,
+                openId = user.OpenId.Code,
                 avatarUrl = user.AvatarUrl,
                 city = user.City,
                 country = user.City,
@@ -46,7 +46,7 @@ namespace Domain.Services.User.Synchronizers
 
             var entity = new UserInfoEntity
             {
-                openId = user.OpenId,
+                openId = user.OpenId.Code,
                 avatarUrl = user.AvatarUrl,
                 city = user.City,
                 country = user.City,

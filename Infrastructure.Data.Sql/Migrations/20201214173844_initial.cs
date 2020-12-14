@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Data.Sql.Migrations
 {
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace Infrastructure.Data.Sql.Migrations
                 name: "UserInfos",
                 columns: table => new
                 {
-                    openId = table.Column<Guid>(nullable: false),
+                    openId = table.Column<string>(nullable: false),
                     nickName = table.Column<string>(nullable: true),
                     avatarUrl = table.Column<string>(nullable: true),
                     country = table.Column<string>(nullable: true),
@@ -28,7 +28,7 @@ namespace Infrastructure.Data.Sql.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    userId = table.Column<Guid>(nullable: false),
+                    userId = table.Column<string>(nullable: false),
                     gender = table.Column<int>(nullable: true),
                     name = table.Column<string>(nullable: true),
                     majorIn = table.Column<string>(nullable: true),
@@ -48,7 +48,7 @@ namespace Infrastructure.Data.Sql.Migrations
                 {
                     hobbyId = table.Column<Guid>(nullable: false),
                     name = table.Column<string>(nullable: false),
-                    UserEntityuserId = table.Column<Guid>(nullable: true)
+                    UserEntityuserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

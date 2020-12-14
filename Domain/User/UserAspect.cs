@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Domain.LoginToken;
 using System.Collections.Generic;
 
 namespace Domain.User
 {
     public class UserAspect : IUserAspect
     {
-        public Guid UserId { get; set; }
+        public OpenIdReference UserId { get; set; }
         public GenderType Gender { get; set; }
         public string Name { get; set; }
         public string MajorIn { get; set; }

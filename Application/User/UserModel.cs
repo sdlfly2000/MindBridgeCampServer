@@ -6,7 +6,7 @@ namespace Application.User
 {
     public class UserModel
     {
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         public GenderType Gender { get; set; }
 
@@ -24,7 +24,7 @@ namespace Application.User
 
         public IList<Hobby> Hobbies { get; set; }
 
-        public Guid OpenId { get; set; }
+        public string OpenId { get; set; }
 
         public string NickName { get; set; }
 

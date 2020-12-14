@@ -14,7 +14,7 @@ namespace Domain.Services.LoginToken.Loaders.Mappers
             return new LoginTokenAspect
             {
                 AccessTokenCode = entity.LoginToken.ToString(),
-                OpenId = new OpenIdReference(Guid.Parse(entity.OpenId)),
+                OpenId = new OpenIdReference(entity.OpenId),
                 SessionKey = entity.SessionKey
             };
         }

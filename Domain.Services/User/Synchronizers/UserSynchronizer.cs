@@ -26,7 +26,7 @@ namespace Domain.Services.User.Synchronizers
 
             var entity = new UserEntity
             {
-                userId = user.UserId,
+                userId = user.UserId.Code,
                 expectationAfterGraduation = user.ExpectationAfterGraduation,
                 gender = (int?)user.Gender,
                 height = user.Height,
@@ -53,7 +53,7 @@ namespace Domain.Services.User.Synchronizers
 
             var entity = new UserEntity
             {
-                userId = user.UserId,
+                userId = user.UserId.Code,
                 expectationAfterGraduation = user.ExpectationAfterGraduation,
                 gender = (int?)user.Gender,
                 height = user.Height,

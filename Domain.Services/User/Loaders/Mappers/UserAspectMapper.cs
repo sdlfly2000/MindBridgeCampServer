@@ -1,4 +1,5 @@
 ﻿using Common.Core.DependencyInjection;
+using Domain.LoginToken;
 using Domain.User;
 using Infrastructure.Data.Sql.User.Entities;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Domain.Services.User.Loaders.Mappers
         {
             return new UserAspect
             {
-                UserId = entity.userId,
+                UserId = new OpenIdReference( entity.userId),
                 Gender = (GenderType)entity.gender,
                 Name = entity.name,
                 MajorIn = entity.majorIn,

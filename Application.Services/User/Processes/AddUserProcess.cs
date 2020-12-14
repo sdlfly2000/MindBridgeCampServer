@@ -1,6 +1,7 @@
 ﻿using Application.Services.User.Contracts;
 using Application.User;
 using Common.Core.DependencyInjection;
+using Domain.LoginToken;
 using Domain.Services.User;
 using Domain.User;
 using System;
@@ -19,7 +20,7 @@ namespace Application.Services.User.Processes
 
         public GetResponse Add(UserModel model)
         {
-            var newGuid = Guid.NewGuid();
+            var newGuid = new OpenIdReference(Guid.NewGuid().ToString());
             var user = new UserDomain(
             new UserAspect
             {

@@ -1,4 +1,5 @@
 ﻿using Common.Core.DependencyInjection;
+using Domain.LoginToken;
 using Domain.User;
 using Infrastructure.Data.Sql.User.Entities;
 
@@ -11,7 +12,7 @@ namespace Domain.Services.User.Loaders.Mappers
         {
             return new UserInfoAspect
             {
-                OpenId = entity.openId,
+                OpenId = new OpenIdReference(entity.openId),
                 AvatarUrl = entity.avatarUrl,
                 City = entity.city,
                 Country = entity.country,
