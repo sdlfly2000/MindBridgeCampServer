@@ -13,7 +13,7 @@ namespace Domain.Services.User.Loaders.Mappers
         {
             return new UserAspect
             {
-                UserId = new OpenIdReference( entity.userId),
+                UserId = new OpenIdReference(entity.userId),
                 Gender = (GenderType)entity.gender,
                 Name = entity.name,
                 MajorIn = entity.majorIn,
@@ -21,11 +21,11 @@ namespace Domain.Services.User.Loaders.Mappers
                 Weight = entity.weight,
                 StudyContent = entity.studyContent,
                 ExpectationAfterGraduation = entity.expectationAfterGraduation,
-                Hobbies = entity.hobbies.Select(h => new Hobby
-                {
-                    name = h.name,
+                //Hobbies = entity.hobbies.Select(h => new Hobby
+                //{
+                //    name = h.name,
 
-                }).ToList()
+                //}).ToList()
             };
         }
     }
