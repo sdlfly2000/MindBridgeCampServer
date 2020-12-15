@@ -4,13 +4,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Common.Core.DependencyInjection;
+using Infrastructure.Data.Sql;
+using Microsoft.EntityFrameworkCore;
 
 namespace MindBridgeCampServer
 {
-    using Common.Core.DependencyInjection;
-    using Infrastructure.Data.Sql;
-    using Microsoft.EntityFrameworkCore;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)

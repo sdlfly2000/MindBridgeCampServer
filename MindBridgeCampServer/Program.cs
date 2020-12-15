@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Configuration;
 
 namespace MindBridgeCampServer
 {
@@ -21,6 +23,10 @@ namespace MindBridgeCampServer
                     webBuilder
                         .UseUrls(config["urls"])
                         .UseStartup<Startup>();
+                })
+                .ConfigureLogging((hostContext, logging) =>
+                {
+                    logging.AddConfiguration();
                 });
     }
 }

@@ -32,7 +32,7 @@ namespace Application.Services.User.Processes
             var loginToken = _loginTokenGateway.Get(request.LoginToken);
             return new GetResponse
             {
-                User = _userGateway.Load(loginToken.OpenId.ToString())
+                User = _userGateway.Load(loginToken.OpenId.Code)
             };
         }
     }

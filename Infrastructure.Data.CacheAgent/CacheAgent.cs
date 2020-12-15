@@ -9,23 +9,32 @@ namespace Infrastructure.Data.CacheAgent
     public class CacheAgent<TEntity> : ICacheAgent<TEntity> where TEntity: class
     {
         private readonly IPipeCacheClient _pipeCacheClient;
+        private string ServerName;
+        private string PipeName;
 
         public CacheAgent(
             IPipeCacheClient pipeCacheClient, 
             IConfiguration config)
         {
             _pipeCacheClient = pipeCacheClient;
-           
-            _pipeCacheClient.SetupPipeClient(
-                new NamedPipeClientStream(
-                config["PipeClientSettings:PipeServer"], 
-                config["PipeClientSettings:PipeName"], 
-                PipeDirection.InOut));
+            ServerName = config["PipeClientSettings:PipeServer"];
+            PipeName = config["PipeClientSettings:PipeName"];
         }
 
         public TEntity Get<TEntity>(string key) where TEntity : class
         {
+            SetupPipeClient();
             return _pipeCacheClient.Get<TEntity>(key);
         }
+
+        #region Private Methods
+
+        private void SetupPipeClient()
+        {
+            _pipeCacheClient.SetupPipeClient(
+                new NamedPipeClientStream(ServerName, PipeName, PipeDirection.InOut));
+        }
+
+        #endregion
     }
 }
