@@ -11,5 +11,8 @@ namespace Infrastructure.Data.Sql.User.Entities
 
         [Required]
         public string name { get; set; }
+
+        [Required]
+        public bool isActive { get;set; }
     }
 }

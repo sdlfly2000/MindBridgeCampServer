@@ -24,6 +24,6 @@ namespace Infrastructure.Data.Sql.User.Entities
 
         public string expectationAfterGraduation { get; set; }
 
-        public ICollection<HobbyEntity> hobbies { get; set; }
+        public IList<HobbyEntity> hobbies { get; set; }
     }
 }
