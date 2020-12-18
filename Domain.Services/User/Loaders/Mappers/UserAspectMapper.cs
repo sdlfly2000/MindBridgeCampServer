@@ -26,7 +26,9 @@ namespace Domain.Services.User.Loaders.Mappers
                 ? new List<Hobby>() 
                 : entity.hobbies.Select(h => new Hobby
                 {
-                    name = h.name,
+                    Id = h.hobbyId,
+                    Name = h.name,
+                    IsActive = h.isActive
                 }).ToList()
             };
         }

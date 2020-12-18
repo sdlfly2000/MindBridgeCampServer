@@ -4,7 +4,8 @@ namespace Domain.User
 {
     public class Hobby
     {
-        public Guid id { get; set; }
-        public string name { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
     }
 }
