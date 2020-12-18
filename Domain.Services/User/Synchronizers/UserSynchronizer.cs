@@ -36,7 +36,6 @@ namespace Domain.Services.User.Synchronizers
                 weight = user.Weight,
                 hobbies = user.Hobbies.Select(hobby => new HobbyEntity
                 {
-                    hobbyId = hobby.id,
                     name = hobby.name
                 }).ToList()
             };
@@ -63,7 +62,6 @@ namespace Domain.Services.User.Synchronizers
                 weight = user.Weight,
                 hobbies = user.Hobbies.Select(hobby => new HobbyEntity
                 {
-                    hobbyId = hobby.id,
                     name = hobby.name
                 }).ToList()
             };

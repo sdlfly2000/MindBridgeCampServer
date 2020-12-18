@@ -14,18 +14,17 @@ namespace Domain.Services.User.Loaders.Mappers
             return new UserAspect
             {
                 UserId = new OpenIdReference(entity.userId),
-                Gender = (GenderType)entity.gender,
+                Gender = entity.gender.HasValue ? (GenderType)entity.gender : GenderType.Unknown,
                 Name = entity.name,
                 MajorIn = entity.majorIn,
                 Height = entity.height,
                 Weight = entity.weight,
                 StudyContent = entity.studyContent,
                 ExpectationAfterGraduation = entity.expectationAfterGraduation,
-                //Hobbies = entity.hobbies.Select(h => new Hobby
-                //{
-                //    name = h.name,
-
-                //}).ToList()
+                Hobbies = entity.hobbies.Select(h => new Hobby
+                {
+                    name = h.name,
+                }).ToList()
             };
         }
     }
