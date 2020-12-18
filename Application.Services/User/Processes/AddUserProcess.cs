@@ -4,6 +4,8 @@ using Common.Core.DependencyInjection;
 using Domain.LoginToken;
 using Domain.Services.User;
 using Domain.User;
+using System;
+using System.Linq;
 
 namespace Application.Services.User.Processes
 {
@@ -30,7 +32,12 @@ namespace Application.Services.User.Processes
                 MajorIn = model.MajorIn,
                 Name = model.Name,
                 StudyContent = model.StudyContent,
-                Hobbies = model.Hobbies
+                Hobbies = model.Hobbies.Select(hobby => new Hobby
+                {
+                    Id = Guid.NewGuid(),
+                    Name = hobby.Name,
+                    IsActive = true
+                }).ToList()
             },
             new UserInfoAspect
             {

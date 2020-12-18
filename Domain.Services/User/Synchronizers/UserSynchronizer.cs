@@ -2,7 +2,6 @@
 using Domain.User;
 using Infrastructure.Data.Sql.Persistence.UnitOfWork;
 using Infrastructure.Data.Sql.User.Entities;
-using System;
 using System.Linq;
 
 namespace Domain.Services.User.Synchronizers
@@ -36,7 +35,9 @@ namespace Domain.Services.User.Synchronizers
                 weight = user.Weight,
                 hobbies = user.Hobbies.Select(hobby => new HobbyEntity
                 {
-                    name = hobby.name
+                    hobbyId = hobby.Id,
+                    name = hobby.Name,
+                    isActive = hobby.IsActive
                 }).ToList()
             };
 
@@ -62,7 +63,9 @@ namespace Domain.Services.User.Synchronizers
                 weight = user.Weight,
                 hobbies = user.Hobbies.Select(hobby => new HobbyEntity
                 {
-                    name = hobby.name
+                    hobbyId = hobby.Id,
+                    name = hobby.Name,
+                    isActive = hobby.IsActive
                 }).ToList()
             };
 
