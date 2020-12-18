@@ -2,6 +2,7 @@
 using Domain.LoginToken;
 using Domain.User;
 using Infrastructure.Data.Sql.User.Entities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Domain.Services.User.Loaders.Mappers
@@ -21,7 +22,9 @@ namespace Domain.Services.User.Loaders.Mappers
                 Weight = entity.weight,
                 StudyContent = entity.studyContent,
                 ExpectationAfterGraduation = entity.expectationAfterGraduation,
-                Hobbies = entity.hobbies.Select(h => new Hobby
+                Hobbies = entity.hobbies == null 
+                ? new List<Hobby>() 
+                : entity.hobbies.Select(h => new Hobby
                 {
                     name = h.name,
                 }).ToList()
