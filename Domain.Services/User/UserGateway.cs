@@ -39,7 +39,7 @@ namespace Domain.Services.User
         public IUser Load(string userId)
         {
             return new UserDomain(
-                _userAspctLoader.Load(userId),
+                _userAspctLoader.Load("User" + userId),
                 _userInfoAspectLoader.Load(userId));
         }
 

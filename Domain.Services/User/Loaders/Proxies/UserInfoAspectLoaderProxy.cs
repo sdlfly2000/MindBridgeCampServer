@@ -5,7 +5,6 @@ using Domain.User;
 using Infrastructure.Data.Sql.User.Repositories;
 using Microsoft.Extensions.Caching.Memory;
 using System.Reflection;
-using System.Reflection;
 
 namespace Domain.Services.User.Loaders.Proxies
 {

@@ -18,6 +18,6 @@ namespace Domain.User
 
         public string Language { get; set; }
 
-        public string Code => "UserInfo" + OpenId.Code;
+        public string Code => OpenId.Code;
     }
 }

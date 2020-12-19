@@ -15,6 +15,6 @@ namespace Domain.User
         public string ExpectationAfterGraduation { get; set; }
         public IList<Hobby> Hobbies { get; set; }
 
-        public string Code => "User" + UserId.Code;
+        public string Code => UserId.Code;
     }
 }
