@@ -1,9 +1,10 @@
 ﻿using Domain.LoginToken;
 using System.Collections.Generic;
+using Common.Core.AOP;
 
 namespace Domain.User
 {
-    public interface IUserAspect
+    public interface IUserAspect : ICacheAspect
     {
         OpenIdReference UserId { get; set; }
 

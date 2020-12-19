@@ -1,8 +1,9 @@
-﻿using Domain.LoginToken;
+﻿using Common.Core.AOP;
+using Domain.LoginToken;
 
 namespace Domain.User
 {
-    public interface IUserInfoAspect
+    public interface IUserInfoAspect : ICacheAspect
     {
         OpenIdReference OpenId { get; set; }
 

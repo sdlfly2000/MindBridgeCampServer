@@ -110,5 +110,7 @@ namespace Domain.User
             get { return _userInfoAspect.Language; }
             set { _userInfoAspect.Language = value; }
         }
+
+        public string Code => "User" + UserId.Code;
     }
 }

@@ -5,7 +5,6 @@ using Infrastructure.Data.Sql.User.Repositories;
 
 namespace Domain.Services.User.Loaders
 {
-    [ServiceLocate(typeof(IUserInfoAspectLoader))]
     public class UserInfoAspectLoader : IUserInfoAspectLoader
     {
         private readonly IUserInfoAspectMapper _userInfoAspectMapper;

@@ -17,5 +17,7 @@ namespace Domain.User
         public string City { get; set; }
 
         public string Language { get; set; }
+
+        public string Code => "UserInfo" + OpenId.Code;
     }
 }
