@@ -1,7 +1,9 @@
 ﻿using Application.Services.User.Contracts;
+using Application.User;
 using Common.Core.DependencyInjection;
 using Domain.Services.LoginToken;
 using Domain.Services.User;
+using Domain.User;
 
 namespace Application.Services.User.Processes
 {
@@ -23,7 +25,7 @@ namespace Application.Services.User.Processes
         {
              return new GetResponse
             {
-                User = _userGateway.Load(request.UserId)
+                User = Map(_userGateway.Load(request.UserId))
             };
         }
 
@@ -32,8 +34,35 @@ namespace Application.Services.User.Processes
             var loginToken = _loginTokenGateway.Get(request.LoginToken);
             return new GetResponse
             {
-                User = _userGateway.Load(loginToken.OpenId.Code)
+                User = Map(_userGateway.Load(loginToken.OpenId.Code))
             };
         }
+
+        #region Private Methods
+
+        private UserModel Map(IUser user)
+        {
+            return new UserModel
+            {
+                AvatarUrl = user.AvatarUrl,
+                City = user.City,
+                Country = user.Country,
+                ExpectationAfterGraduation = user.ExpectationAfterGraduation,
+                Gender = user.Gender,
+                Height = user.Height,
+                Weight = user.Weight,
+                Hobbies = user.Hobbies,
+                Language = user.Language,
+                MajorIn = user.MajorIn,
+                Name = user.Name,
+                NickName = user.NickName,
+                OpenId = user.OpenId.Code,
+                Province = user.Province,
+                StudyContent = user.StudyContent,
+                UserId = user.UserId.Code
+            };
+        }
+
+        #endregion
     }
 }

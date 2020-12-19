@@ -1,5 +1,5 @@
-﻿using Core;
-using Domain.User;
+﻿using Application.User;
+using Core;
 using System.Collections.Generic;
 
 namespace Application.Services.User.Contracts
@@ -11,7 +11,7 @@ namespace Application.Services.User.Contracts
             ValidationResults = new List<BaseValidationResult>();            
         }
 
-        public IUser User { get; set; }
+        public UserModel User { get; set; }
 
         public IList<BaseValidationResult> ValidationResults { get; set; }
     }
