@@ -1,6 +1,8 @@
-﻿namespace Domain.LoginToken
+﻿using Core;
+
+namespace Domain.LoginToken
 {
-    public class OpenIdReference
+    public class OpenIdReference : IReference
     {
         public OpenIdReference(string code)
         {
