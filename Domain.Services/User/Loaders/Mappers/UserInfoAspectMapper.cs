@@ -12,7 +12,7 @@ namespace Domain.Services.User.Loaders.Mappers
         {
             return new UserInfoAspect
             {
-                OpenId = new OpenIdReference(entity.openId),
+                OpenId = new UserReference(entity.openId, "UserInfoAspect"),
                 AvatarUrl = entity.avatarUrl,
                 City = entity.city,
                 Country = entity.country,

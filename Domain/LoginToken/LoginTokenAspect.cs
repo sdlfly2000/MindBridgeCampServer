@@ -1,10 +1,11 @@
 ﻿using Domain.LoginToken;
+using Domain.User;
 
 namespace Domain.AccessToken
 {
     public class LoginTokenAspect : ILoginTokenAspect
     {
-        public OpenIdReference OpenId { get; set; }
+        public UserReference OpenId { get; set; }
 
         public string SessionKey { get; set; }
 

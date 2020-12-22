@@ -1,8 +1,8 @@
 ﻿using Domain.AccessToken;
-using System;
 using Common.Core.DependencyInjection;
 using Domain.LoginToken;
 using Infrastructure.Data.CacheAgent.LoginToken.Entities;
+using Domain.User;
 
 namespace Domain.Services.LoginToken.Loaders.Mappers
 {
@@ -14,7 +14,7 @@ namespace Domain.Services.LoginToken.Loaders.Mappers
             return new LoginTokenAspect
             {
                 AccessTokenCode = entity.LoginToken.ToString(),
-                OpenId = new OpenIdReference(entity.OpenId),
+                OpenId = new UserReference(entity.OpenId),
                 SessionKey = entity.SessionKey
             };
         }

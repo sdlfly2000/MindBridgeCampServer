@@ -14,7 +14,7 @@ namespace Domain.Services.User.Loaders.Mappers
         {
             return new UserAspect
             {
-                UserId = new OpenIdReference(entity.userId),
+                UserId = new UserReference(entity.userId, "UserAspect"),
                 Gender = entity.gender.HasValue ? (GenderType)entity.gender : GenderType.Unknown,
                 Name = entity.name,
                 MajorIn = entity.majorIn,

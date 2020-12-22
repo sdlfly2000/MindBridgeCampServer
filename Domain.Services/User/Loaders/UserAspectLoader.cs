@@ -17,9 +17,9 @@ namespace Domain.Services.User.Loaders
             _userRepository = userRepository;
         }
 
-        public IUserAspect Load(string userId)
+        public IUserAspect Load(UserReference reference)
         {
-            return _userAspectMapper.Map(_userRepository.FindByGuid(userId));
+            return _userAspectMapper.Map(_userRepository.FindByGuid(reference.Code));
         }
     }
 }

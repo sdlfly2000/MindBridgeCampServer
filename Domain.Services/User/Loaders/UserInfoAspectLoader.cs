@@ -1,5 +1,4 @@
-﻿using Common.Core.DependencyInjection;
-using Domain.Services.User.Loaders.Mappers;
+﻿using Domain.Services.User.Loaders.Mappers;
 using Domain.User;
 using Infrastructure.Data.Sql.User.Repositories;
 
@@ -18,9 +17,9 @@ namespace Domain.Services.User.Loaders
             _userInfoRepository = userInfoRepository;
         }
 
-        public IUserInfoAspect Load(string openId)
+        public IUserInfoAspect Load(UserReference reference)
         {
-            return _userInfoAspectMapper.Map(_userInfoRepository.FindByGuid(openId));
+            return _userInfoAspectMapper.Map(_userInfoRepository.FindByGuid(reference.Code));
         }
     }
 }

@@ -23,12 +23,12 @@ namespace Domain.Services.User.Loaders.Proxies
 
             _userInfoAspectLoaderDecorator = DispatchProxy.Create<IUserInfoAspectLoader, CacheProxy>();
             ((CacheProxy)_userInfoAspectLoaderDecorator).Wrapped = _userInfoAspectLoader;
-            ((CacheProxy)_userInfoAspectLoaderDecorator).CacheAction = new CacheAction<IUserInfoAspect>(memoryCache);
+            ((CacheProxy)_userInfoAspectLoaderDecorator).CacheAction = new CacheAction<IUserInfoAspect, UserReference>(memoryCache);
         }
 
-        public IUserInfoAspect Load(string openId)
+        public IUserInfoAspect Load(UserReference reference)
         {
-            return _userInfoAspectLoaderDecorator.Load(openId);
+            return _userInfoAspectLoaderDecorator.Load(reference);
         }
     }
 }

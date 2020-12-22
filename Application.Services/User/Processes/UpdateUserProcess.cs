@@ -1,7 +1,6 @@
 ﻿using Application.Services.User.Contracts;
 using Application.User;
 using Common.Core.DependencyInjection;
-using Domain.LoginToken;
 using Domain.Services.User;
 using Domain.User;
 
@@ -22,7 +21,7 @@ namespace Application.Services.User.Processes
             var user = new UserDomain(
                new UserAspect
                {
-                   UserId = new OpenIdReference(model.UserId),
+                   UserId = new UserReference(model.UserId, "UserAspect"),
                    ExpectationAfterGraduation = model.ExpectationAfterGraduation,
                    Gender = model.Gender,
                    Height = model.Height,
@@ -34,7 +33,7 @@ namespace Application.Services.User.Processes
                },
                new UserInfoAspect
                {
-                   OpenId = new OpenIdReference(model.OpenId),
+                   OpenId = new UserReference(model.OpenId, "UserInfoAspect"),
                    NickName = model.NickName,
                    AvatarUrl = model.AvatarUrl,
                    City = model.City,

@@ -1,5 +1,4 @@
-﻿using Domain.LoginToken;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Domain.User
 {
@@ -16,7 +15,7 @@ namespace Domain.User
             _userInfoAspect = userInfoAspect;
         }
 
-        public OpenIdReference UserId 
+        public UserReference UserId 
         {
             get { return _userAspect.UserId; } 
             set { _userAspect.UserId = value; }
@@ -69,7 +68,7 @@ namespace Domain.User
             set { _userAspect.Hobbies = value; }
         }
 
-        public OpenIdReference OpenId
+        public UserReference OpenId
         {
             get { return _userInfoAspect.OpenId; }
             set { _userInfoAspect.OpenId = value; }

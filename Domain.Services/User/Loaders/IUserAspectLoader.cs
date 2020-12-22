@@ -4,6 +4,6 @@ namespace Domain.Services.User.Loaders
 {
     public interface IUserAspectLoader
     {
-        IUserAspect Load(string userId);
+        IUserAspect Load(UserReference reference);
     }
 }

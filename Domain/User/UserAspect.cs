@@ -1,11 +1,10 @@
-﻿using Domain.LoginToken;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Domain.User
 {
     public class UserAspect : IUserAspect
     {
-        public OpenIdReference UserId { get; set; }
+        public UserReference UserId { get; set; }
         public GenderType Gender { get; set; }
         public string Name { get; set; }
         public string MajorIn { get; set; }
@@ -14,7 +13,5 @@ namespace Domain.User
         public string StudyContent { get; set; }
         public string ExpectationAfterGraduation { get; set; }
         public IList<Hobby> Hobbies { get; set; }
-
-        public string Code => UserId.Code;
     }
 }

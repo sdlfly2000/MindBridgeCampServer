@@ -1,8 +1,10 @@
-﻿namespace Domain.LoginToken
+﻿using Domain.User;
+
+namespace Domain.LoginToken
 {
     public interface ILoginTokenAspect
     {
-        OpenIdReference OpenId { get; set; }
+        UserReference OpenId { get; set; }
 
         string AccessTokenCode { get; set; }
 

@@ -1,10 +1,8 @@
-﻿using Domain.LoginToken;
-
-namespace Domain.User
+﻿namespace Domain.User
 {
     public class UserInfoAspect : IUserInfoAspect
     {
-        public OpenIdReference OpenId { get; set; }
+        public UserReference OpenId { get; set; }
 
         public string NickName { get; set; }
 

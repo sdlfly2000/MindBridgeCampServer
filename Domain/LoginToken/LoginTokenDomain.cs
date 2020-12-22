@@ -1,4 +1,6 @@
-﻿namespace Domain.LoginToken
+﻿using Domain.User;
+
+namespace Domain.LoginToken
 {
     public class LoginTokenDomain : ILoginToken
     {
@@ -9,7 +11,7 @@
             _accessTokenAspect = accessTokenAspect;
         }
 
-        public OpenIdReference OpenId
+        public UserReference OpenId
         {
             get { return _accessTokenAspect.OpenId; }
             set { _accessTokenAspect.OpenId = value; }

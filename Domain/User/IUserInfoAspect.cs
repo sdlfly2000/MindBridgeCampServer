@@ -1,11 +1,10 @@
 ﻿using Common.Core.AOP;
-using Domain.LoginToken;
 
 namespace Domain.User
 {
     public interface IUserInfoAspect : ICacheAspect
     {
-        OpenIdReference OpenId { get; set; }
+        UserReference OpenId { get; set; }
 
         string NickName { get; set; }
 
