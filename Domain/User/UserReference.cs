@@ -20,7 +20,7 @@ namespace Domain.User
             { 
                 return CacheFieldName.Equals(string.Empty) 
                     ? string.Empty 
-                    : string.Join(CacheFieldName, Code); 
+                    : string.Concat(CacheFieldName, Code); 
             } 
         }
 
