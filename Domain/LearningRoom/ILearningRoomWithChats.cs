@@ -2,7 +2,8 @@
 
 namespace Domain.LearningRoom
 {
-    public interface ILearningRoomWithChats : IRoomAspect, IList<IChatAspect>
+    public interface ILearningRoomWithChats : IRoomAspect
     {
+        IList<IChatAspect> ChatAspects { get; set; }
     }
 }

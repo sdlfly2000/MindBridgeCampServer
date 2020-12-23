@@ -2,7 +2,8 @@
 
 namespace Domain.LearningRoom
 {
-    public interface ILearningRoomWithSignIn : IRoomAspect, IList<ISignInAspect>
+    public interface ILearningRoomWithSignIn : IRoomAspect
     {
+        IList<ISignInAspect> SignIns { get; set; }
     }
 }

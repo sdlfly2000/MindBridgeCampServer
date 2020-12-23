@@ -15,6 +15,6 @@ namespace Domain.LearningRoom
         IList<UserReference> Participants { get; set; }
         string Place { get; set; }
         UserReference CreatedBy { get; set; }
-        DateTime CreatedOnP { get; set; }
+        DateTime CreatedOn { get; set; }
     }
 }
