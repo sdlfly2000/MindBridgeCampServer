@@ -1,10 +1,12 @@
 ﻿using Infrastructure.Data.Sql.Persistence;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Sql.LearningRoom.Entities
 {
     public class ChatEntity : IEntity
     {
+        [Key]
         public string chatId { get; set; }
 
         public string roomId { get; set; }

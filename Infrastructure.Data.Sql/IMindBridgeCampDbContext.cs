@@ -16,6 +16,8 @@ namespace Infrastructure.Data.Sql
 
         DbSet<ChatEntity> Chats { get; set; }
 
+        DbSet<ParticipantEntity> Participants { get; set; }
+
         DbSet<TEntity> Get<TEntity>() where TEntity : class;
 
         void Save();

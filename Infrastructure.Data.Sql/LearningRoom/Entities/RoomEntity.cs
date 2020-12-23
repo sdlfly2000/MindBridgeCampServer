@@ -20,8 +20,6 @@ namespace Infrastructure.Data.Sql.LearningRoom.Entities
 
         public int participantCount { get; set; }
 
-        public List<string> participants { get; set; }
-
         public string place { get; set; }
 
         public string CreatedBy { get; set; }

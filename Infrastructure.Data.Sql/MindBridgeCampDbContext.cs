@@ -18,6 +18,7 @@ namespace Infrastructure.Data.Sql
         public DbSet<RoomEntity> Rooms { get; set; }
         public DbSet<SignInEntity> SignIns { get; set; }
         public DbSet<ChatEntity> Chats { get; set; }
+        public DbSet<ParticipantEntity> Participants { get; set; }
 
         public DbSet<TEntity> Get<TEntity>() where TEntity : class
         {
