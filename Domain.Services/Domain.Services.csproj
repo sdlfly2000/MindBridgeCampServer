@@ -10,4 +10,9 @@
     <ProjectReference Include="..\Infrastructure.Data.Sql\Infrastructure.Data.Sql.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="LearningRoom\Gateways\Loaders\Mappers\" />
+    <Folder Include="LearningRoom\Synchronizors\Persistors\" />
+  </ItemGroup>
+
 </Project>
