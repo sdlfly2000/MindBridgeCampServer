@@ -1,10 +1,11 @@
 ﻿using Domain.LearningRoom;
+using System.Collections.Generic;
 
 namespace Domain.Services.LearningRoom.Gateways.Loaders
 {
     public interface IChatAspectLoader
     {
-        IChatAspect Load(RoomReference reference);
+        IList<IChatAspect> Load(RoomReference reference);
 
         IChatAspect Load(ChatReference reference);
     }

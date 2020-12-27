@@ -1,10 +1,11 @@
 ﻿using Domain.LearningRoom;
+using System.Collections.Generic;
 
 namespace Domain.Services.LearningRoom.Gateways.Loaders
 {
     public interface ISignInAspectLoader
     {
-        ISignInAspect Load(RoomReference reference);
+        IList<ISignInAspect> Load(RoomReference reference);
 
         ISignInAspect Load(SignInReference reference);
     }

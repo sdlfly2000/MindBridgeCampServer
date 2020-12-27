@@ -7,6 +7,6 @@ namespace Infrastructure.Data.Sql.LearningRoom.Repositories
     {
         SignInEntity FindById(string id);
 
-        IList<SignInEntity> FindByRomm(string roomId);
+        IList<SignInEntity> FindByRoom(string roomId);
     }
 }

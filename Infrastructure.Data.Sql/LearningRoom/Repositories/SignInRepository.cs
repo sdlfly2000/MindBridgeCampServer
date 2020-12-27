@@ -20,7 +20,7 @@ namespace Infrastructure.Data.Sql.LearningRoom.Repositories
             return FindAll().FirstOrDefault(s => s.signInId.Equals(id));
         }
 
-        IList<SignInEntity> ISignInRepository.FindByRomm(string roomId)
+        IList<SignInEntity> ISignInRepository.FindByRoom(string roomId)
         {
             return FindAll().Where(s => s.roomId.Equals(roomId)).ToList();
         }

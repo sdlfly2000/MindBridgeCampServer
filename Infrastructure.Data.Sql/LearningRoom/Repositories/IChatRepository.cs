@@ -7,6 +7,6 @@ namespace Infrastructure.Data.Sql.LearningRoom.Repositories
     {
         ChatEntity FindById(string id);
 
-        IList<ChatEntity> FindByRooms(string roomId);
+        IList<ChatEntity> FindByRoom(string roomId);
     }
 }

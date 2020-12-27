@@ -1,27 +1,37 @@
 ﻿using Common.Core.DependencyInjection;
 using Domain.LearningRoom;
-using System;
+using Domain.Services.LearningRoom.Gateways.Loaders.Mappers;
+using Infrastructure.Data.Sql.LearningRoom.Repositories;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Domain.Services.LearningRoom.Gateways.Loaders
 {
     [ServiceLocate(typeof(IChatAspectLoader))]
     public class ChatAspectLoader : IChatAspectLoader
     {
-        public ChatAspectLoader()
-        {
+        private readonly IChatRepository _chatRepository;
+        private readonly IChatAspectMapper _chatAspectMapper;
 
-        }
-
-        public IChatAspect Load(RoomReference reference)
+        public ChatAspectLoader(
+            IChatRepository chatRepository,
+            IChatAspectMapper chatAspectMapper)
         {
-            throw new NotImplementedException();
+            _chatRepository = chatRepository;
+            _chatAspectMapper = chatAspectMapper;
         }
 
         public IChatAspect Load(ChatReference reference)
         {
-            throw new NotImplementedException();
+            return _chatAspectMapper.Map(_chatRepository.FindById(reference.Code));
+        }
+
+        IList<IChatAspect> IChatAspectLoader.Load(RoomReference reference)
+        {
+            return _chatRepository
+                .FindByRoom(reference.Code)
+                .Select(_chatAspectMapper.Map)
+                .ToList();
         }
     }
 }
