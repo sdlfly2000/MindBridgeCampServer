@@ -52,7 +52,7 @@ namespace Domain.LearningRoom
             set { _roomAspect.ParticipantCount = value; }
         }
 
-        public IList<UserReference> Participants
+        public IList<Participant> Participants
         {
             get { return _roomAspect.Participants; }
             set { _roomAspect.Participants = value; }

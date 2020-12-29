@@ -23,7 +23,14 @@ namespace Domain.Services.LearningRoom.Gateways.Loaders.Mappers
                 Place = entity.place,
                 CreatedBy = new UserReference(entity.CreatedBy),
                 CreatedOn = entity.CreatedOn,
-                Participants = participants.Select(participant => new UserReference(participant.userId)).ToList()
+                Participants = participants
+                    .Select(entity => new Participant 
+                    { 
+                        Reference = new ParticipantReference(entity.participantId),
+                        Room = new RoomReference(entity.roomId),
+                        User = new UserReference(entity.userId),
+                        IsDeleted = entity.isDeleted
+                    }).ToList()
             };
         }
     }

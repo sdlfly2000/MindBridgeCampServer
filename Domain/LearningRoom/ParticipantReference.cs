@@ -2,9 +2,9 @@
 
 namespace Domain.LearningRoom
 {
-    public class ChatReference : IReference
+    public class ParticipantReference : IReference
     {
-        public ChatReference(string code, string fieldName = null)
+        public ParticipantReference(string code, string fieldName = null)
         {
             Code = code;
             CacheFieldName = fieldName ?? string.Empty;
@@ -26,7 +26,7 @@ namespace Domain.LearningRoom
 
         public override bool Equals(object obj)
         {
-            return Code.Equals(((ChatReference)obj).Code);
+            return Code.Equals(((ParticipantReference)obj).Code);
         }
 
         public override int GetHashCode()

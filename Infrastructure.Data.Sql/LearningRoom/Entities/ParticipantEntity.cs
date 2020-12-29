@@ -11,5 +11,7 @@ namespace Infrastructure.Data.Sql.LearningRoom.Entities
         public string roomId { get; set; }
 
         public string userId { get; set; }
+
+        public bool isDeleted { get; set; }
     }
 }
