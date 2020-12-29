@@ -28,7 +28,8 @@ namespace Infrastructure.Data.Sql.Migrations
                 {
                     participantId = table.Column<string>(nullable: false),
                     roomId = table.Column<string>(nullable: true),
-                    userId = table.Column<string>(nullable: true)
+                    userId = table.Column<string>(nullable: true),
+                    isDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

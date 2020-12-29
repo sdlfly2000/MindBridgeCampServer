@@ -44,6 +44,9 @@ namespace Infrastructure.Data.Sql.Migrations
                     b.Property<string>("participantId")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("roomId")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
