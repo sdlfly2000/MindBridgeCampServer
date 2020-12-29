@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace Domain.LearningRoom
 {
-    public class LearningRoom : ILearningRoom
+    public class LearningRoomDomain : ILearningRoom
     {
         private readonly IRoomAspect _roomAspect;
 
-        public LearningRoom(IRoomAspect roomAspect)
+        public LearningRoomDomain(IRoomAspect roomAspect)
         {
             _roomAspect = roomAspect;
         }
