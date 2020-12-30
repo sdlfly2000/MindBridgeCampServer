@@ -5,29 +5,17 @@ using Infrastructure.Data.Sql.Persistence.UnitOfWork;
 
 namespace Domain.Services.LearningRoom.Synchronizors.Persistors
 {
+    using Infrastructure.Data.Sql.Persistence;
+
     [ServiceLocate(typeof(IParticipantPersistor))]
-    public class ParticipantPersistor : IParticipantPersistor
+    public class ParticipantPersistor : Persistor<IParticipant, ParticipantEntity>, IParticipantPersistor
     {
-        private readonly IUnitOfWork<ParticipantEntity> _uow;
-
         public ParticipantPersistor(IUnitOfWork<ParticipantEntity> uow)
+            : base(uow)
         {
-            _uow = uow;
         }
 
-        public void Add(IParticipant participant)
-        {
-            _uow.Add(Map(participant));
-        }
-
-        public void Update(IParticipant participant)
-        {
-            _uow.Persist(Map(participant));
-        }
-
-        #region Private Methods
-
-        private ParticipantEntity Map(IParticipant participant)
+        protected override ParticipantEntity Map(IParticipant participant)
         {
             return new ParticipantEntity
             {
@@ -38,6 +26,6 @@ namespace Domain.Services.LearningRoom.Synchronizors.Persistors
             };
         }
 
-        #endregion
+
     }
 }

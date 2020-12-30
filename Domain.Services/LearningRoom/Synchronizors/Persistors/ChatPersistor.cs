@@ -2,32 +2,19 @@
 using Domain.LearningRoom;
 using Infrastructure.Data.Sql.LearningRoom.Entities;
 using Infrastructure.Data.Sql.Persistence.UnitOfWork;
+using Infrastructure.Data.Sql.Persistence;
 
 namespace Domain.Services.LearningRoom.Synchronizors.Persistors
 {
     [ServiceLocate(typeof(IChatPersistor))]
-    public class ChatPersistor : IChatPersistor
+    public class ChatPersistor : Persistor<IChatAspect, ChatEntity>, IChatPersistor
     {
-        private readonly IUnitOfWork<ChatEntity> _uow;
-
-        public ChatPersistor(IUnitOfWork<ChatEntity> uow)
+        public ChatPersistor(IUnitOfWork<ChatEntity> uow) 
+            : base(uow)
         {
-            _uow = uow;
         }
 
-        public void Add(IChatAspect aspect)
-        {
-            _uow.Add(Map(aspect));
-        }
-
-        public void Update(IChatAspect aspect)
-        {
-            _uow.Persist(Map(aspect));
-        }
-
-        #region Private Methods
-
-        private ChatEntity Map(IChatAspect aspect)
+        protected override ChatEntity Map(IChatAspect aspect)
         {
             return new ChatEntity
             {
@@ -38,7 +25,5 @@ namespace Domain.Services.LearningRoom.Synchronizors.Persistors
                content = aspect.Content
             };
         }
-
-        #endregion
     }
 }

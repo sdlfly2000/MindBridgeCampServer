@@ -5,39 +5,17 @@ using Infrastructure.Data.Sql.Persistence.UnitOfWork;
 
 namespace Domain.Services.LearningRoom.Synchronizors.Persistors
 {
+    using Infrastructure.Data.Sql.Persistence;
+
     [ServiceLocate(typeof(IRoomPersistor))]
-    public class RoomPersistor : IRoomPersistor
+    public class RoomPersistor : Persistor<IRoomAspect, RoomEntity>, IRoomPersistor
     {
-        private readonly IUnitOfWork<RoomEntity> _uow;
-
         public RoomPersistor(IUnitOfWork<RoomEntity> uow)
+            : base(uow)
         {
-            _uow = uow;
         }
 
-        public void Add(IRoomAspect roomAspect)
-        {
-            if (roomAspect == null)
-            {
-                return;
-            }
-
-            _uow.Add(Map(roomAspect));
-        }
-
-        public void Update(IRoomAspect roomAspect)
-        {
-            if (roomAspect == null)
-            {
-                return;
-            }
-
-            _uow.Persist(Map(roomAspect));
-        }
-
-        #region Private Methods
-
-        private RoomEntity Map(IRoomAspect roomAspect)
+        protected override RoomEntity Map(IRoomAspect roomAspect)
         {
             return new RoomEntity
             {
@@ -52,7 +30,5 @@ namespace Domain.Services.LearningRoom.Synchronizors.Persistors
                 CreatedOn = roomAspect.CreatedOn
             };
         }
-
-        #endregion
     }
 }
