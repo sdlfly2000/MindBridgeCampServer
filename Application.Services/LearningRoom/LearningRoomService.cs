@@ -16,6 +16,7 @@ namespace Application.Services.LearningRoom
             ICreateRoomProcess createRoomProcess)
         {
             _getAvailableRoomProcess = getAvailableRoomProcess;
+            _createRoomProcess = createRoomProcess;
         }
 
         public GetResponse GetAvailableRooms()
