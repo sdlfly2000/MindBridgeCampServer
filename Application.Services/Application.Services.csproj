@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Domain.Services\Domain.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="LearningRoom\Processes\" />
-  </ItemGroup>
-
 </Project>

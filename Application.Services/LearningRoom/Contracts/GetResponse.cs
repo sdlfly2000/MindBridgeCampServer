@@ -1,5 +1,6 @@
 ﻿using Core;
 using System.Collections.Generic;
+using Application.LearningRoom;
 
 namespace Application.Services.LearningRoom.Contracts
 {
@@ -10,6 +11,8 @@ namespace Application.Services.LearningRoom.Contracts
             ValidationResults = new List<BaseValidationResult>();
         }
 
-        IList<BaseValidationResult> ValidationResults { get; set; }
+        public IList<LearningRoomModel> LearningRooms { get; set; }
+
+        public IList<BaseValidationResult> ValidationResults { get; set; }
     }
 }
