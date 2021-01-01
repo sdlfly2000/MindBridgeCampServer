@@ -10,6 +10,8 @@ namespace Application.Services.LearningRoom.Processes
     [ServiceLocate(typeof(IGetAvailableRoomProcess))]
     public class GetAvailableRoomProcess :IGetAvailableRoomProcess
     {
+        private const string DateFormat = "yyyy-MM-dd HH:mm";
+
         private readonly ILearningRoomGateway _learningRoomGateway;
 
         public GetAvailableRoomProcess(
@@ -29,13 +31,13 @@ namespace Application.Services.LearningRoom.Processes
                 LearningRooms = availableRooms.Select(room => new LearningRoomModel
                 {
                     RoomId = room.Reference.Code,
-                    CreatedOn = room.CreatedOn.ToString("f"),
+                    CreatedOn = room.CreatedOn.ToString(DateFormat),
                     CreatedBy = room.CreatedBy.Code,
-                    EndDate = room.EndDate.ToString("f"),
+                    EndDate = room.EndDate.ToString(DateFormat),
                     LearningContent = room.LearningContent,
                     Place = room.Place,
                     ParticipantCount = room.ParticipantCount,
-                    StartDate = room.StartDate.ToString("f"),
+                    StartDate = room.StartDate.ToString(DateFormat),
                     Title = room.Title
                 }).ToList()
             };
