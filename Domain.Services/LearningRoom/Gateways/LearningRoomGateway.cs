@@ -18,6 +18,7 @@ namespace Domain.Services.LearningRoom.Gateways
             IRoomRepository roomRepository)
         {
             _roomAspectLoader = roomAspectLoader;
+            _roomRepository = roomRepository;
         }
 
         public ILearningRoom Load(RoomReference reference)
