@@ -24,9 +24,9 @@ namespace Application.Services.LearningRoom
             return _getAvailableRoomProcess.Get();
         }
 
-        public void CreateRoom(LearningRoomModel model)
+        public void CreateRoom(string loginToken, LearningRoomModel model)
         {
-            _createRoomProcess.Create(model);
+            _createRoomProcess.Create(loginToken, model);
         }
     }
 }

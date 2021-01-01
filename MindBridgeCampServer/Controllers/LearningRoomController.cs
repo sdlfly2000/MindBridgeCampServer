@@ -24,10 +24,10 @@ namespace MindBridgeCampServer.Controllers
             return Ok(JsonConvert.SerializeObject(availableRooms.LearningRooms));
         }
 
-        [HttpPost]
-        public IActionResult CreateRoom([FromBody] LearningRoomModel model)
+        [HttpPost("{loginToken}")]
+        public IActionResult CreateRoom(string loginToken, [FromBody] LearningRoomModel model)
         {
-            _learningRoomService.CreateRoom(model);
+            _learningRoomService.CreateRoom(loginToken, model);
 
             return Ok();
         }

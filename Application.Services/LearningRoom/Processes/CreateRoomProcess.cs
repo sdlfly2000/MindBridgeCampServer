@@ -3,6 +3,7 @@ using Application.LearningRoom;
 using Common.Core.DependencyInjection;
 using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Synchronizors;
+using Domain.Services.LoginToken;
 using Domain.User;
 
 namespace Application.Services.LearningRoom.Processes
@@ -11,19 +12,24 @@ namespace Application.Services.LearningRoom.Processes
     public class CreateRoomProcess : ICreateRoomProcess
     {
         private readonly ILearningRoomSynchronizor _learningRoomSynchronizor;
+        private readonly ILoginTokenGateway _loginTokenGateway;
 
         public CreateRoomProcess(
-            ILearningRoomSynchronizor learningRoomSynchronizor)
+            ILearningRoomSynchronizor learningRoomSynchronizor,
+            ILoginTokenGateway loginTokenGateway)
         {
             _learningRoomSynchronizor = learningRoomSynchronizor;
+            _loginTokenGateway = loginTokenGateway;
         }
 
-        public void Create(LearningRoomModel model)
+        public void Create(string loginToken, LearningRoomModel model)
         {
+            var login = _loginTokenGateway.Get(loginToken);
+
             var roomAspct = new RoomAspect
             {
                 Reference = new RoomReference(Guid.NewGuid().ToString()),
-                CreatedBy = new UserReference(model.CreatedBy),
+                CreatedBy = login.OpenId,
                 CreatedOn = model.CreatedOn,
                 EndDate = model.EndDate,
                 LearningContent = model.LearningContent,

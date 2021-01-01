@@ -4,6 +4,6 @@ namespace Application.Services.LearningRoom.Processes
 {
     public interface ICreateRoomProcess
     {
-        void Create(LearningRoomModel model);
+        void Create(string loginToken, LearningRoomModel model);
     }
 }

@@ -7,6 +7,6 @@ namespace Application.Services.LearningRoom
     {
         GetResponse GetAvailableRooms();
 
-        void CreateRoom(LearningRoomModel model);
+        void CreateRoom(string loginToken, LearningRoomModel model);
     }
 }
