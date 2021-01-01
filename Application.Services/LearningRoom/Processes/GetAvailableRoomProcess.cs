@@ -29,13 +29,13 @@ namespace Application.Services.LearningRoom.Processes
                 LearningRooms = availableRooms.Select(room => new LearningRoomModel
                 {
                     RoomId = room.Reference.Code,
-                    CreatedOn = room.CreatedOn,
+                    CreatedOn = room.CreatedOn.ToString("f"),
                     CreatedBy = room.CreatedBy.Code,
-                    EndDate = room.EndDate,
+                    EndDate = room.EndDate.ToString("f"),
                     LearningContent = room.LearningContent,
                     Place = room.Place,
                     ParticipantCount = room.ParticipantCount,
-                    StartDate = room.StartDate,
+                    StartDate = room.StartDate.ToString("f"),
                     Title = room.Title
                 }).ToList()
             };

@@ -10,9 +10,9 @@ namespace Application.LearningRoom
 
         public string LearningContent { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
 
         public int ParticipantCount { get; set; }
 
@@ -20,6 +20,6 @@ namespace Application.LearningRoom
 
         public string CreatedBy { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
     }
 }

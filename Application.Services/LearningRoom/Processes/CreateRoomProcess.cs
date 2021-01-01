@@ -30,12 +30,12 @@ namespace Application.Services.LearningRoom.Processes
             {
                 Reference = new RoomReference(Guid.NewGuid().ToString()),
                 CreatedBy = login.OpenId,
-                CreatedOn = model.CreatedOn,
-                EndDate = model.EndDate,
+                CreatedOn = DateTime.Parse(model.CreatedOn),
+                EndDate = DateTime.Parse(model.EndDate),
                 LearningContent = model.LearningContent,
                 Place = model.Place,
                 ParticipantCount = model.ParticipantCount,
-                StartDate = model.StartDate,
+                StartDate = DateTime.Parse(model.StartDate),
                 Title = model.Title
             };
 
