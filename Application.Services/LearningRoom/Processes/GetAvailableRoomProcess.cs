@@ -38,7 +38,8 @@ namespace Application.Services.LearningRoom.Processes
                     Place = room.Place,
                     ParticipantCount = room.ParticipantCount,
                     StartDate = room.StartDate.ToString(DateFormat),
-                    Title = room.Title
+                    Title = room.Title,
+                    CurrentParticipantCount = room.CurrentParticipantCount
                 }).ToList()
             };
         }

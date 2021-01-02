@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Application.LearningRoom
+﻿namespace Application.LearningRoom
 {
     public class LearningRoomModel
     {
@@ -21,5 +19,7 @@ namespace Application.LearningRoom
         public string CreatedBy { get; set; }
 
         public string CreatedOn { get; set; }
+
+        public int CurrentParticipantCount { get; set; }
     }
 }

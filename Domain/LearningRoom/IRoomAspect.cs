@@ -16,5 +16,6 @@ namespace Domain.LearningRoom
         string Place { get; set; }
         UserReference CreatedBy { get; set; }
         DateTime CreatedOn { get; set; }
+        int CurrentParticipantCount { get; }
     }
 }

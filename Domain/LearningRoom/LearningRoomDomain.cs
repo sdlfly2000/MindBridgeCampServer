@@ -72,5 +72,10 @@ namespace Domain.LearningRoom
             get { return _roomAspect.CreatedOn; }
             set { _roomAspect.CreatedOn = value; }
         }
+
+        public int CurrentParticipantCount
+        {
+            get { return _roomAspect.CurrentParticipantCount; }
+        }
     }
 }
