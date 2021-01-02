@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Application.Services.LearningRoom;
-using Application.LearningRoom;
+using MindBridgeCampServer.Models;
 
 namespace MindBridgeCampServer.Controllers
 {
@@ -25,9 +25,9 @@ namespace MindBridgeCampServer.Controllers
         }
 
         [HttpPost("{loginToken}")]
-        public IActionResult CreateRoom(string loginToken, [FromBody] LearningRoomModel model)
+        public IActionResult CreateRoom(string loginToken, [FromBody] LearningRoomRequestModel request)
         {
-            _learningRoomService.CreateRoom(loginToken, model);
+            _learningRoomService.CreateRoom(loginToken, request.Model);
 
             return Ok();
         }
