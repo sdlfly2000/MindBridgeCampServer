@@ -2,6 +2,7 @@
 using Infrastructure.Data.Sql.LearningRoom.Entities;
 using Infrastructure.Data.Sql.User.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Data.Sql
 {
@@ -23,6 +24,11 @@ namespace Infrastructure.Data.Sql
         public DbSet<TEntity> Get<TEntity>() where TEntity : class
         {
             return Set<TEntity>();
+        }
+
+        public EntityEntry<TEntity> GetEntry<TEntity>(TEntity entity) where TEntity : class
+        {
+            return Entry<TEntity>(entity);
         }
 
         public void Save()

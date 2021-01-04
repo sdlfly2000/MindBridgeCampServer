@@ -1,4 +1,5 @@
 ﻿using Common.Core.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Sql.Persistence.UnitOfWork
 {
@@ -19,7 +20,16 @@ namespace Infrastructure.Data.Sql.Persistence.UnitOfWork
 
         public void Persist<TEntity>(TEntity entity) where TEntity : class
         {
-            _context.Get<TEntity>().Update(entity);
+            var entityEntry = _context.GetEntry<TEntity>(entity);
+            switch (entityEntry.State)
+            {
+                case EntityState.Modified:
+                    _context.Get<TEntity>().Update(entity);
+                    break;
+                case EntityState.Detached:
+                    _context.Get<TEntity>().Attach(entity);
+                    break;
+            }
         }
     }
 }

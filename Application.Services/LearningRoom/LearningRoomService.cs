@@ -10,13 +10,16 @@ namespace Application.Services.LearningRoom
     {
         private readonly IGetAvailableRoomProcess _getAvailableRoomProcess;
         private readonly ICreateRoomProcess _createRoomProcess;
+        private readonly IJoinRoomProcess _joinRoomProcess;
 
         public LearningRoomService(
             IGetAvailableRoomProcess getAvailableRoomProcess,
-            ICreateRoomProcess createRoomProcess)
+            ICreateRoomProcess createRoomProcess,
+            IJoinRoomProcess joinRoomProcess)
         {
             _getAvailableRoomProcess = getAvailableRoomProcess;
             _createRoomProcess = createRoomProcess;
+            _joinRoomProcess = joinRoomProcess;
         }
 
         public GetResponse GetAvailableRooms()
@@ -27,6 +30,11 @@ namespace Application.Services.LearningRoom
         public void CreateRoom(string loginToken, LearningRoomModel model)
         {
             _createRoomProcess.Create(loginToken, model);
+        }
+
+        public GetResponse JoinRoom(string loginToken, string roomId)
+        {
+            return _joinRoomProcess.Join(loginToken, roomId);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Application.Services.LearningRoom.Contracts
     {
         public GetResponse()
         {
+            LearningRooms = new List<LearningRoomModel>();
             ValidationResults = new List<BaseValidationResult>();
         }
 

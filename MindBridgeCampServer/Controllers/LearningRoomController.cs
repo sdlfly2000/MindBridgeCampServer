@@ -31,5 +31,13 @@ namespace MindBridgeCampServer.Controllers
 
             return Ok();
         }
+
+        [HttpGet("{loginToken}/{roomId}")]
+        public IActionResult JoinRoom(string loginToken, string roomId)
+        {
+            var response = _learningRoomService.JoinRoom(loginToken, roomId);
+
+            return Ok(JsonConvert.SerializeObject(response.LearningRooms));
+        }
     }
 }

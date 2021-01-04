@@ -8,5 +8,7 @@ namespace Application.Services.LearningRoom
         GetResponse GetAvailableRooms();
 
         void CreateRoom(string loginToken, LearningRoomModel model);
+
+        GetResponse JoinRoom(string loginToken, string roomId);
     }
 }
