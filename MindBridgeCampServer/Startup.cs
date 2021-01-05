@@ -24,6 +24,8 @@ namespace MindBridgeCampServer
         {
             services.AddControllers();
 
+            services.AddLogging();
+
             services.AddMemoryCache();
 
             services.AddDbContext<MindBridgeCampDbContext>(
