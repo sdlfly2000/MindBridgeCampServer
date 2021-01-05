@@ -5,7 +5,6 @@ using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways;
 using Domain.Services.LearningRoom.Synchronizors;
 using Domain.Services.LoginToken;
-using Domain.User;
 using System;
 
 namespace Application.Services.LearningRoom.Processes
@@ -34,14 +33,14 @@ namespace Application.Services.LearningRoom.Processes
             var response = new GetResponse();
 
             var room = _learningRoomGateway.Load(new RoomReference(roomId));
-            //var user = _loginTokenGateway.Get(loginToken);
+            var user = _loginTokenGateway.Get(loginToken);
 
             var participant = new Participant 
             {
                 Reference = new ParticipantReference(Guid.NewGuid().ToString()),
                 IsDeleted = false,
                 Room = new RoomReference(roomId),
-                User = new UserReference(loginToken)
+                User = user.OpenId
             };
 
             room.Participants.Add(participant);
