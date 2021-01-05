@@ -1,5 +1,6 @@
 ﻿using Common.Core.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Infrastructure.Data.Sql.Persistence.UnitOfWork
 {
@@ -20,16 +21,14 @@ namespace Infrastructure.Data.Sql.Persistence.UnitOfWork
 
         public void Persist<TEntity>(TEntity entity) where TEntity : class
         {
-            var entityEntry = _context.GetEntry<TEntity>(entity);
-            switch (entityEntry.State)
-            {
-                case EntityState.Modified:
-                    _context.Get<TEntity>().Update(entity);
-                    break;
-                case EntityState.Detached:
-                    _context.Get<TEntity>().Attach(entity);
-                    break;
-            }
+            var properties = entity.GetType().GetProperties()
+                .FirstOrDefault(p => p.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(KeyAttribute))));
+
+            var id = properties.GetGetMethod().Invoke(entity, null);
+
+            var entityExist = _context.Get<TEntity>().Find(id);
+
+            entityExist = entity;
         }
     }
 }
