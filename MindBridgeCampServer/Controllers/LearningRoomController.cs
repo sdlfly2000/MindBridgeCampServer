@@ -47,5 +47,15 @@ namespace MindBridgeCampServer.Controllers
 
             return Ok(JsonConvert.SerializeObject(response.LearningRooms));
         }
+
+        [HttpGet("{roomId}")]
+        public IActionResult GetParticipants(string roomId)
+        {
+            _logger.LogInformation("Room Id: " + roomId);
+
+            var participants = _learningRoomService.GetParticipants(roomId);
+
+            return Ok(JsonConvert.SerializeObject(participants));
+        }
     }
 }
