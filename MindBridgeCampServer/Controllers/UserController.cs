@@ -1,6 +1,7 @@
 ﻿using Application.Services.User;
 using Application.Services.User.Contracts;
 using Application.User;
+using Common.Core.LogService;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -21,6 +22,9 @@ namespace MindBridgeCampServer.Controllers
         [HttpGet("{userId}")]
         public IActionResult Get(string userId)
         {
+            LogService.Info<UserController>("Get");
+            LogService.Info<UserController>("User ID: " + userId);
+
             var response = _userService.Get(new GetByIdRequest 
             {
                 UserId = userId
@@ -32,6 +36,9 @@ namespace MindBridgeCampServer.Controllers
         [HttpGet("{loginToken}")]
         public IActionResult GetByToken(string loginToken)
         {
+            LogService.Info<UserController>("Get By Token");
+            LogService.Info<UserController>("Login Token: " + loginToken);
+
             var response = _userService.Get(new GetByLoginTokenRequest
             {
                 LoginToken = loginToken
@@ -43,6 +50,9 @@ namespace MindBridgeCampServer.Controllers
         [HttpPost]
         public IActionResult AddUser([FromBody] UserModel userModel)
         {
+            LogService.Info<UserController>("Add User");
+            LogService.Info<UserController>("User Model: " + JsonConvert.SerializeObject(userModel));
+
             _userService.Add(userModel);
 
             return Ok();
@@ -51,15 +61,12 @@ namespace MindBridgeCampServer.Controllers
         [HttpPost]
         public IActionResult UpdateUser([FromBody] UserModel userModel)
         {
+            LogService.Info<UserController>("Update User");
+            LogService.Info<UserController>("User Model: " + JsonConvert.SerializeObject(userModel));
+
             _userService.Update(userModel);
 
             return Ok();
-        }
-
-        // DELETE api/<UserController>/5
-        [HttpDelete("{userId}")]
-        public void Delete(int id)
-        {
         }
     }
 }
