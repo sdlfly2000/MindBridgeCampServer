@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Core;
 
 namespace MindBridgeCampServer.Controllers
 {
@@ -9,6 +10,7 @@ namespace MindBridgeCampServer.Controllers
         [HttpGet]
         public IActionResult IsAlive()
         {
+            LogService.Info<HomeController>("IsAlive");
             return Ok("Mind Bridge Camp Service is alive.");
         }
     }

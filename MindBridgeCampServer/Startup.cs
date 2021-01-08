@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Common.Core.DependencyInjection;
 using Infrastructure.Data.Sql;
 using Microsoft.EntityFrameworkCore;
+using Core;
 
 namespace MindBridgeCampServer
 {
@@ -60,6 +61,8 @@ namespace MindBridgeCampServer
             {
                 endpoints.MapControllers();
             });
+
+            LogService.SetProvider(app.ApplicationServices);
         }
     }
 }
