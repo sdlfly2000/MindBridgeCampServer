@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Core;
+using Common.Core.LogService;
 
 namespace MindBridgeCampServer.Controllers
 {

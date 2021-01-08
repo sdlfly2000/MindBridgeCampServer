@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Common.Core.DependencyInjection;
 using Infrastructure.Data.Sql;
 using Microsoft.EntityFrameworkCore;
-using Core;
+using Common.Core.LogService;
 
 namespace MindBridgeCampServer
 {
