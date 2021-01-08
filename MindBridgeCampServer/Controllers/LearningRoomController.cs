@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Services.LearningRoom;
 using MindBridgeCampServer.Models;
 using Common.Core.LogService;
+using System;
 
 namespace MindBridgeCampServer.Controllers
 {
@@ -31,9 +32,10 @@ namespace MindBridgeCampServer.Controllers
         [HttpPost("{loginToken}")]
         public IActionResult CreateRoom(string loginToken, [FromBody] LearningRoomRequestModel request)
         {
-            LogService.Info<LearningRoomController>("Create Room");
-            LogService.Info<LearningRoomController>("Login Token: " + loginToken);
-            LogService.Info<LearningRoomController>("Model: " + JsonConvert.SerializeObject(request));
+            LogService.Info<LearningRoomController>(
+                "Create Room" + Environment.NewLine + 
+                "Login Token: " + loginToken + Environment.NewLine + 
+                "Model: " + JsonConvert.SerializeObject(request));
 
             _learningRoomService.CreateRoom(loginToken, request.Model);
 
@@ -43,9 +45,9 @@ namespace MindBridgeCampServer.Controllers
         [HttpGet("{loginToken}/{roomId}")]
         public IActionResult JoinRoom(string loginToken, string roomId)
         {
-            LogService.Info<LearningRoomController>("Join Room");
-            LogService.Info<LearningRoomController>("Login Token: " + loginToken);
-            LogService.Info<LearningRoomController>("Room ID: " + roomId);
+            LogService.Info<LearningRoomController>("Join Room" + Environment.NewLine +
+                                                    "Login Token: " + loginToken + Environment.NewLine +
+                                                    "Room ID: " + roomId);
 
             var response = _learningRoomService.JoinRoom(loginToken, roomId);
 
@@ -55,8 +57,9 @@ namespace MindBridgeCampServer.Controllers
         [HttpGet("{roomId}")]
         public IActionResult GetParticipants(string roomId)
         {
-            LogService.Info<LearningRoomController>("Join Room");
-            LogService.Info<LearningRoomController>("Room ID: " + roomId);
+            LogService.Info<LearningRoomController>(
+                "Join Room" + Environment.NewLine + 
+                "Room ID: " + roomId);
 
             var participants = _learningRoomService.GetParticipants(roomId);
 

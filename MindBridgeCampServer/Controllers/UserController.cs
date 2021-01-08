@@ -4,6 +4,7 @@ using Application.User;
 using Common.Core.LogService;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 
 namespace MindBridgeCampServer.Controllers
 {
@@ -22,8 +23,7 @@ namespace MindBridgeCampServer.Controllers
         [HttpGet("{userId}")]
         public IActionResult Get(string userId)
         {
-            LogService.Info<UserController>("Get");
-            LogService.Info<UserController>("User ID: " + userId);
+            LogService.Info<UserController>("Get" + Environment.NewLine + "User ID: " + userId);
 
             var response = _userService.Get(new GetByIdRequest 
             {
@@ -36,8 +36,7 @@ namespace MindBridgeCampServer.Controllers
         [HttpGet("{loginToken}")]
         public IActionResult GetByToken(string loginToken)
         {
-            LogService.Info<UserController>("Get By Token");
-            LogService.Info<UserController>("Login Token: " + loginToken);
+            LogService.Info<UserController>("Get By Token" + Environment.NewLine + "Login Token: " + loginToken);
 
             var response = _userService.Get(new GetByLoginTokenRequest
             {
@@ -50,8 +49,7 @@ namespace MindBridgeCampServer.Controllers
         [HttpPost]
         public IActionResult AddUser([FromBody] UserModel userModel)
         {
-            LogService.Info<UserController>("Add User");
-            LogService.Info<UserController>("User Model: " + JsonConvert.SerializeObject(userModel));
+            LogService.Info<UserController>("Add User" + Environment.NewLine + "User Model: " + JsonConvert.SerializeObject(userModel));
 
             _userService.Add(userModel);
 
@@ -61,8 +59,7 @@ namespace MindBridgeCampServer.Controllers
         [HttpPost]
         public IActionResult UpdateUser([FromBody] UserModel userModel)
         {
-            LogService.Info<UserController>("Update User");
-            LogService.Info<UserController>("User Model: " + JsonConvert.SerializeObject(userModel));
+            LogService.Info<UserController>("Update User" + Environment.NewLine + "User Model: " + JsonConvert.SerializeObject(userModel));
 
             _userService.Update(userModel);
 
