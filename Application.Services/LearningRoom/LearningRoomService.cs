@@ -45,5 +45,10 @@ namespace Application.Services.LearningRoom
         {
             return _getParticipantsProcess.Get(roomId);
         }
+
+        public GetResponse GetRoomsParticipated(string loginToken)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

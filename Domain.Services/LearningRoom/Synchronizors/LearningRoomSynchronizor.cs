@@ -3,6 +3,7 @@ using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways;
 using Domain.Services.LearningRoom.Synchronizors.Persistors;
 using Infrastructure.Data.Sql.Persistence;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Domain.Services.LearningRoom.Synchronizors
@@ -30,6 +31,7 @@ namespace Domain.Services.LearningRoom.Synchronizors
         public void Add(ILearningRoom learningRoom)
         {
             _roomPersistor.Add(learningRoom);
+            learningRoom.Participants.ToList().ForEach(p => _participantPersistor.Add(p));
             _persistence.Complete();
         }
 

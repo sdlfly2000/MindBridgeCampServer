@@ -8,6 +8,8 @@ namespace Application.Services.LearningRoom
     {
         GetResponse GetAvailableRooms();
 
+        GetResponse GetRoomsParticipated(string loginToken);
+
         void CreateRoom(string loginToken, LearningRoomModel model);
 
         GetResponse JoinRoom(string loginToken, string roomId);

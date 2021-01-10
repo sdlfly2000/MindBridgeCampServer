@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Application.LearningRoom;
 using Common.Core.DependencyInjection;
 using Domain.LearningRoom;
@@ -25,10 +26,11 @@ namespace Application.Services.LearningRoom.Processes
         public void Create(string loginToken, LearningRoomModel model)
         {
             var login = _loginTokenGateway.Get(loginToken);
+            var roomReference = new RoomReference(Guid.NewGuid().ToString());
 
             var roomAspct = new RoomAspect
             {
-                Reference = new RoomReference(Guid.NewGuid().ToString()),
+                Reference = roomReference,
                 CreatedBy = login.OpenId,
                 CreatedOn = DateTime.Parse(model.CreatedOn),
                 EndDate = DateTime.Parse(model.EndDate),
@@ -36,7 +38,17 @@ namespace Application.Services.LearningRoom.Processes
                 Place = model.Place,
                 ParticipantCount = model.ParticipantCount,
                 StartDate = DateTime.Parse(model.StartDate),
-                Title = model.Title
+                Title = model.Title,
+                Participants = new List<Participant>
+                {
+                    new Participant
+                    {
+                        Reference = new ParticipantReference(Guid.NewGuid().ToString()),
+                        IsDeleted = false,
+                        Room = roomReference,
+                        User = login.OpenId
+                    }
+                }
             };
 
             _learningRoomSynchronizor.Add(new LearningRoomDomain(roomAspct));

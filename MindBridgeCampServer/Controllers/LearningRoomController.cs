@@ -65,5 +65,17 @@ namespace MindBridgeCampServer.Controllers
 
             return Ok(JsonConvert.SerializeObject(participants));
         }
+
+        [HttpGet("{loginToken}")]
+        public IActionResult GetRoomsParticipated(string loginToken)
+        {
+            LogService.Info<LearningRoomController>(
+                "GetRoomsParticipated" + Environment.NewLine +
+                "login Token: " + loginToken);
+
+            var response = _learningRoomService.GetRoomsParticipated(loginToken);
+
+            return Ok(JsonConvert.SerializeObject(response.LearningRooms));
+        }
     }
 }
