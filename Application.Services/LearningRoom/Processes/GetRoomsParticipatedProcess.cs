@@ -3,6 +3,7 @@ using Application.Services.LearningRoom.Contracts;
 using Common.Core.DependencyInjection;
 using Domain.Services.LearningRoom.Gateways;
 using Domain.Services.LoginToken;
+using System;
 using System.Linq;
 
 namespace Application.Services.LearningRoom.Processes
@@ -26,9 +27,10 @@ namespace Application.Services.LearningRoom.Processes
         public GetResponse Get(string loginTokenCode)
         {
             var loginToken = _loginTokenGateway.Get(loginTokenCode);
-            var rooms = _learningRoomGateway.LoadAll().
-                Select(reference => _learningRoomGateway.Load(reference))
+            var rooms = _learningRoomGateway.LoadAll()
+                .Select(reference => _learningRoomGateway.Load(reference))
                 .Where(room => room.Participants.Any(p => p.User.Equals(loginToken.OpenId)))
+                .Where(room => room.EndDate > DateTime.Now)
                 .ToList();
 
             return new GetResponse
