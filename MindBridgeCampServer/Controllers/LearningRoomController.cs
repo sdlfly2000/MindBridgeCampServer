@@ -26,7 +26,10 @@ namespace MindBridgeCampServer.Controllers
 
             var availableRooms = _learningRoomService.GetAvailableRooms();
 
-            return Ok(JsonConvert.SerializeObject(availableRooms.LearningRooms));
+            var response = JsonConvert.SerializeObject(availableRooms.LearningRooms);
+
+            LogService.Info<LearningRoomController>(response);
+            return Ok(response);
         }
 
         [HttpPost("{loginToken}")]
@@ -51,7 +54,10 @@ namespace MindBridgeCampServer.Controllers
 
             var response = _learningRoomService.JoinRoom(loginToken, roomId);
 
-            return Ok(JsonConvert.SerializeObject(response.LearningRooms));
+            var responseMessage = JsonConvert.SerializeObject(response.LearningRooms);
+
+            LogService.Info<LearningRoomController>(responseMessage);
+            return Ok(responseMessage);
         }
 
         [HttpGet("{roomId}")]
@@ -63,7 +69,10 @@ namespace MindBridgeCampServer.Controllers
 
             var participants = _learningRoomService.GetParticipants(roomId);
 
-            return Ok(JsonConvert.SerializeObject(participants));
+            var responseMessage = JsonConvert.SerializeObject(participants);
+
+            LogService.Info<LearningRoomController>(responseMessage);
+            return Ok(responseMessage);
         }
 
         [HttpGet("{loginToken}")]
@@ -75,7 +84,10 @@ namespace MindBridgeCampServer.Controllers
 
             var response = _learningRoomService.GetRoomsParticipated(loginToken);
 
-            return Ok(JsonConvert.SerializeObject(response.LearningRooms));
+            var responseMessage = JsonConvert.SerializeObject(response.LearningRooms);
+
+            LogService.Info<LearningRoomController>(responseMessage);
+            return Ok(responseMessage);
         }
     }
 }
