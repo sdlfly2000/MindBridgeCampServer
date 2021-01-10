@@ -39,8 +39,15 @@ namespace MindBridgeCampServer.Controllers
                 "Create Room" + Environment.NewLine + 
                 "Login Token: " + loginToken + Environment.NewLine + 
                 "Model: " + JsonConvert.SerializeObject(request));
+            try
+            {
+                _learningRoomService.CreateRoom(loginToken, request.Model);
 
-            _learningRoomService.CreateRoom(loginToken, request.Model);
+            }catch(Exception e)
+            {
+                LogService.Info<LearningRoomController>(e.Message);
+                return BadRequest(e.Message);
+            }
 
             return Ok();
         }
@@ -48,16 +55,27 @@ namespace MindBridgeCampServer.Controllers
         [HttpGet("{loginToken}/{roomId}")]
         public IActionResult JoinRoom(string loginToken, string roomId)
         {
-            LogService.Info<LearningRoomController>("Join Room" + Environment.NewLine +
-                                                    "Login Token: " + loginToken + Environment.NewLine +
-                                                    "Room ID: " + roomId);
+            LogService.Info<LearningRoomController>(
+                "Join Room" + Environment.NewLine +
+                "Login Token: " + loginToken + Environment.NewLine +
+                "Room ID: " + roomId);
 
-            var response = _learningRoomService.JoinRoom(loginToken, roomId);
+            try
+            {
+                var response = _learningRoomService.JoinRoom(loginToken, roomId);
 
-            var responseMessage = JsonConvert.SerializeObject(response.LearningRooms);
+                var responseMessage = JsonConvert.SerializeObject(response.LearningRooms);
 
-            LogService.Info<LearningRoomController>(responseMessage);
-            return Ok(responseMessage);
+                LogService.Info<LearningRoomController>(responseMessage);
+                return Ok(responseMessage);
+
+            }
+            catch(Exception e)
+            {
+                LogService.Info<LearningRoomController>(e.Message);
+                return BadRequest(e.Message);
+            }
+
         }
 
         [HttpGet("{roomId}")]
@@ -82,12 +100,20 @@ namespace MindBridgeCampServer.Controllers
                 "GetRoomsParticipated" + Environment.NewLine +
                 "login Token: " + loginToken);
 
-            var response = _learningRoomService.GetRoomsParticipated(loginToken);
+            try
+            {
+                var response = _learningRoomService.GetRoomsParticipated(loginToken);
 
-            var responseMessage = JsonConvert.SerializeObject(response.LearningRooms);
+                var responseMessage = JsonConvert.SerializeObject(response.LearningRooms);
 
-            LogService.Info<LearningRoomController>(responseMessage);
-            return Ok(responseMessage);
+                LogService.Info<LearningRoomController>(responseMessage);
+                return Ok(responseMessage);
+            }
+            catch (Exception e)
+            {
+                LogService.Info<LearningRoomController>(e.Message);
+                return BadRequest(e.Message);
+            }
         }
     }
 }
