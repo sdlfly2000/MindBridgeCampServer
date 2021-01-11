@@ -128,5 +128,26 @@ namespace MindBridgeCampServer.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("{loginToken}/{roomId}")]
+        public IActionResult SignInRoom(string loginToken, string roomId)
+        {
+            LogService.Info<LearningRoomController>(
+                "SignInRoom" + Environment.NewLine +
+                "Login Token: " + loginToken + Environment.NewLine +
+                "Room ID: " + roomId);
+
+            try
+            {
+                _learningRoomService.SignInRoom(loginToken, roomId);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                LogService.Info<LearningRoomController>(e.Message);
+                return BadRequest(e.Message);
+            }
+
+        }
     }
 }

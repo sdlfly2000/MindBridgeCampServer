@@ -14,19 +14,22 @@ namespace Application.Services.LearningRoom
         private readonly IJoinRoomProcess _joinRoomProcess;
         private readonly IGetParticipantsProcess _getParticipantsProcess;
         private readonly IGetRoomsParticipatedProcess _getRoomsParticipatedProcess;
+        private readonly ISignInRoomProcess _signInRoomProcess;
 
         public LearningRoomService(
             IGetAvailableRoomProcess getAvailableRoomProcess,
             ICreateRoomProcess createRoomProcess,
             IJoinRoomProcess joinRoomProcess,
             IGetParticipantsProcess getParticipantsProcess,
-            IGetRoomsParticipatedProcess getRoomsParticipatedProcess)
+            IGetRoomsParticipatedProcess getRoomsParticipatedProcess,
+            ISignInRoomProcess signInRoomProcess)
         {
             _getAvailableRoomProcess = getAvailableRoomProcess;
             _createRoomProcess = createRoomProcess;
             _joinRoomProcess = joinRoomProcess;
             _getParticipantsProcess = getParticipantsProcess;
             _getRoomsParticipatedProcess = getRoomsParticipatedProcess;
+            _signInRoomProcess = signInRoomProcess;
         }
 
         public GetResponse GetAvailableRooms()
@@ -52,6 +55,11 @@ namespace Application.Services.LearningRoom
         public GetResponse GetRoomsParticipated(string loginToken)
         {
             return _getRoomsParticipatedProcess.Get(loginToken);
+        }
+
+        public void SignInRoom(string loginToken, string roomId)
+        {
+            _signInRoomProcess.SignIn(loginToken, roomId);
         }
     }
 }
