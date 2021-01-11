@@ -30,7 +30,6 @@ namespace Application.Services.LearningRoom.Processes
             var rooms = _learningRoomGateway.LoadAll()
                 .Select(reference => _learningRoomGateway.Load(reference))
                 .Where(room => room.Participants.Any(p => p.User.Equals(loginToken.OpenId)))
-                .Where(room => room.EndDate > DateTime.Now)
                 .ToList();
 
             return new GetResponse
