@@ -4,6 +4,7 @@ using Domain.Services.LearningRoom.Gateways;
 using Domain.Services.LearningRoom.Synchronizors;
 using Domain.Services.LoginToken;
 using System;
+using System.Linq;
 
 namespace Application.Services.LearningRoom.Processes
 {
@@ -28,6 +29,11 @@ namespace Application.Services.LearningRoom.Processes
         {
             var user = _loginTokenGateway.Get(loginToken);
             var learningRoomWithSignIn = _learningRoomWithSignInGateway.Load(new RoomReference(roomId));
+
+            if(learningRoomWithSignIn.SignIns.Any(s => s.Participant.Equals(user.OpenId)))
+            {
+                return;
+            }
 
             learningRoomWithSignIn.SignIns.Add(new SignInAspect
             {
