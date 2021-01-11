@@ -7,6 +7,8 @@ using System;
 
 namespace MindBridgeCampServer.Controllers
 {
+    using System.Threading.Tasks;
+
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class LearningRoomController : ControllerBase
@@ -20,16 +22,27 @@ namespace MindBridgeCampServer.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAvailableRooms()
+        public async Task<IActionResult> GetAvailableRooms()
         {
             LogService.Info<LearningRoomController>("Get Available Rooms");
+            var task = Task.Run<IActionResult>(
+            () =>
+                   {
+                       try
+                       {
+                           var availableRooms = _learningRoomService.GetAvailableRooms();
 
-            var availableRooms = _learningRoomService.GetAvailableRooms();
+                           var response = JsonConvert.SerializeObject(availableRooms.LearningRooms);
 
-            var response = JsonConvert.SerializeObject(availableRooms.LearningRooms);
-
-            LogService.Info<LearningRoomController>(response);
-            return Ok(response);
+                           LogService.Info<LearningRoomController>(response);
+                           return Ok(response);
+                       }
+                       catch (Exception e)
+                       {
+                           return BadRequest(e.Message);
+                       }
+                   });
+            return await task;
         }
 
         [HttpPost("{loginToken}")]
