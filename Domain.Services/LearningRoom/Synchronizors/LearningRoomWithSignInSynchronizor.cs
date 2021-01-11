@@ -28,7 +28,7 @@ namespace Domain.Services.LearningRoom.Synchronizors
         {
             var learningRoomsWithSignIn = _learningRoomWithSignInGateway.Load(learningRoom.Reference);
             var signInsAdded = learningRoom.SignIns
-                .Where(signIn => learningRoomsWithSignIn.SignIns.Any(s => s.Reference.Equals(signIn.Reference)))
+                .Where(signIn => learningRoomsWithSignIn.SignIns.All(s => !s.Reference.Equals(signIn.Reference)))
                 .ToList();
             
             signInsAdded.ForEach(s => _signInPersistor.Add(s));
