@@ -1,16 +1,13 @@
 ﻿using Common.Core.DependencyInjection;
 using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways.Loaders;
+using System.Collections.Generic;
+using System.Linq;
+using Domain.User;
+using Infrastructure.Data.Sql.LearningRoom.Repositories;
 
 namespace Domain.Services.LearningRoom.Gateways
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Domain.User;
-
-    using Infrastructure.Data.Sql.LearningRoom.Repositories;
-
     [ServiceLocate(typeof(ILearningRoomWithSignInGateway))]
     public class LearningRoomWithSignInGateway : ILearningRoomWithSignInGateway
     {
@@ -25,6 +22,7 @@ namespace Domain.Services.LearningRoom.Gateways
         {
             _roomAspectLoader = roomAspectLoader;
             _signInAspectLoader = signInAspectLoader;
+            _roomRepository = roomRepository;
         }
 
         public ILearningRoomWithSignIn Load(RoomReference reference)

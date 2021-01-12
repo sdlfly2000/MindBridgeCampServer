@@ -121,6 +121,7 @@ namespace MindBridgeCampServer.Controllers
             catch (Exception e)
             {
                 LogService.Info<LearningRoomController>(e.Message);
+                LogService.Info<LearningRoomController>(e.StackTrace);
                 return BadRequest(e.Message);
             }
         }
