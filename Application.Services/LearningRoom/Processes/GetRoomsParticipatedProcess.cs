@@ -1,10 +1,12 @@
-﻿using Application.LearningRoom;
-using Application.Services.LearningRoom.Contracts;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Application.LearningRoom;
 using Common.Core.DependencyInjection;
+using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways;
 using Domain.Services.LoginToken;
-using System;
-using System.Linq;
+using Domain.User;
 
 namespace Application.Services.LearningRoom.Processes
 {
@@ -14,27 +16,24 @@ namespace Application.Services.LearningRoom.Processes
         private const string DateFormat = "yyyy-MM-dd HH:mm";
 
         private readonly ILoginTokenGateway _loginTokenGateway;
-        private readonly ILearningRoomGateway _learningRoomGateway;
+        private readonly ILearningRoomWithSignInGateway _learningRoomWithSignInGateway;
 
         public GetRoomsParticipatedProcess(
             ILoginTokenGateway loginTokenGateway,
-            ILearningRoomGateway learningRoomGateway)
+            ILearningRoomWithSignInGateway learningRoomWithSignInGateway)
         {
             _loginTokenGateway = loginTokenGateway;
-            _learningRoomGateway = learningRoomGateway;
+            _learningRoomWithSignInGateway = learningRoomWithSignInGateway;
         }
 
-        public GetResponse Get(string loginTokenCode)
+        public IList<LearningRoomWithStatusModel> Get(string loginTokenCode)
         {
-            var loginToken = _loginTokenGateway.Get(loginTokenCode);
-            var rooms = _learningRoomGateway.LoadAll()
-                .Select(reference => _learningRoomGateway.Load(reference))
-                .Where(room => room.Participants.Any(p => p.User.Equals(loginToken.OpenId)))
-                .ToList();
+            var user = _loginTokenGateway.Get(loginTokenCode);
+            var rooms = _learningRoomWithSignInGateway.LoadByParticipant(user.OpenId);
 
-            return new GetResponse
+            return rooms.Select(room => new LearningRoomWithStatusModel
             {
-                LearningRooms = rooms.Select(room => new LearningRoomModel
+                LearningRoom = new LearningRoomModel
                 {
                     RoomId = room.Reference.Code,
                     CreatedOn = room.CreatedOn.ToString(DateFormat),
@@ -46,8 +45,36 @@ namespace Application.Services.LearningRoom.Processes
                     StartDate = room.StartDate.ToString(DateFormat),
                     Title = room.Title,
                     CurrentParticipantCount = room.CurrentParticipantCount
-                }).ToList()
-            };
+                },
+                Status = MapStatus(room),
+                IsSignIn = MapIsSignIn(room, user.OpenId)
+            }).ToList();
         }
+
+        #region Private Methods
+
+        private LearningRoomStatus MapStatus(ILearningRoomWithSignIn room)
+        {
+            var currentDateTime = DateTime.Now;
+
+            if (currentDateTime < room.StartDate)
+            {
+                return LearningRoomStatus.NotStart;
+            }
+
+            if (room.StartDate < currentDateTime && currentDateTime < room.EndDate)
+            {
+                return LearningRoomStatus.InProgress;
+            }
+
+            return LearningRoomStatus.Complete;
+        }
+
+        private bool MapIsSignIn(ILearningRoomWithSignIn room, UserReference user)
+        {
+            return room.SignIns.Any(s => s.Participant.Equals(user));
+        }
+
+        #endregion
     }
 }

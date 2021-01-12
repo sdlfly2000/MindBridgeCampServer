@@ -15,14 +15,19 @@ namespace Infrastructure.Data.Sql.LearningRoom.Repositories
             _context = context;
         }
 
-        SignInEntity ISignInRepository.FindById(string id)
+        public SignInEntity FindById(string id)
         {
             return FindAll().FirstOrDefault(s => s.signInId.Equals(id));
         }
 
-        IList<SignInEntity> ISignInRepository.FindByRoom(string roomId)
+        public IList<SignInEntity> FindByRoom(string roomId)
         {
             return FindAll().Where(s => s.roomId.Equals(roomId)).ToList();
+        }
+
+        public IList<SignInEntity> FindByUser(string userId)
+        {
+            return FindAll().Where(s => s.participant.Equals(userId)).ToList();
         }
 
         private IQueryable<SignInEntity> FindAll()

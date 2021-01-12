@@ -1,9 +1,10 @@
-﻿using Application.Services.LearningRoom.Contracts;
+﻿using System.Collections.Generic;
+using Application.LearningRoom;
 
 namespace Application.Services.LearningRoom.Processes
 {
     public interface IGetRoomsParticipatedProcess
     {
-        GetResponse Get(string loginToken);
+        IList<LearningRoomWithStatusModel> Get(string loginToken);
     }
 }

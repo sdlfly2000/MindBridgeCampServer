@@ -115,9 +115,9 @@ namespace MindBridgeCampServer.Controllers
 
             try
             {
-                var response = _learningRoomService.GetRoomsParticipated(loginToken);
+                var models = _learningRoomService.GetRoomsParticipated(loginToken);
 
-                var responseMessage = JsonConvert.SerializeObject(response.LearningRooms);
+                var responseMessage = JsonConvert.SerializeObject(models);
 
                 LogService.Info<LearningRoomController>(responseMessage);
                 return Ok(responseMessage);

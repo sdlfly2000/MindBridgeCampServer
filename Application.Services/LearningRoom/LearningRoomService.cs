@@ -52,7 +52,7 @@ namespace Application.Services.LearningRoom
             return _getParticipantsProcess.Get(roomId);
         }
 
-        public GetResponse GetRoomsParticipated(string loginToken)
+        public IList<LearningRoomWithStatusModel> GetRoomsParticipated(string loginToken)
         {
             return _getRoomsParticipatedProcess.Get(loginToken);
         }

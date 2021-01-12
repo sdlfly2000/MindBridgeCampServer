@@ -8,7 +8,7 @@ namespace Application.Services.LearningRoom
     {
         GetResponse GetAvailableRooms();
 
-        GetResponse GetRoomsParticipated(string loginToken);
+        IList<LearningRoomWithStatusModel> GetRoomsParticipated(string loginToken);
 
         void CreateRoom(string loginToken, LearningRoomModel model);
 

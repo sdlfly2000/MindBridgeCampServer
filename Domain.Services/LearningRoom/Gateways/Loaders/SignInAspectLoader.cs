@@ -4,6 +4,7 @@ using Domain.Services.LearningRoom.Gateways.Loaders.Mappers;
 using Infrastructure.Data.Sql.LearningRoom.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.User;
 
 namespace Domain.Services.LearningRoom.Gateways.Loaders
 {
@@ -21,10 +22,16 @@ namespace Domain.Services.LearningRoom.Gateways.Loaders
             _signInRepository = signInRepository;
         }
 
+        public IList<ISignInAspect> Load(UserReference reference)
+        {
+            var signInEntities = _signInRepository.FindByUser(reference.Code);
+            return signInEntities.Select(_signInAspectMapper.Map).ToList();
+        }
+
         public IList<ISignInAspect> Load(RoomReference reference)
         {
             var signInEntities = _signInRepository.FindByRoom(reference.Code);
-            return signInEntities.Select(s => _signInAspectMapper.Map(s)).ToList();
+            return signInEntities.Select(_signInAspectMapper.Map).ToList();
         }
 
         public ISignInAspect Load(SignInReference reference)
