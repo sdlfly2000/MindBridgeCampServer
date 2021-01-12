@@ -24,6 +24,8 @@ namespace Application.LearningRoom
 
         public int CurrentParticipantCount { get; set; }
 
+        public bool Participated { get; set; }
+
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public LearningRoomStatus Status { get; set; }
 

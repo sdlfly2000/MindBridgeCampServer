@@ -42,7 +42,8 @@ namespace Application.Services.LearningRoom.Processes
                 ParticipantCount = room.ParticipantCount,
                 StartDate = room.StartDate.ToString(DateFormat),
                 Title = room.Title,
-                CurrentParticipantCount = room.CurrentParticipantCount,                
+                CurrentParticipantCount = room.CurrentParticipantCount,
+                Participated = true,
                 Status = MapStatus(room),
                 IsSignIn = MapIsSignIn(room, user.OpenId)
             }).ToList();
