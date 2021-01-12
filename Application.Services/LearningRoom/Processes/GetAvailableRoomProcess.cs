@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Application.Services.LearningRoom.Contracts;
 using Common.Core.DependencyInjection;
 using Domain.Services.LearningRoom.Gateways;
 using Application.LearningRoom;
+using Core;
 
 namespace Application.Services.LearningRoom.Processes
 {
@@ -24,7 +24,7 @@ namespace Application.Services.LearningRoom.Processes
         {
             var roomReferences = _learningRoomGateway.LoadAll();
             var availableRooms = roomReferences.Select(reference => _learningRoomGateway.Load(reference))
-                .Where(room => room.StartDate > DateTime.Now).ToList();
+                .Where(room => room.StartDate > DateTimeUtil.GetNow()).ToList();
 
             return new GetResponse
             {

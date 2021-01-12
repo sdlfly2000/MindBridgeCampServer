@@ -1,4 +1,5 @@
 ﻿using Common.Core.DependencyInjection;
+using Core;
 using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways;
 using Domain.Services.LearningRoom.Synchronizors;
@@ -39,7 +40,7 @@ namespace Application.Services.LearningRoom.Processes
             {
                 Reference = new SignInReference(Guid.NewGuid().ToString()),
                 Room = learningRoomWithSignIn.Reference,
-                SignInOn = DateTime.Now,
+                SignInOn = DateTimeUtil.GetNow(),
                 Participant = user.OpenId
             });
 

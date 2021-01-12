@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Application.LearningRoom;
 using Common.Core.DependencyInjection;
+using Common.Core.LogService;
+using Core;
 using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways;
 using Domain.Services.LoginToken;
@@ -53,7 +54,7 @@ namespace Application.Services.LearningRoom.Processes
 
         private LearningRoomStatus MapStatus(ILearningRoomWithSignIn room)
         {
-            var currentDateTime = DateTime.Now;
+            var currentDateTime = DateTimeUtil.GetNow();
 
             if (currentDateTime < room.StartDate)
             {
