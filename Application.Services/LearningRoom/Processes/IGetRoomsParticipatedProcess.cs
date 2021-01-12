@@ -5,6 +5,6 @@ namespace Application.Services.LearningRoom.Processes
 {
     public interface IGetRoomsParticipatedProcess
     {
-        IList<LearningRoomWithStatusModel> Get(string loginToken);
+        IList<LearningRoomModel> Get(string loginToken);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Application.LearningRoom
+﻿using System.Runtime.Serialization;
+
+namespace Application.LearningRoom
 {
     public class LearningRoomModel
     {
@@ -21,5 +23,11 @@
         public string CreatedOn { get; set; }
 
         public int CurrentParticipantCount { get; set; }
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public LearningRoomStatus Status { get; set; }.
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public bool IsSignIn { get; set; }
     }
 }

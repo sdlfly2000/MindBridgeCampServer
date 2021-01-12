@@ -26,26 +26,23 @@ namespace Application.Services.LearningRoom.Processes
             _learningRoomWithSignInGateway = learningRoomWithSignInGateway;
         }
 
-        public IList<LearningRoomWithStatusModel> Get(string loginTokenCode)
+        public IList<LearningRoomModel> Get(string loginTokenCode)
         {
             var user = _loginTokenGateway.Get(loginTokenCode);
             var rooms = _learningRoomWithSignInGateway.LoadByParticipant(user.OpenId);
 
-            return rooms.Select(room => new LearningRoomWithStatusModel
+            return rooms.Select(room => new LearningRoomModel
             {
-                LearningRoom = new LearningRoomModel
-                {
-                    RoomId = room.Reference.Code,
-                    CreatedOn = room.CreatedOn.ToString(DateFormat),
-                    CreatedBy = room.CreatedBy.Code,
-                    EndDate = room.EndDate.ToString(DateFormat),
-                    LearningContent = room.LearningContent,
-                    Place = room.Place,
-                    ParticipantCount = room.ParticipantCount,
-                    StartDate = room.StartDate.ToString(DateFormat),
-                    Title = room.Title,
-                    CurrentParticipantCount = room.CurrentParticipantCount
-                },
+                RoomId = room.Reference.Code,
+                CreatedOn = room.CreatedOn.ToString(DateFormat),
+                CreatedBy = room.CreatedBy.Code,
+                EndDate = room.EndDate.ToString(DateFormat),
+                LearningContent = room.LearningContent,
+                Place = room.Place,
+                ParticipantCount = room.ParticipantCount,
+                StartDate = room.StartDate.ToString(DateFormat),
+                Title = room.Title,
+                CurrentParticipantCount = room.CurrentParticipantCount,                
                 Status = MapStatus(room),
                 IsSignIn = MapIsSignIn(room, user.OpenId)
             }).ToList();
