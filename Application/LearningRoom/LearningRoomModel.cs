@@ -25,7 +25,7 @@ namespace Application.LearningRoom
         public int CurrentParticipantCount { get; set; }
 
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
-        public LearningRoomStatus Status { get; set; }.
+        public LearningRoomStatus Status { get; set; }
 
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public bool IsSignIn { get; set; }
