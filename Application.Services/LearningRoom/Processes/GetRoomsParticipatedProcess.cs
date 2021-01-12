@@ -47,7 +47,9 @@ namespace Application.Services.LearningRoom.Processes
                 Participated = true,
                 Status = MapStatus(room),
                 IsSignIn = MapIsSignIn(room, user.OpenId)
-            }).ToList();
+            })
+            .OrderByDescending(model => model.CreatedOn)
+            .ToList();
         }
 
         #region Private Methods

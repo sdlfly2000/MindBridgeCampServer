@@ -41,7 +41,9 @@ namespace Application.Services.LearningRoom.Processes
                     Title = room.Title,
                     CurrentParticipantCount = room.CurrentParticipantCount,
                     Participated = false
-                }).ToList()
+                })
+                .OrderByDescending(model => model.CreatedOn)
+                .ToList()
             };
         }
     }
