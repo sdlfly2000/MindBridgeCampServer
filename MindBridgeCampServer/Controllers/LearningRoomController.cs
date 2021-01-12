@@ -1,14 +1,13 @@
-﻿using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Threading.Tasks;
 using Application.Services.LearningRoom;
-using MindBridgeCampServer.Models;
 using Common.Core.LogService;
-using System;
+using Microsoft.AspNetCore.Mvc;
+using MindBridgeCampServer.Models;
+using Newtonsoft.Json;
 
 namespace MindBridgeCampServer.Controllers
 {
-    using System.Threading.Tasks;
-
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class LearningRoomController : ControllerBase
@@ -49,14 +48,13 @@ namespace MindBridgeCampServer.Controllers
         public IActionResult CreateRoom(string loginToken, [FromBody] LearningRoomRequestModel request)
         {
             LogService.Info<LearningRoomController>(
-                "Create Room" + Environment.NewLine + 
-                "Login Token: " + loginToken + Environment.NewLine + 
-                "Model: " + JsonConvert.SerializeObject(request));
+                "Create Room" + Environment.NewLine + "Login Token: " + loginToken + Environment.NewLine + "Model: "
+                + JsonConvert.SerializeObject(request));
             try
             {
                 _learningRoomService.CreateRoom(loginToken, request.Model);
-
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 LogService.Info<LearningRoomController>(e.Message);
                 return BadRequest(e.Message);
@@ -81,14 +79,12 @@ namespace MindBridgeCampServer.Controllers
 
                 LogService.Info<LearningRoomController>(responseMessage);
                 return Ok(responseMessage);
-
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 LogService.Info<LearningRoomController>(e.Message);
                 return BadRequest(e.Message);
             }
-
         }
 
         [HttpGet("{roomId}")]
