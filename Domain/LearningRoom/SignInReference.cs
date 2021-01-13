@@ -1,4 +1,5 @@
 ﻿using Common.Core.AOP;
+using Core;
 
 namespace Domain.LearningRoom
 {
@@ -7,7 +8,7 @@ namespace Domain.LearningRoom
         public SignInReference(string code, string fieldName = null)
         {
             Code = code;
-            CacheFieldName = fieldName ?? string.Empty;
+            CacheFieldName = fieldName ?? CacheField.SignIn;
         }
 
         public string Code { get; set; }
