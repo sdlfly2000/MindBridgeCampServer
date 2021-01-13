@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.User;
+using Common.Core.AOP;
 
 namespace Domain.LearningRoom
 {
-    public interface IRoomAspect
+    public interface IRoomAspect : ICacheAspect
     {
         RoomReference Reference { get; set; }
         string Title { get; set; }

@@ -1,12 +1,10 @@
-﻿using Common.Core.DependencyInjection;
-using Domain.LearningRoom;
+﻿using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways.Loaders.Mappers;
 using Infrastructure.Data.Sql.LearningRoom.Repositories;
 
 namespace Domain.Services.LearningRoom.Gateways.Loaders
 {
-    [ServiceLocate(typeof(IRoomAspectLoader))]
-    public class RoomAspectLoader : IRoomAspectLoader
+    public class RoomAspectLoader
     {
         private readonly IRoomAspectMapper _roomAspectMapper;
         private readonly IRoomRepository _roomRepository;
