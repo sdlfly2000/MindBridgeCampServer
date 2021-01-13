@@ -2,7 +2,6 @@
 using System.Linq;
 using Application.LearningRoom;
 using Common.Core.DependencyInjection;
-using Common.Core.LogService;
 using Core;
 using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways;
@@ -48,7 +47,7 @@ namespace Application.Services.LearningRoom.Processes
                 Status = MapStatus(room),
                 IsSignIn = MapIsSignIn(room, user.OpenId)
             })
-            .OrderByDescending(model => model.CreatedOn)
+            .OrderBy(model => model.Status)
             .ToList();
         }
 

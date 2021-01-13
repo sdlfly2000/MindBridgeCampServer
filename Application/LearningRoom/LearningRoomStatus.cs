@@ -2,8 +2,8 @@
 {
     public enum LearningRoomStatus
     {
-        NotStart = 0,
-        InProgress = 1,
+        InProgress = 0,
+        NotStart = 1,        
         Complete = 2
     }
 }
