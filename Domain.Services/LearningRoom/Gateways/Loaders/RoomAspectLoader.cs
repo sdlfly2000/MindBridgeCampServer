@@ -4,7 +4,7 @@ using Infrastructure.Data.Sql.LearningRoom.Repositories;
 
 namespace Domain.Services.LearningRoom.Gateways.Loaders
 {
-    public class RoomAspectLoader
+    public class RoomAspectLoader : IRoomAspectLoader
     {
         private readonly IRoomAspectMapper _roomAspectMapper;
         private readonly IRoomRepository _roomRepository;
