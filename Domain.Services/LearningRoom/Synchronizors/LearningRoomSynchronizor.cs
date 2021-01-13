@@ -7,6 +7,8 @@ using System.Linq;
 
 namespace Domain.Services.LearningRoom.Synchronizors
 {
+    using Microsoft.Extensions.Caching.Memory;
+
     [ServiceLocate(typeof(ILearningRoomSynchronizor))]
     public class LearningRoomSynchronizor : ILearningRoomSynchronizor
     {
@@ -14,17 +16,20 @@ namespace Domain.Services.LearningRoom.Synchronizors
         private readonly IParticipantPersistor _participantPersistor;
         private readonly IPersistence _persistence;
         private readonly ILearningRoomGateway _learningRoomGateway;
+        private readonly IMemoryCache _memoryCache;
 
         public LearningRoomSynchronizor(
             ILearningRoomGateway learningRoomGateway,
             IRoomPersistor roomPersistor,
             IParticipantPersistor participantPersistor,
-            IPersistence persistence)
+            IPersistence persistence,
+            IMemoryCache memoryCache)
         {
             _roomPersistor = roomPersistor;
             _persistence = persistence;
             _learningRoomGateway = learningRoomGateway;
             _participantPersistor = participantPersistor;
+            _memoryCache = memoryCache;
         }
 
         public void Add(ILearningRoom learningRoom)
@@ -47,6 +52,7 @@ namespace Domain.Services.LearningRoom.Synchronizors
             participantsToAdd.ForEach(p => _participantPersistor.Add(p));
 
             _persistence.Complete();
+            _memoryCache.Remove(learningRoom.Reference.CacheCode);
         }
     }
 }
