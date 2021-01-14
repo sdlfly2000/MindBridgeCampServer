@@ -9,5 +9,7 @@ namespace Domain.Services.User
         void Add(IUser user);
 
         void Save(IUser user);
+
+        void SaveUserInfo(IUser user);
     }
 }

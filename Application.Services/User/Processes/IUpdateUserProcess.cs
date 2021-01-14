@@ -6,5 +6,7 @@ namespace Application.Services.User.Processes
     public interface IUpdateUserProcess
     {
         GetResponse Update(UserModel model);
+
+        void UpdateUserInfo(UserModel model);
     }
 }

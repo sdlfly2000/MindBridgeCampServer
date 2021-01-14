@@ -52,8 +52,15 @@ namespace Domain.Services.User
             _userSynchronizer.Synchronize(user);
             _userInfoSynchronizer.Sychronize(user);
             _persistence.Complete();
-            _memoryCache.Remove(user.UserId);
-            _memoryCache.Remove(user.OpenId);
+            _memoryCache.Remove(user.UserId.CacheCode);
+            _memoryCache.Remove(user.OpenId.CacheCode);
+        }
+
+        public void SaveUserInfo(IUser user)
+        {
+            _userInfoSynchronizer.Sychronize(user);
+            _persistence.Complete();
+            _memoryCache.Remove(user.OpenId.CacheCode);
         }
     }
 }

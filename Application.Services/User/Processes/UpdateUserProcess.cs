@@ -46,5 +46,22 @@ namespace Application.Services.User.Processes
 
             return new GetResponse();
         }
+
+        public void UpdateUserInfo(UserModel model)
+        {
+            var user = new UserDomain(
+               new UserAspect(),
+               new UserInfoAspect
+               {
+                   OpenId = new UserReference(model.OpenId, "UserInfoAspect"),
+                   NickName = model.NickName,
+                   AvatarUrl = model.AvatarUrl,
+                   City = model.City,
+                   Country = model.Country,
+                   Language = model.Language,
+                   Province = model.Province
+               });
+            _userGateway.SaveUserInfo(user);
+        }
     }
 }
