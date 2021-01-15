@@ -66,7 +66,7 @@ namespace MindBridgeCampServer.Controllers
                 "userModel: " + JsonConvert.SerializeObject(userModel));
             try
             {
-                _userService.Add(lgoinToken, userModel);
+                _userService.Add(loginToken, userModel);
                 return Ok();
             }
             catch (Exception e)
