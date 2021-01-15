@@ -87,10 +87,16 @@ namespace MindBridgeCampServer.Controllers
             LogService.Info<UserController>(
                 "UpdateUser" + Environment.NewLine +
                 "User Model: " + JsonConvert.SerializeObject(userModel));
-
-            _userService.Update(userModel);
-
-            return Ok();
+            try
+            {
+                _userService.Update(userModel);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                LogService.Info<UserController>(e.Message + Environment.NewLine + e.StackTrace);
+                return BadRequest(e.Message);
+            }
         }
     }
 }
