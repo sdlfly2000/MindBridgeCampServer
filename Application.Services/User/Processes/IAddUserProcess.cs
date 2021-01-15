@@ -5,6 +5,6 @@ namespace Application.Services.User.Processes
 {
     public interface IAddUserProcess
     {
-        GetResponse Add(UserModel model);
+        void Add(string loginToken, UserModel model);
     }
 }

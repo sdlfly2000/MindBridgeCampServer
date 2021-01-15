@@ -25,9 +25,9 @@ namespace Application.Services.User
             _checkUserExistanceProcess = checkUserExistanceProcess;
         }
 
-        public GetResponse Add(UserModel model)
+        public void Add(string loginToken, UserModel model)
         {
-            return _addUserProcess.Add(model);
+            _addUserProcess.Add(loginToken, model);
         }
 
         public GetResponse Get(GetByIdRequest request)

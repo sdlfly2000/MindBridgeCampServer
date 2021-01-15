@@ -9,22 +9,30 @@ using System.Linq;
 
 namespace Application.Services.User.Processes
 {
+    using Domain.Services.LoginToken;
+
     [ServiceLocate(typeof(IAddUserProcess))]
     public class AddUserProcess : IAddUserProcess
     {
         private readonly IUserGateway _userGateway;
+        private readonly ILoginTokenGateway _loginTokenGateway;
 
-        public AddUserProcess(IUserGateway userGateway)
+        public AddUserProcess(
+            IUserGateway userGateway,
+            ILoginTokenGateway loginTokenGateway)
         {
             _userGateway = userGateway;
+            _loginTokenGateway = loginTokenGateway;
         }
 
-        public GetResponse Add(UserModel model)
+        public void Add(string loginToken, UserModel model)
         {
+            var token = _loginTokenGateway.Get(loginToken);
+
             var user = new UserDomain(
             new UserAspect
             {
-                UserId = new UserReference(model.UserId, "UserAspect"),
+                UserId = new UserReference(token.OpenId.Code, "UserAspect"),
                 ExpectationAfterGraduation = model.ExpectationAfterGraduation,
                 Gender = model.Gender,
                 Height = model.Height,
@@ -41,7 +49,7 @@ namespace Application.Services.User.Processes
             },
             new UserInfoAspect
             {
-                OpenId = new UserReference(model.OpenId, "UserInfo"),
+                OpenId = new UserReference(token.OpenId.Code, "UserInfo"),
                 NickName = model.NickName,
                 AvatarUrl = model.AvatarUrl,
                 City = model.City,
@@ -51,8 +59,6 @@ namespace Application.Services.User.Processes
             });
 
             _userGateway.Add(user);
-
-            return new GetResponse();
         }
     }
 }

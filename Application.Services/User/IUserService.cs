@@ -7,7 +7,7 @@ namespace Application.Services.User
     {
         GetResponse Get(GetByIdRequest request);
 
-        GetResponse Add(UserModel model);
+        void Add(string loginToken, UserModel model);
 
         GetResponse Update(UserModel model);
 

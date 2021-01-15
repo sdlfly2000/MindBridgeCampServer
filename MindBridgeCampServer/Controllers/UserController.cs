@@ -57,16 +57,23 @@ namespace MindBridgeCampServer.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult AddUser([FromBody] UserModel userModel)
+        [HttpPost("{loginToken}")]
+        public IActionResult AddUser(string loginToken, [FromBody] UserModel userModel)
         {
             LogService.Info<UserController>(
-                "AddUser" + Environment.NewLine + 
-                "User Model: " + JsonConvert.SerializeObject(userModel));
-
-            _userService.Add(userModel);
-
-            return Ok();
+                "AddUser" + Environment.NewLine +
+                "loginToken: " + loginToken + Environment.NewLine +
+                "userModel: " + JsonConvert.SerializeObject(userModel));
+            try
+            {
+                _userService.Add(lgoinToken, userModel);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                LogService.Info<UserController>(e.Message + Environment.NewLine + e.StackTrace);
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
