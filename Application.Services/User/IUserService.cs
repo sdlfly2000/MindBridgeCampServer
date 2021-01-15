@@ -13,6 +13,8 @@ namespace Application.Services.User
 
         void UpdateUserInfo(string loginToken, UserModel model);
 
+        void UpdateUser(string loginToken, UserModel model);
+
         GetResponse Get(GetByLoginTokenRequest request);
     }
 }

@@ -46,5 +46,10 @@ namespace Application.Services.User
         {
             _updateUserProcess.UpdateUserInfo(loginToken, model);
         }
+
+        public void UpdateUser(string loginToken, UserModel model)
+        {
+            _updateUserProcess.UpdateUser(loginToken, model);
+        }
     }
 }

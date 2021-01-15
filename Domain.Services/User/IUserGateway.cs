@@ -11,5 +11,7 @@ namespace Domain.Services.User
         void Save(IUser user);
 
         void SaveUserInfo(IUser user);
+
+        void SaveUser(IUser user);
     }
 }

@@ -71,5 +71,27 @@ namespace Application.Services.User.Processes
 
             _userGateway.SaveUserInfo(user);
         }
+
+        public void UpdateUser(string loginToken, UserModel model)
+        {
+            var token = _loginTokenGateway.Get(loginToken);
+
+            var user = new UserDomain(
+                new UserAspect
+                    {
+                        UserId = new UserReference(token.OpenId.Code, "UserAspect"),
+                        ExpectationAfterGraduation = model.ExpectationAfterGraduation,
+                        Gender = model.Gender,
+                        Height = model.Height,
+                        Weight = model.Weight,
+                        MajorIn = model.MajorIn,
+                        Name = model.Name,
+                        StudyContent = model.StudyContent,
+                        Hobbies = model.Hobbies
+                    },
+                new UserInfoAspect());
+
+            _userGateway.SaveUser(user);
+        }
     }
 }

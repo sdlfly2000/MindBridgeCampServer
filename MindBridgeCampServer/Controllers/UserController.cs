@@ -85,11 +85,31 @@ namespace MindBridgeCampServer.Controllers
         public IActionResult UpdateUserInfo(string loginToken, [FromBody] UserModel userModel)
         {
             LogService.Info<UserController>(
-                "UpdateUser" + Environment.NewLine +
-                "User Model: " + JsonConvert.SerializeObject(userModel));
+                "UpdateUserInfo" + Environment.NewLine +
+                "loginToken: " + loginToken + Environment.NewLine +
+                "userModel: " + JsonConvert.SerializeObject(userModel));
             try
             {
                 _userService.UpdateUserInfo(loginToken, userModel);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                LogService.Info<UserController>(e.Message + Environment.NewLine + e.StackTrace);
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("{loginToken}")]
+        public IActionResult UpdateUser(string loginToken, [FromBody] UserModel userModel)
+        {
+            LogService.Info<UserController>(
+                "UpdateUser" + Environment.NewLine +
+                "loginToken: " + loginToken + Environment.NewLine +
+                "userModel: " + JsonConvert.SerializeObject(userModel));
+            try
+            {
+                _userService.UpdateUser(loginToken, userModel);
                 return Ok();
             }
             catch (Exception e)
