@@ -15,6 +15,8 @@ namespace Application.Services.User
 
         void UpdateUser(string loginToken, UserModel model);
 
+        bool IsUserExist(string loginToken);
+
         GetResponse Get(GetByLoginTokenRequest request);
     }
 }

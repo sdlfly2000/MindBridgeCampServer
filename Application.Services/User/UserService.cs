@@ -11,15 +11,18 @@ namespace Application.Services.User
         private readonly IAddUserProcess _addUserProcess;
         private readonly IGetUserProcess _getUserProcess;
         private readonly IUpdateUserProcess _updateUserProcess;
+        private readonly ICheckUserExistanceProcess _checkUserExistanceProcess;
 
         public UserService(
             IAddUserProcess addUserProcess,
             IGetUserProcess getUserProcess,
-            IUpdateUserProcess updateUserProcess)
+            IUpdateUserProcess updateUserProcess,
+            ICheckUserExistanceProcess checkUserExistanceProcess)
         {
             _addUserProcess = addUserProcess;
             _getUserProcess = getUserProcess;
             _updateUserProcess = updateUserProcess;
+            _checkUserExistanceProcess = checkUserExistanceProcess;
         }
 
         public GetResponse Add(UserModel model)
@@ -30,6 +33,11 @@ namespace Application.Services.User
         public GetResponse Get(GetByIdRequest request)
         {
             return _getUserProcess.Get(request);
+        }
+
+        public bool IsUserExist(string loginToken)
+        {
+            return _checkUserExistanceProcess.IsUserExist(loginToken);
         }
 
         public GetResponse Get(GetByLoginTokenRequest request)

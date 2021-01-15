@@ -48,7 +48,7 @@ namespace MindBridgeCampServer.Controllers
 
                 return Ok(JsonConvert.SerializeObject(response.User));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 LogService.Info<UserController>(
                     e.Message + Environment.NewLine + 
@@ -110,6 +110,30 @@ namespace MindBridgeCampServer.Controllers
             try
             {
                 _userService.UpdateUser(loginToken, userModel);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                LogService.Info<UserController>(e.Message + Environment.NewLine + e.StackTrace);
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{loginToken}")]
+        public IActionResult IsUserExist(string loginToken)
+        {
+            LogService.Info<UserController>(
+                "IsUserExsit" + Environment.NewLine +
+                "loginToken: " + loginToken);
+            try
+            {
+                var isExist = _userService.IsUserExist(loginToken);
+
+                if (!isExist)
+                {
+                    return BadRequest();
+                }
+
                 return Ok();
             }
             catch (Exception e)
