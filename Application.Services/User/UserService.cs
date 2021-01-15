@@ -42,9 +42,9 @@ namespace Application.Services.User
             return _updateUserProcess.Update(model);
         }
 
-        public void UpdateUserInfo(UserModel model)
+        public void UpdateUserInfo(string loginToken, UserModel model)
         {
-            _updateUserProcess.UpdateUserInfo(model);
+            _updateUserProcess.UpdateUserInfo(loginToken, model);
         }
     }
 }

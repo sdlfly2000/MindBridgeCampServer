@@ -1,11 +1,12 @@
-﻿using Domain.User;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Domain.User;
 
 namespace Application.User
 {
     public class UserModel
     {
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string UserId { get; set; }
 
         public GenderType Gender { get; set; }
@@ -24,6 +25,7 @@ namespace Application.User
 
         public IList<Hobby> Hobbies { get; set; }
 
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string OpenId { get; set; }
 
         public string NickName { get; set; }

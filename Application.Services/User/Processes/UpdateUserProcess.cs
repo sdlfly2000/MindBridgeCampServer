@@ -3,6 +3,7 @@ using Application.User;
 using Common.Core.DependencyInjection;
 using Domain.Services.User;
 using Domain.User;
+using Domain.Services.LoginToken;
 
 namespace Application.Services.User.Processes
 {
@@ -10,10 +11,14 @@ namespace Application.Services.User.Processes
     public class UpdateUserProcess : IUpdateUserProcess
     {
         private readonly IUserGateway _userGateway;
+        private readonly ILoginTokenGateway _loginTokenGateway;
 
-        public UpdateUserProcess(IUserGateway userGateway)
+        public UpdateUserProcess(
+            IUserGateway userGateway,
+            ILoginTokenGateway loginTokenGateway)
         {
             _userGateway = userGateway;
+            _loginTokenGateway = loginTokenGateway;
         }
 
         public GetResponse Update(UserModel model)
@@ -47,13 +52,15 @@ namespace Application.Services.User.Processes
             return new GetResponse();
         }
 
-        public void UpdateUserInfo(UserModel model)
+        public void UpdateUserInfo(string loginToken, UserModel model)
         {
+            var token = _loginTokenGateway.Get(loginToken);
+
             var user = new UserDomain(
                new UserAspect(),
                new UserInfoAspect
                {
-                   OpenId = new UserReference(model.OpenId, "UserInfoAspect"),
+                   OpenId = new UserReference(token.OpenId.Code, "UserInfoAspect"),
                    NickName = model.NickName,
                    AvatarUrl = model.AvatarUrl,
                    City = model.City,
@@ -61,6 +68,7 @@ namespace Application.Services.User.Processes
                    Language = model.Language,
                    Province = model.Province
                });
+
             _userGateway.SaveUserInfo(user);
         }
     }

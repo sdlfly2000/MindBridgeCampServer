@@ -7,6 +7,6 @@ namespace Application.Services.User.Processes
     {
         GetResponse Update(UserModel model);
 
-        void UpdateUserInfo(UserModel model);
+        void UpdateUserInfo(string loginToken, UserModel model);
     }
 }

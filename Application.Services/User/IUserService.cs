@@ -11,7 +11,7 @@ namespace Application.Services.User
 
         GetResponse Update(UserModel model);
 
-        void UpdateUserInfo(UserModel model);
+        void UpdateUserInfo(string loginToken, UserModel model);
 
         GetResponse Get(GetByLoginTokenRequest request);
     }
