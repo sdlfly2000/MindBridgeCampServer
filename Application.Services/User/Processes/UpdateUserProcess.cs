@@ -28,7 +28,9 @@ namespace Application.Services.User.Processes
                {
                    UserId = new UserReference(model.UserId, "UserAspect"),
                    ExpectationAfterGraduation = model.ExpectationAfterGraduation,
-                   Gender = (GenderType)int.Parse(model.Gender),
+                   Gender = MapInt(model.Gender) == null
+                        ? GenderType.Unknown
+                        : (GenderType)MapInt(model.Gender),
                    Height = int.Parse(model.Height),
                    Weight = int.Parse(model.Weight),
                    MajorIn = model.MajorIn,
@@ -78,20 +80,33 @@ namespace Application.Services.User.Processes
 
             var user = new UserDomain(
                 new UserAspect
-                    {
-                        UserId = new UserReference(token.OpenId.Code, "UserAspect"),
-                        ExpectationAfterGraduation = model.ExpectationAfterGraduation,
-                        Gender = (GenderType)int.Parse(model.Gender),
-                        Height = int.Parse(model.Height),
-                        Weight = int.Parse(model.Weight),
-                        MajorIn = model.MajorIn,
-                        Name = model.Name,
-                        StudyContent = model.StudyContent,
-                        Hobby = model.Hobby
-                    },
+                {
+                    UserId = new UserReference(token.OpenId.Code, "UserAspect"),
+                    ExpectationAfterGraduation = model.ExpectationAfterGraduation,
+                    Gender = MapInt(model.Gender) == null
+                        ? GenderType.Unknown
+                        : (GenderType)MapInt(model.Gender),
+                    Height = MapInt(model.Height),
+                    Weight = MapInt(model.Weight),
+                    MajorIn = model.MajorIn,
+                    Name = model.Name,
+                    StudyContent = model.StudyContent,
+                    Hobby = model.Hobby
+                },
                 new UserInfoAspect());
 
             _userGateway.SaveUser(user);
         }
+
+        #region Private Methods
+
+        private int? MapInt(string value)
+        {
+            return string.IsNullOrEmpty(value)
+                ? default
+                : int.Parse(value);
+        }
+
+        #endregion
     }
 }

@@ -26,16 +26,18 @@ namespace Application.Services.User.Processes
 
         public void Add(string loginToken, UserModel model)
         {
-            var token = _loginTokenGateway.Get(loginToken);
+            var token = new UserReference("o3Huo5c8uh8i6kgeWQ4zzLEW20Rc");
 
             var user = new UserDomain(
                 new UserAspect
                 {
-                    UserId = new UserReference(token.OpenId.Code, "UserAspect"),
+                    UserId = new UserReference(token.Code, "UserAspect"),
                     ExpectationAfterGraduation = model.ExpectationAfterGraduation,
-                    Gender = (GenderType)int.Parse(model.Gender),
-                    Height = int.Parse(model.Height),
-                    Weight = int.Parse(model.Weight),
+                    Gender = MapInt(model.Gender) == null 
+                        ? GenderType.Unknown 
+                        : (GenderType)MapInt(model.Gender),
+                    Height = MapInt(model.Height),
+                    Weight = MapInt(model.Weight),
                     MajorIn = model.MajorIn,
                     Name = model.Name,
                     StudyContent = model.StudyContent,
@@ -43,7 +45,7 @@ namespace Application.Services.User.Processes
                 },
                 new UserInfoAspect
                 {
-                    OpenId = new UserReference(token.OpenId.Code, "UserInfo"),
+                    OpenId = new UserReference(token.Code, "UserInfo"),
                     NickName = model.NickName,
                     AvatarUrl = model.AvatarUrl,
                     City = model.City,
@@ -54,5 +56,16 @@ namespace Application.Services.User.Processes
 
             _userGateway.Add(user);
         }
+
+        #region Private Methods
+
+        private int? MapInt(string value)
+        {
+            return string.IsNullOrEmpty(value)
+                ? (int?)null
+                : int.Parse(value);
+        }
+
+        #endregion
     }
 }
