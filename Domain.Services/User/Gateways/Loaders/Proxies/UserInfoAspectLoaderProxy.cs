@@ -1,12 +1,12 @@
 ﻿using Common.Core.AOP;
 using Common.Core.DependencyInjection;
-using Domain.Services.User.Loaders.Mappers;
+using Domain.Services.User.Gateways.Loaders.Mappers;
 using Domain.User;
 using Infrastructure.Data.Sql.User.Repositories;
 using Microsoft.Extensions.Caching.Memory;
 using System.Reflection;
 
-namespace Domain.Services.User.Loaders.Proxies
+namespace Domain.Services.User.Gateways.Loaders.Proxies
 {
     [ServiceLocate(typeof(IUserInfoAspectLoader))]
     public class UserInfoAspectLoaderProxy : IUserInfoAspectLoader

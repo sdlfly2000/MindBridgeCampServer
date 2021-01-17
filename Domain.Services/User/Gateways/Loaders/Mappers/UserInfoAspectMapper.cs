@@ -1,5 +1,5 @@
 ﻿using Common.Core.DependencyInjection;
-using Domain.LoginToken;
+using Domain.Services.User.Gateways.Loaders.Mappers;
 using Domain.User;
 using Infrastructure.Data.Sql.User.Entities;
 

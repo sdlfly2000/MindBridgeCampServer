@@ -2,11 +2,11 @@
 using Domain.User;
 using Infrastructure.Data.Sql.User.Entities;
 
-namespace Domain.Services.User.Loaders.Mappers
+namespace Domain.Services.User.Gateways.Loaders.Mappers
 {
     [ServiceLocate(typeof(IUserAspectMapper))]
     public class UserAspectMapper : IUserAspectMapper
-    {       
+    {
         public IUserAspect Map(UserEntity entity)
         {
             return new UserAspect

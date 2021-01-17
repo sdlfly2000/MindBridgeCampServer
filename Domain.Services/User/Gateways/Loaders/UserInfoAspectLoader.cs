@@ -1,8 +1,8 @@
-﻿using Domain.Services.User.Loaders.Mappers;
+﻿using Domain.Services.User.Gateways.Loaders.Mappers;
 using Domain.User;
 using Infrastructure.Data.Sql.User.Repositories;
 
-namespace Domain.Services.User.Loaders
+namespace Domain.Services.User.Gateways.Loaders
 {
     public class UserInfoAspectLoader : IUserInfoAspectLoader
     {

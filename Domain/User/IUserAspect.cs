@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Common.Core.AOP;
+﻿using Common.Core.AOP;
 
 namespace Domain.User
 {

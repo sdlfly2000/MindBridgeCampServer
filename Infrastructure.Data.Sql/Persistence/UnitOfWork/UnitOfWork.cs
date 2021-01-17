@@ -1,4 +1,5 @@
 ﻿using Common.Core.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -28,7 +29,8 @@ namespace Infrastructure.Data.Sql.Persistence.UnitOfWork
 
             var entityExist = _context.Get<TEntity>().Find(id);
 
-            entityExist = entity;
+            _context.Get<TEntity>().Remove(entityExist);
+            _context.Get<TEntity>().Add(entity);
         }
     }
 }

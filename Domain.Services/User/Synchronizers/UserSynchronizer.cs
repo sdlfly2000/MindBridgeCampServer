@@ -1,65 +1,39 @@
 ﻿using Common.Core.DependencyInjection;
+using Domain.Services.User.Synchronizers.Persistors;
 using Domain.User;
-using Infrastructure.Data.Sql.Persistence.UnitOfWork;
-using Infrastructure.Data.Sql.User.Entities;
-using System.Linq;
+using Infrastructure.Data.Sql.Persistence;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Domain.Services.User.Synchronizers
 {
     [ServiceLocate(typeof(IUserSynchronizer))]
     public class UserSynchronizer : IUserSynchronizer
     {
-        private readonly IUnitOfWork<UserEntity> _uow;
+        private readonly IUserPersistor _userPersistor;
+        private readonly IMemoryCache _memoryCache;
+        private readonly IPersistence _persistence;
 
-        public UserSynchronizer(IUnitOfWork<UserEntity> uow)
+        public UserSynchronizer(
+            IUserPersistor userPersistor,
+            IPersistence persistence,
+            IMemoryCache memoryCache)
         {
-            _uow = uow;
+            _userPersistor = userPersistor;
+            _persistence = persistence;
+            _memoryCache = memoryCache;
         }
 
         public void Add(IUser user)
         {
-            if (user.UserId.Code.Equals(string.Empty))
-            {
-                return;
-            }
-
-            var entity = new UserEntity
-            {
-                userId = user.UserId.Code,
-                expectationAfterGraduation = user.ExpectationAfterGraduation,
-                gender = (int?)user.Gender,
-                height = user.Height,
-                majorIn = user.MajorIn,
-                name = user.Name,
-                studyContent = user.StudyContent,
-                weight = user.Weight,
-                hobby = user.Hobby
-            };
-
-            _uow.Add(entity);            
+            _userPersistor.Add(user);
+            _persistence.Complete();         
         }
 
         public void Synchronize(IUser user)
         {
-            if (user.UserId.Code.Equals(string.Empty))
-            { 
-                return;             
-            }
-
-            var entity = new UserEntity
-            {
-                userId = user.UserId.Code,
-                expectationAfterGraduation = user.ExpectationAfterGraduation,
-                gender = (int?)user.Gender,
-                height = user.Height,
-                majorIn = user.MajorIn,
-                name = user.Name,
-                studyContent = user.StudyContent,
-                weight = user.Weight,
-                hobby = user.Hobby
-            };
-
-            _uow.Persist(entity);            
+            _userPersistor.Update(user);
+            _persistence.Complete();
+            _memoryCache.Remove(user.UserId.CacheCode);
         }
     }
 }

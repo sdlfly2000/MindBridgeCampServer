@@ -1,6 +1,6 @@
 ﻿using Domain.User;
 
-namespace Domain.Services.User.Loaders
+namespace Domain.Services.User.Gateways.Loaders
 {
     public interface IUserInfoAspectLoader
     {

@@ -1,61 +1,39 @@
 ﻿using Common.Core.DependencyInjection;
+using Domain.Services.User.Synchronizers.Persistors;
 using Domain.User;
-using Infrastructure.Data.Sql.Persistence.UnitOfWork;
-using Infrastructure.Data.Sql.User.Entities;
-using System;
+using Infrastructure.Data.Sql.Persistence;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Domain.Services.User.Synchronizers
 {
     [ServiceLocate(typeof(IUserInfoSynchronizer))]
     public class UserInfoSynchronizer : IUserInfoSynchronizer
     {
-        private readonly IUnitOfWork<UserInfoEntity> _uow;
+        private readonly IUserInfoPersistor _userInfoPersistor;
+        private readonly IMemoryCache _memoryCache;
+        private readonly IPersistence _persistence;
 
-        public UserInfoSynchronizer(IUnitOfWork<UserInfoEntity> uow) 
+        public UserInfoSynchronizer(
+            IUserInfoPersistor userInfoPersistor,
+            IPersistence persistence,
+            IMemoryCache memoryCache) 
         {
-            _uow = uow;
+            _userInfoPersistor = userInfoPersistor;
+            _persistence = persistence;
+            _memoryCache = memoryCache;
         }
 
         public void Add(IUser user)
         {
-            if (user.OpenId.Code.Equals(string.Empty))
-            { 
-                return; 
-            }
-
-            var entity = new UserInfoEntity
-            {
-                openId = user.OpenId.Code,
-                avatarUrl = user.AvatarUrl,
-                city = user.City,
-                country = user.City,
-                language = user.Language,
-                nickName = user.NickName,
-                province = user.Province
-            };
-
-            _uow.Add(entity);            
+            _userInfoPersistor.Add(user);
+            _persistence.Complete();
         }
 
         public void Sychronize(IUser user)
         {
-            if (user.OpenId.Code.Equals(string.Empty))
-            {
-                return;
-            }
-
-            var entity = new UserInfoEntity
-            {
-                openId = user.OpenId.Code,
-                avatarUrl = user.AvatarUrl,
-                city = user.City,
-                country = user.City,
-                language = user.Language,
-                nickName = user.NickName,
-                province = user.Province
-            };
-
-            _uow.Persist<UserInfoEntity>(entity);            
+            _userInfoPersistor.Update(user);
+            _persistence.Complete();
+            _memoryCache.Remove(user.OpenId.CacheCode);
         }
     }
 }
