@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
-using Domain.User;
+﻿using System.Runtime.Serialization;
 
 namespace Application.User
 {
@@ -9,15 +7,15 @@ namespace Application.User
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string UserId { get; set; }
 
-        public GenderType Gender { get; set; }
+        public string Gender { get; set; }
 
         public string Name { get; set; }
 
         public string MajorIn { get; set; }
 
-        public int? Height { get; set; }
+        public string Height { get; set; }
 
-        public int? Weight { get; set; }
+        public string Weight { get; set; }
 
         public string StudyContent { get; set; }
 

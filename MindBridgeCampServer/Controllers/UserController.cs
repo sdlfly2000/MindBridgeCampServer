@@ -80,7 +80,7 @@ namespace MindBridgeCampServer.Controllers
         public IActionResult Update([FromBody] UserModel userModel)
         {
             LogService.Info<UserController>(
-                "UpdateUser" + Environment.NewLine + 
+                "Update" + Environment.NewLine + 
                 "User Model: " + JsonConvert.SerializeObject(userModel));
 
             _userService.Update(userModel);
