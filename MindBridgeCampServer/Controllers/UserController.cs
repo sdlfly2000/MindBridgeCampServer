@@ -77,7 +77,7 @@ namespace MindBridgeCampServer.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateUser([FromBody] UserModel userModel)
+        public IActionResult Update([FromBody] UserModel userModel)
         {
             LogService.Info<UserController>(
                 "UpdateUser" + Environment.NewLine + 
