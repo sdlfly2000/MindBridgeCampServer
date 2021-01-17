@@ -23,7 +23,7 @@ namespace Application.User
 
         public string ExpectationAfterGraduation { get; set; }
 
-        public IList<Hobby> Hobbies { get; set; }
+        public string Hobby { get; set; }
 
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string OpenId { get; set; }

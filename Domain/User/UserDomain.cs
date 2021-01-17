@@ -62,10 +62,10 @@ namespace Domain.User
             set { _userAspect.ExpectationAfterGraduation = value; }
         }
 
-        public IList<Hobby> Hobbies
+        public string Hobby
         {
-            get { return _userAspect.Hobbies; }
-            set { _userAspect.Hobbies = value; }
+            get { return _userAspect.Hobby; }
+            set { _userAspect.Hobby = value; }
         }
 
         public UserReference OpenId

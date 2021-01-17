@@ -97,46 +97,19 @@ namespace Infrastructure.Data.Sql.Migrations
                     height = table.Column<int>(nullable: true),
                     weight = table.Column<int>(nullable: true),
                     studyContent = table.Column<string>(nullable: true),
-                    expectationAfterGraduation = table.Column<string>(nullable: true)
+                    expectationAfterGraduation = table.Column<string>(nullable: true),
+                    hobby = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.userId);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "HobbyEntity",
-                columns: table => new
-                {
-                    hobbyId = table.Column<Guid>(nullable: false),
-                    name = table.Column<string>(nullable: false),
-                    isActive = table.Column<bool>(nullable: false),
-                    UserEntityuserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HobbyEntity", x => x.hobbyId);
-                    table.ForeignKey(
-                        name: "FK_HobbyEntity_Users_UserEntityuserId",
-                        column: x => x.UserEntityuserId,
-                        principalTable: "Users",
-                        principalColumn: "userId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_HobbyEntity_UserEntityuserId",
-                table: "HobbyEntity",
-                column: "UserEntityuserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Chats");
-
-            migrationBuilder.DropTable(
-                name: "HobbyEntity");
 
             migrationBuilder.DropTable(
                 name: "Participants");

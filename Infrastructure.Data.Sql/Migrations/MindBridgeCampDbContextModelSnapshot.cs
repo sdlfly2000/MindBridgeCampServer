@@ -111,29 +111,6 @@ namespace Infrastructure.Data.Sql.Migrations
                     b.ToTable("SignIns");
                 });
 
-            modelBuilder.Entity("Infrastructure.Data.Sql.User.Entities.HobbyEntity", b =>
-                {
-                    b.Property<Guid>("hobbyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("UserEntityuserId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
-
-                    b.Property<bool>("isActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("hobbyId");
-
-                    b.HasIndex("UserEntityuserId");
-
-                    b.ToTable("HobbyEntity");
-                });
-
             modelBuilder.Entity("Infrastructure.Data.Sql.User.Entities.UserEntity", b =>
                 {
                     b.Property<string>("userId")
@@ -147,6 +124,9 @@ namespace Infrastructure.Data.Sql.Migrations
 
                     b.Property<int?>("height")
                         .HasColumnType("int");
+
+                    b.Property<string>("hobby")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("majorIn")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -191,13 +171,6 @@ namespace Infrastructure.Data.Sql.Migrations
                     b.HasKey("openId");
 
                     b.ToTable("UserInfos");
-                });
-
-            modelBuilder.Entity("Infrastructure.Data.Sql.User.Entities.HobbyEntity", b =>
-                {
-                    b.HasOne("Infrastructure.Data.Sql.User.Entities.UserEntity", null)
-                        .WithMany("hobbies")
-                        .HasForeignKey("UserEntityuserId");
                 });
 #pragma warning restore 612, 618
         }

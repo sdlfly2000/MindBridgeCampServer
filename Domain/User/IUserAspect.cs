@@ -21,6 +21,6 @@ namespace Domain.User
 
         string ExpectationAfterGraduation { get; set; }
 
-        IList<Hobby> Hobbies { get; set; }
+        string Hobby { get; set; }
     }
 }

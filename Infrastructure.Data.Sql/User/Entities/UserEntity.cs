@@ -1,6 +1,4 @@
 ﻿using Infrastructure.Data.Sql.Persistence;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Sql.User.Entities
@@ -24,6 +22,6 @@ namespace Infrastructure.Data.Sql.User.Entities
 
         public string expectationAfterGraduation { get; set; }
 
-        public IList<HobbyEntity> hobbies { get; set; }
+        public string hobby { get; set; }
     }
 }

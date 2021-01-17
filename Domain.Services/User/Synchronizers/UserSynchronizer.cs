@@ -33,12 +33,7 @@ namespace Domain.Services.User.Synchronizers
                 name = user.Name,
                 studyContent = user.StudyContent,
                 weight = user.Weight,
-                hobbies = user.Hobbies.Select(hobby => new HobbyEntity
-                {
-                    hobbyId = hobby.Id,
-                    name = hobby.Name,
-                    isActive = hobby.IsActive
-                }).ToList()
+                hobby = user.Hobby
             };
 
             _uow.Add(entity);            
@@ -61,12 +56,7 @@ namespace Domain.Services.User.Synchronizers
                 name = user.Name,
                 studyContent = user.StudyContent,
                 weight = user.Weight,
-                hobbies = user.Hobbies.Select(hobby => new HobbyEntity
-                {
-                    hobbyId = hobby.Id,
-                    name = hobby.Name,
-                    isActive = hobby.IsActive
-                }).ToList()
+                hobby = user.Hobby
             };
 
             _uow.Persist(entity);            

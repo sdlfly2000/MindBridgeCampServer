@@ -51,7 +51,7 @@ namespace Application.Services.User.Processes
                 Gender = user.Gender,
                 Height = user.Height,
                 Weight = user.Weight,
-                Hobbies = user.Hobbies,
+                Hobby = user.Hobby,
                 Language = user.Language,
                 MajorIn = user.MajorIn,
                 Name = user.Name,

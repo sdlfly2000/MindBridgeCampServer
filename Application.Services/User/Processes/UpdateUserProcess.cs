@@ -34,7 +34,7 @@ namespace Application.Services.User.Processes
                    MajorIn = model.MajorIn,
                    Name = model.Name,
                    StudyContent = model.StudyContent,
-                   Hobbies = model.Hobbies
+                   Hobby = model.Hobby
                },
                new UserInfoAspect
                {
@@ -87,7 +87,7 @@ namespace Application.Services.User.Processes
                         MajorIn = model.MajorIn,
                         Name = model.Name,
                         StudyContent = model.StudyContent,
-                        Hobbies = model.Hobbies
+                        Hobby = model.Hobby
                     },
                 new UserInfoAspect());
 

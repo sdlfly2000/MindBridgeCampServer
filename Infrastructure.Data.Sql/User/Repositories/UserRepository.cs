@@ -17,7 +17,7 @@ namespace Infrastructure.Data.Sql.User.Repositories
 
         private IQueryable<UserEntity> FindAll()
         {
-            return _context.Users.Include(e => e.hobbies).AsQueryable();
+            return _context.Users.AsQueryable();
         }
 
         public UserEntity FindByGuid(string guid)

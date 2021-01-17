@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Domain.User
+﻿namespace Domain.User
 {
     public class UserAspect : IUserAspect
     {
@@ -12,6 +10,6 @@ namespace Domain.User
         public int? Weight { get; set; }
         public string StudyContent { get; set; }
         public string ExpectationAfterGraduation { get; set; }
-        public IList<Hobby> Hobbies { get; set; }
+        public string Hobby { get; set; }
     }
 }

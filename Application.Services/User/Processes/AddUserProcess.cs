@@ -39,14 +39,7 @@ namespace Application.Services.User.Processes
                     MajorIn = model.MajorIn,
                     Name = model.Name,
                     StudyContent = model.StudyContent,
-                    Hobbies = (model.Hobbies == null) 
-                        ? new List<Hobby>()
-                        : model.Hobbies.Select(hobby => new Hobby
-                            {
-                                Id = Guid.NewGuid(),
-                                Name = hobby.Name,
-                                IsActive = true
-                            }).ToList()
+                    Hobby = model.Hobby
                 },
                 new UserInfoAspect
                 {
