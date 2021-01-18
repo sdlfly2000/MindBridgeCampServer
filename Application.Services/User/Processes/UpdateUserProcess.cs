@@ -1,5 +1,4 @@
-﻿using Application.Services.User.Contracts;
-using Application.User;
+﻿using Application.User;
 using Common.Core.DependencyInjection;
 using Domain.Services.User;
 using Domain.User;
@@ -70,7 +69,7 @@ namespace Application.Services.User.Processes
         private int? MapInt(string value)
         {
             return string.IsNullOrEmpty(value)
-                ? default
+                ? (int?)null
                 : int.Parse(value);
         }
 
