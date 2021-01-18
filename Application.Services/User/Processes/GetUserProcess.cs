@@ -48,7 +48,7 @@ namespace Application.Services.User.Processes
                 City = user.City,
                 Country = user.Country,
                 ExpectationAfterGraduation = user.ExpectationAfterGraduation,
-                Gender = user.Gender.ToString(),
+                Gender = ((int)user.Gender).ToString(),
                 Height = user.Height.Value.ToString(),
                 Weight = user.Weight.Value.ToString(),
                 Hobby = user.Hobby,
