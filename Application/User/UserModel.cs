@@ -4,9 +4,6 @@ namespace Application.User
 {
     public class UserModel
     {
-        [DataMember(IsRequired = false, EmitDefaultValue = false)]
-        public string UserId { get; set; }
-
         public string Gender { get; set; }
 
         public string Name { get; set; }
@@ -22,9 +19,6 @@ namespace Application.User
         public string ExpectationAfterGraduation { get; set; }
 
         public string Hobby { get; set; }
-
-        [DataMember(IsRequired = false, EmitDefaultValue = false)]
-        public string OpenId { get; set; }
 
         public string NickName { get; set; }
 

@@ -44,12 +44,7 @@ namespace Application.Services.User
         {
             return _getUserProcess.Get(request);
         }
-
-        public GetResponse Update(UserModel model)
-        {
-            return _updateUserProcess.Update(model);
-        }
-
+        
         public void UpdateUserInfo(string loginToken, UserModel model)
         {
             _updateUserProcess.UpdateUserInfo(loginToken, model);

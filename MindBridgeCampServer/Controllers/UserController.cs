@@ -76,18 +76,6 @@ namespace MindBridgeCampServer.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult Update([FromBody] UserModel userModel)
-        {
-            LogService.Info<UserController>(
-                "Update" + Environment.NewLine + 
-                "User Model: " + JsonConvert.SerializeObject(userModel));
-
-            _userService.Update(userModel);
-
-            return Ok();
-        }
-
         [HttpPost("{loginToken}")]
         public IActionResult UpdateUserInfo(string loginToken, [FromBody] UserModel userModel)
         {

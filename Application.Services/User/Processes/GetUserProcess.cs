@@ -56,10 +56,8 @@ namespace Application.Services.User.Processes
                 MajorIn = user.MajorIn,
                 Name = user.Name,
                 NickName = user.NickName,
-                OpenId = user.OpenId.Code,
                 Province = user.Province,
                 StudyContent = user.StudyContent,
-                UserId = user.UserId.Code
             };
         }
 

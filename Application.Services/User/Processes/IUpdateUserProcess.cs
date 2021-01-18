@@ -1,12 +1,9 @@
-﻿using Application.Services.User.Contracts;
-using Application.User;
+﻿using Application.User;
 
 namespace Application.Services.User.Processes
 {
     public interface IUpdateUserProcess
     {
-        GetResponse Update(UserModel model);
-
         void UpdateUserInfo(string loginToken, UserModel model);
 
         void UpdateUser(string loginToken, UserModel model);

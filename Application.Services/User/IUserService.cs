@@ -9,8 +9,6 @@ namespace Application.Services.User
 
         void Add(string loginToken, UserModel model);
 
-        GetResponse Update(UserModel model);
-
         void UpdateUserInfo(string loginToken, UserModel model);
 
         void UpdateUser(string loginToken, UserModel model);

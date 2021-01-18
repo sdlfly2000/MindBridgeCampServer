@@ -21,39 +21,6 @@ namespace Application.Services.User.Processes
             _loginTokenGateway = loginTokenGateway;
         }
 
-        public GetResponse Update(UserModel model)
-        {
-            var user = new UserDomain(
-               new UserAspect
-               {
-                   UserId = new UserReference(model.UserId, "UserAspect"),
-                   ExpectationAfterGraduation = model.ExpectationAfterGraduation,
-                   Gender = MapInt(model.Gender) == null
-                        ? GenderType.Unknown
-                        : (GenderType)MapInt(model.Gender),
-                   Height = int.Parse(model.Height),
-                   Weight = int.Parse(model.Weight),
-                   MajorIn = model.MajorIn,
-                   Name = model.Name,
-                   StudyContent = model.StudyContent,
-                   Hobby = model.Hobby
-               },
-               new UserInfoAspect
-               {
-                   OpenId = new UserReference(model.OpenId, "UserInfoAspect"),
-                   NickName = model.NickName,
-                   AvatarUrl = model.AvatarUrl,
-                   City = model.City,
-                   Country = model.Country,
-                   Language = model.Language,
-                   Province = model.Province
-               });
-
-            _userGateway.Save(user);
-
-            return new GetResponse();
-        }
-
         public void UpdateUserInfo(string loginToken, UserModel model)
         {
             var token = _loginTokenGateway.Get(loginToken);
