@@ -1,11 +1,13 @@
 ﻿using Application.LearningRoom;
 using Application.Services.LearningRoom.Contracts;
 using Common.Core.DependencyInjection;
+using Core;
 using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways;
 using Domain.Services.LearningRoom.Synchronizors;
 using Domain.Services.LoginToken;
 using System;
+using System.Linq;
 
 namespace Application.Services.LearningRoom.Processes
 {
@@ -26,6 +28,15 @@ namespace Application.Services.LearningRoom.Processes
             _learningRoomGateway = learningRoomGateway;
             _learningRoomSynchronizor = learningRoomSynchronizor;
             _loginTokenGateway = loginTokenGateway;
+        }
+
+        public bool IsJoin(string loginToken, string roomId)
+        {
+            var login = _loginTokenGateway.Get(loginToken);
+            var room = _learningRoomGateway.Load(new RoomReference(roomId, CacheField.Room));
+
+            return room.Participants.Any(p => p.User.Equals(login.OpenId));
+
         }
 
         public GetResponse Join(string loginToken, string roomId)

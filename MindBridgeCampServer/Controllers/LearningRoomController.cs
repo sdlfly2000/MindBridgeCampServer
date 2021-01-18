@@ -144,7 +144,26 @@ namespace MindBridgeCampServer.Controllers
                 LogService.Info<LearningRoomController>(e.Message);
                 return BadRequest(e.Message);
             }
+        }
 
+        [HttpGet("{loginToken}/{roomId}")]
+        public IActionResult IsJoinRoom(string loginToken, string roomId)
+        {
+            LogService.Info<LearningRoomController>(
+                "IsJoinRoom" + Environment.NewLine +
+                "Login Token: " + loginToken + Environment.NewLine +
+                "Room ID: " + roomId);
+
+            try
+            {
+                var isJoinRoom = _learningRoomService.IsJoinRoom(loginToken, roomId);
+                return isJoinRoom ? Ok() : (IActionResult)BadRequest();
+            }
+            catch (Exception e)
+            {
+                LogService.Info<LearningRoomController>(e.Message);
+                return BadRequest(e.Message);
+            }
         }
     }
 }

@@ -14,6 +14,8 @@ namespace Application.Services.LearningRoom
 
         GetResponse JoinRoom(string loginToken, string roomId);
 
+        bool IsJoinRoom(string loginToken, string roomId);
+
         void SignInRoom(string loginToken, string roomId);
 
         IList<ParticipantModel> GetParticipants(string roomId);

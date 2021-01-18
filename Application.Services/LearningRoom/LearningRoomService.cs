@@ -61,5 +61,10 @@ namespace Application.Services.LearningRoom
         {
             _signInRoomProcess.SignIn(loginToken, roomId);
         }
+
+        public bool IsJoinRoom(string loginToken, string roomId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
