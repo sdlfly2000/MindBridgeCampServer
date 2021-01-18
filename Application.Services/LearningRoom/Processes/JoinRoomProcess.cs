@@ -36,7 +36,6 @@ namespace Application.Services.LearningRoom.Processes
             var room = _learningRoomGateway.Load(new RoomReference(roomId, CacheField.Room));
 
             return room.Participants.Any(p => p.User.Equals(login.OpenId));
-
         }
 
         public GetResponse Join(string loginToken, string roomId)

@@ -64,7 +64,7 @@ namespace Application.Services.LearningRoom
 
         public bool IsJoinRoom(string loginToken, string roomId)
         {
-            throw new System.NotImplementedException();
+            return _joinRoomProcess.IsJoin(loginToken, roomId);
         }
     }
 }
