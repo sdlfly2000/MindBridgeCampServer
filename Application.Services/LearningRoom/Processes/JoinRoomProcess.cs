@@ -45,17 +45,20 @@ namespace Application.Services.LearningRoom.Processes
             var room = _learningRoomGateway.Load(new RoomReference(roomId));
             var user = _loginTokenGateway.Get(loginToken);
 
-            var participant = new Participant 
+            if(!room.Participants.Any(p => p.User.Equals(user.OpenId)))
             {
-                Reference = new ParticipantReference(Guid.NewGuid().ToString()),
-                IsDeleted = false,
-                Room = new RoomReference(roomId),
-                User = user.OpenId
-            };
+                var participant = new Participant
+                {
+                    Reference = new ParticipantReference(Guid.NewGuid().ToString()),
+                    IsDeleted = false,
+                    Room = new RoomReference(roomId),
+                    User = user.OpenId
+                };
 
-            room.Participants.Add(participant);
+                room.Participants.Add(participant);
 
-            _learningRoomSynchronizor.Update(room);
+                _learningRoomSynchronizor.Update(room);
+            }
 
             var roomUpdate = _learningRoomGateway.Load(room.Reference);
 
