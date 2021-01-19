@@ -26,12 +26,12 @@ namespace Application.Services.User.Processes
 
         public void Add(string loginToken, UserModel model)
         {
-            var token = new UserReference("o3Huo5c8uh8i6kgeWQ4zzLEW20Rc");
+            var token = _loginTokenGateway.Get(loginToken);
 
             var user = new UserDomain(
                 new UserAspect
                 {
-                    UserId = new UserReference(token.Code, "UserAspect"),
+                    UserId = new UserReference(token.OpenId.Code, "UserAspect"),
                     ExpectationAfterGraduation = model.ExpectationAfterGraduation,
                     Gender = MapInt(model.Gender) == null 
                         ? GenderType.Unknown 
@@ -45,7 +45,7 @@ namespace Application.Services.User.Processes
                 },
                 new UserInfoAspect
                 {
-                    OpenId = new UserReference(token.Code, "UserInfo"),
+                    OpenId = new UserReference(token.OpenId.Code, "UserInfo"),
                     NickName = model.NickName,
                     AvatarUrl = model.AvatarUrl,
                     City = model.City,
