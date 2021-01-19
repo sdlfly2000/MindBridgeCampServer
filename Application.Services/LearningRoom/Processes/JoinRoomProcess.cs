@@ -42,7 +42,7 @@ namespace Application.Services.LearningRoom.Processes
         {
             var response = new GetResponse();
 
-            var room = _learningRoomGateway.Load(new RoomReference(roomId));
+            var room = _learningRoomGateway.Load(new RoomReference(roomId, CacheField.Room));
             var user = _loginTokenGateway.Get(loginToken);
 
             if(!room.Participants.Any(p => p.User.Equals(user.OpenId)))
@@ -60,7 +60,7 @@ namespace Application.Services.LearningRoom.Processes
                 _learningRoomSynchronizor.Update(room);
             }
 
-            var roomUpdate = _learningRoomGateway.Load(room.Reference);
+            var roomUpdate = _learningRoomGateway.Load(new RoomReference(room.Reference.Code, CacheField.Room));
 
             response.LearningRooms.Add(new LearningRoomModel
             {
