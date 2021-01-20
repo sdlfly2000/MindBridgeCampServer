@@ -85,11 +85,19 @@ namespace MindBridgeCampServer.Controllers
         [LogService]
         public IActionResult GetParticipants(string roomId)
         {
-            var participants = _learningRoomService.GetParticipants(roomId);
+            try
+            {
+                var participants = _learningRoomService.GetParticipants(roomId);
 
-            var responseMessage = JsonConvert.SerializeObject(participants);
+                var responseMessage = JsonConvert.SerializeObject(participants);
 
-            return Ok(responseMessage);
+                return Ok(responseMessage);
+            }
+            catch(Exception e)
+            {
+                LogService.Info<LearningRoomController>(e.StackTrace);
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet("{loginToken}")]
