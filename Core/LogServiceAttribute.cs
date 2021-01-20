@@ -35,7 +35,7 @@ namespace Core
             LogService.Info<LogServiceAttribute>(
                 "Return: " + Environment.NewLine +
                 "StatusCode: " + statusCode + Environment.NewLine + 
-                "Value: " + value);
+                "Value: " + value + Environment.NewLine);
         }
     }
 }
