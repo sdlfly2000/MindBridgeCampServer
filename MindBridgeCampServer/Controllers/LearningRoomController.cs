@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Application.Services.LearningRoom;
 using Common.Core.LogService;
+using Core;
 using Microsoft.AspNetCore.Mvc;
 using MindBridgeCampServer.Models;
 using Newtonsoft.Json;
@@ -21,9 +22,9 @@ namespace MindBridgeCampServer.Controllers
         }
 
         [HttpGet]
+        [LogService]
         public async Task<IActionResult> GetAvailableRooms()
         {
-            LogService.Info<LearningRoomController>("Get Available Rooms");
             var task = Task.Run<IActionResult>(
             () =>
                    {
@@ -33,11 +34,11 @@ namespace MindBridgeCampServer.Controllers
 
                            var response = JsonConvert.SerializeObject(availableRooms.LearningRooms);
 
-                           LogService.Info<LearningRoomController>(response);
                            return Ok(response);
                        }
                        catch (Exception e)
                        {
+                           LogService.Info<LearningRoomController>(e.StackTrace);
                            return BadRequest(e.Message);
                        }
                    });
@@ -45,18 +46,16 @@ namespace MindBridgeCampServer.Controllers
         }
 
         [HttpPost("{loginToken}")]
+        [LogService]
         public IActionResult CreateRoom(string loginToken, [FromBody] LearningRoomRequestModel request)
         {
-            LogService.Info<LearningRoomController>(
-                "Create Room" + Environment.NewLine + "Login Token: " + loginToken + Environment.NewLine + "Model: "
-                + JsonConvert.SerializeObject(request));
             try
             {
                 _learningRoomService.CreateRoom(loginToken, request.Model);
             }
             catch (Exception e)
             {
-                LogService.Info<LearningRoomController>(e.Message);
+                LogService.Info<LearningRoomController>(e.StackTrace);
                 return BadRequest(e.Message);
             }
 
@@ -64,76 +63,58 @@ namespace MindBridgeCampServer.Controllers
         }
 
         [HttpGet("{loginToken}/{roomId}")]
+        [LogService]
         public IActionResult JoinRoom(string loginToken, string roomId)
         {
-            LogService.Info<LearningRoomController>(
-                "Join Room" + Environment.NewLine +
-                "Login Token: " + loginToken + Environment.NewLine +
-                "Room ID: " + roomId);
-
             try
             {
                 var response = _learningRoomService.JoinRoom(loginToken, roomId);
 
                 var responseMessage = JsonConvert.SerializeObject(response.LearningRooms);
 
-                LogService.Info<LearningRoomController>(responseMessage);
                 return Ok(responseMessage);
             }
             catch (Exception e)
             {
-                LogService.Info<LearningRoomController>(e.Message);
+                LogService.Info<LearningRoomController>(e.StackTrace);
                 return BadRequest(e.Message);
             }
         }
 
         [HttpGet("{roomId}")]
+        [LogService]
         public IActionResult GetParticipants(string roomId)
         {
-            LogService.Info<LearningRoomController>(
-                "Join Room" + Environment.NewLine + 
-                "Room ID: " + roomId);
-
             var participants = _learningRoomService.GetParticipants(roomId);
 
             var responseMessage = JsonConvert.SerializeObject(participants);
 
-            LogService.Info<LearningRoomController>(responseMessage);
             return Ok(responseMessage);
         }
 
         [HttpGet("{loginToken}")]
+        [LogService]
         public IActionResult GetRoomsParticipated(string loginToken)
         {
-            LogService.Info<LearningRoomController>(
-                "GetRoomsParticipated" + Environment.NewLine +
-                "login Token: " + loginToken);
-
             try
             {
                 var models = _learningRoomService.GetRoomsParticipated(loginToken);
 
                 var responseMessage = JsonConvert.SerializeObject(models);
 
-                LogService.Info<LearningRoomController>(responseMessage);
                 return Ok(responseMessage);
             }
             catch (Exception e)
             {
-                LogService.Info<LearningRoomController>(e.Message);
                 LogService.Info<LearningRoomController>(e.StackTrace);
                 return BadRequest(e.Message);
             }
         }
 
         [HttpGet("{loginToken}/{roomId}")]
+        [LogService]
         public IActionResult SignInRoom(string loginToken, string roomId)
         {
-            LogService.Info<LearningRoomController>(
-                "SignInRoom" + Environment.NewLine +
-                "Login Token: " + loginToken + Environment.NewLine +
-                "Room ID: " + roomId);
-
             try
             {
                 _learningRoomService.SignInRoom(loginToken, roomId);
@@ -141,19 +122,15 @@ namespace MindBridgeCampServer.Controllers
             }
             catch (Exception e)
             {
-                LogService.Info<LearningRoomController>(e.Message);
+                LogService.Info<LearningRoomController>(e.StackTrace);
                 return BadRequest(e.Message);
             }
         }
 
         [HttpGet("{loginToken}/{roomId}")]
+        [LogService]
         public IActionResult IsJoinRoom(string loginToken, string roomId)
         {
-            LogService.Info<LearningRoomController>(
-                "IsJoinRoom" + Environment.NewLine +
-                "Login Token: " + loginToken + Environment.NewLine +
-                "Room ID: " + roomId);
-
             try
             {
                 var isJoinRoom = _learningRoomService.IsJoinRoom(loginToken, roomId);
@@ -161,7 +138,7 @@ namespace MindBridgeCampServer.Controllers
             }
             catch (Exception e)
             {
-                LogService.Info<LearningRoomController>(e.Message);
+                LogService.Info<LearningRoomController>(e.StackTrace);
                 return BadRequest(e.Message);
             }
         }
