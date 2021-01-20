@@ -8,9 +8,9 @@ namespace MindBridgeCampServer.Controllers
     public class HomeController : ControllerBase
     {
         [HttpGet]
+        [LogService]
         public IActionResult IsAlive()
         {
-            LogService.Info<HomeController>("IsAlive");
             return Ok("Mind Bridge Camp Service is alive.");
         }
     }

@@ -21,24 +21,31 @@ namespace MindBridgeCampServer.Controllers
 
         // GET api/<UserController>/5
         [HttpGet("{userId}")]
+        [LogService]
         public IActionResult Get(string userId)
         {
-            LogService.Info<UserController>("Get" + Environment.NewLine + "User ID: " + userId);
-
-            var response = _userService.Get(new GetByIdRequest 
+            try
             {
-                UserId = userId
-            });
+                var response = _userService.Get(new GetByIdRequest
+                {
+                    UserId = userId
+                });
 
-            return Ok(JsonConvert.SerializeObject(response.User));
+                return Ok(JsonConvert.SerializeObject(response.User));
+            }
+            catch(Exception e)
+            {
+                LogService.Info<UserController>(
+                    e.Message + Environment.NewLine +
+                    e.StackTrace);
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet("{loginToken}")]
+        [LogService]
         public IActionResult GetByToken(string loginToken)
         {
-            LogService.Info<UserController>(
-                "GetByToken" + Environment.NewLine + 
-                "Login Token: " + loginToken);
             try
             {
                 var response = _userService.Get(new GetByLoginTokenRequest
@@ -58,12 +65,9 @@ namespace MindBridgeCampServer.Controllers
         }
 
         [HttpPost("{loginToken}")]
+        [LogService]
         public IActionResult AddUser(string loginToken, [FromBody] UserModel userModel)
         {
-            LogService.Info<UserController>(
-                "AddUser" + Environment.NewLine +
-                "loginToken: " + loginToken + Environment.NewLine +
-                "userModel: " + JsonConvert.SerializeObject(userModel));
             try
             {
                 _userService.Add(loginToken, userModel);
@@ -77,12 +81,9 @@ namespace MindBridgeCampServer.Controllers
         }
 
         [HttpPost("{loginToken}")]
+        [LogService]
         public IActionResult UpdateUserInfo(string loginToken, [FromBody] UserModel userModel)
         {
-            LogService.Info<UserController>(
-                "UpdateUserInfo" + Environment.NewLine +
-                "loginToken: " + loginToken + Environment.NewLine +
-                "userModel: " + JsonConvert.SerializeObject(userModel));
             try
             {
                 _userService.UpdateUserInfo(loginToken, userModel);
@@ -96,12 +97,9 @@ namespace MindBridgeCampServer.Controllers
         }
 
         [HttpPost("{loginToken}")]
+        [LogService]
         public IActionResult UpdateUser(string loginToken, [FromBody] UserModel userModel)
         {
-            LogService.Info<UserController>(
-                "UpdateUser" + Environment.NewLine +
-                "loginToken: " + loginToken + Environment.NewLine +
-                "userModel: " + JsonConvert.SerializeObject(userModel));
             try
             {
                 _userService.UpdateUser(loginToken, userModel);
@@ -115,11 +113,9 @@ namespace MindBridgeCampServer.Controllers
         }
 
         [HttpGet("{loginToken}")]
+        [LogService]
         public IActionResult IsUserExist(string loginToken)
         {
-            LogService.Info<UserController>(
-                "IsUserExsit" + Environment.NewLine +
-                "loginToken: " + loginToken);
             try
             {
                 var isExist = _userService.IsUserExist(loginToken);
