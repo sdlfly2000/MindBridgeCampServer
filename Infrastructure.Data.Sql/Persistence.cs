@@ -1,9 +1,10 @@
-﻿using Common.Core.DependencyInjection;
+﻿using Common.Core.Data.Sql;
+using Common.Core.DependencyInjection;
 
-namespace Infrastructure.Data.Sql.Persistence
+namespace Infrastructure.Data.Sql
 {
     [ServiceLocate(typeof(IPersistence))]
-    public class Persistence: IPersistence
+    public class Persistence : IPersistence
     {
         private readonly IMindBridgeCampDbContext _context;
 

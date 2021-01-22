@@ -1,6 +1,5 @@
-﻿using Infrastructure.Data.Sql.Persistence;
+﻿using Common.Core.Data.Sql;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Sql.LearningRoom.Entities

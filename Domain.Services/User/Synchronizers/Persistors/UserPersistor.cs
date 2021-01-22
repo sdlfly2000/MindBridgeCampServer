@@ -1,7 +1,6 @@
-﻿using Common.Core.DependencyInjection;
+﻿using Common.Core.Data.Sql;
+using Common.Core.DependencyInjection;
 using Domain.User;
-using Infrastructure.Data.Sql.Persistence;
-using Infrastructure.Data.Sql.Persistence.UnitOfWork;
 using Infrastructure.Data.Sql.User.Entities;
 
 namespace Domain.Services.User.Synchronizers.Persistors

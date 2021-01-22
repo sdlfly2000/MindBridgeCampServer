@@ -1,9 +1,9 @@
-﻿using Common.Core.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
+﻿using Common.Core.Data.Sql;
+using Common.Core.DependencyInjection;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Infrastructure.Data.Sql.Persistence.UnitOfWork
+namespace Infrastructure.Data.Sql
 {
     [ServiceLocate(typeof(IUnitOfWork<>))]
     public class UnitOfWork<TEntity> : IUnitOfWork<TEntity> where TEntity : class

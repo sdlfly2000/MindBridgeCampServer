@@ -1,5 +1,5 @@
-﻿using Domain.LearningRoom;
-using Infrastructure.Data.Sql.Persistence;
+﻿using Common.Core.Data.Sql;
+using Domain.LearningRoom;
 
 namespace Domain.Services.LearningRoom.Synchronizors.Persistors
 {

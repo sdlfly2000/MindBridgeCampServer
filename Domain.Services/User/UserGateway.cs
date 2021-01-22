@@ -2,8 +2,6 @@
 using Domain.Services.User.Gateways.Loaders;
 using Domain.Services.User.Synchronizers;
 using Domain.User;
-using Infrastructure.Data.Sql.Persistence;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Domain.Services.User
 {

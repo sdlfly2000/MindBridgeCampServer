@@ -1,7 +1,7 @@
-﻿using Common.Core.DependencyInjection;
+﻿using Common.Core.Data.Sql;
+using Common.Core.DependencyInjection;
 using Domain.Services.User.Synchronizers.Persistors;
 using Domain.User;
-using Infrastructure.Data.Sql.Persistence;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Domain.Services.User.Synchronizers

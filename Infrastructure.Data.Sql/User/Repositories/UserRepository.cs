@@ -1,6 +1,5 @@
 ﻿using Common.Core.DependencyInjection;
 using Infrastructure.Data.Sql.User.Entities;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace Infrastructure.Data.Sql.User.Repositories

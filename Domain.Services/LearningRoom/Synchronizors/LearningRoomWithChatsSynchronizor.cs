@@ -1,9 +1,9 @@
 ﻿using System.Linq;
+using Common.Core.Data.Sql;
 using Common.Core.DependencyInjection;
 using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways;
 using Domain.Services.LearningRoom.Synchronizors.Persistors;
-using Infrastructure.Data.Sql.Persistence;
 
 namespace Domain.Services.LearningRoom.Synchronizors
 {

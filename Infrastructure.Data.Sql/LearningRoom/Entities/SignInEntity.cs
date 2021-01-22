@@ -1,4 +1,4 @@
-﻿using Infrastructure.Data.Sql.Persistence;
+﻿using Common.Core.Data.Sql;
 using System;
 using System.ComponentModel.DataAnnotations;
 

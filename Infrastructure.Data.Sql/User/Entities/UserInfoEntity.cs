@@ -1,5 +1,4 @@
-﻿using Infrastructure.Data.Sql.Persistence;
-using System;
+﻿using Common.Core.Data.Sql;
 using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Sql.User.Entities

@@ -1,8 +1,7 @@
 ﻿using Common.Core.DependencyInjection;
 using Domain.LearningRoom;
 using Infrastructure.Data.Sql.LearningRoom.Entities;
-using Infrastructure.Data.Sql.Persistence.UnitOfWork;
-using Infrastructure.Data.Sql.Persistence;
+using Common.Core.Data.Sql;
 
 namespace Domain.Services.LearningRoom.Synchronizors.Persistors
 {
