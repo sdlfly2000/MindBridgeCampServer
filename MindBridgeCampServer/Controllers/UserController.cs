@@ -71,7 +71,7 @@ namespace MindBridgeCampServer.Controllers
             try
             {
                 _userService.Add(loginToken, userModel);
-                return Ok();
+                return Ok("Update Successfully.");
             }
             catch (Exception e)
             {
@@ -87,7 +87,7 @@ namespace MindBridgeCampServer.Controllers
             try
             {
                 _userService.UpdateUserInfo(loginToken, userModel);
-                return Ok();
+                return Ok("Update UserInfo Successfully.");
             }
             catch (Exception e)
             {
@@ -103,7 +103,7 @@ namespace MindBridgeCampServer.Controllers
             try
             {
                 _userService.UpdateUser(loginToken, userModel);
-                return Ok();
+                return Ok("Update User Successfully.");
             }
             catch (Exception e)
             {
@@ -122,10 +122,10 @@ namespace MindBridgeCampServer.Controllers
 
                 if (!isExist)
                 {
-                    return BadRequest();
+                    return BadRequest("User does not Exist.");
                 }
 
-                return Ok();
+                return Ok("User Exists.");
             }
             catch (Exception e)
             {

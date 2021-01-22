@@ -58,7 +58,7 @@ namespace MindBridgeCampServer.Controllers
                 return BadRequest(e.Message);
             }
 
-            return Ok();
+            return Ok("Create Room Successfully.");
         }
 
         [HttpGet("{loginToken}/{roomId}")]
@@ -125,7 +125,7 @@ namespace MindBridgeCampServer.Controllers
             try
             {
                 _learningRoomService.SignInRoom(loginToken, roomId);
-                return Ok();
+                return Ok("Sign In Successfully.");
             }
             catch (Exception e)
             {
@@ -141,7 +141,7 @@ namespace MindBridgeCampServer.Controllers
             try
             {
                 var isJoinRoom = _learningRoomService.IsJoinRoom(loginToken, roomId);
-                return isJoinRoom ? Ok() : (IActionResult)BadRequest();
+                return isJoinRoom ? Ok("Joined") : (IActionResult)BadRequest("Not Join");
             }
             catch (Exception e)
             {
