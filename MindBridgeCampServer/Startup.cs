@@ -8,6 +8,7 @@ using Common.Core.DependencyInjection;
 using Infrastructure.Data.Sql;
 using Microsoft.EntityFrameworkCore;
 using Common.Core.LogService;
+using MindBridgeCampServer.Middlewares;
 
 namespace MindBridgeCampServer
 {
@@ -36,6 +37,7 @@ namespace MindBridgeCampServer
 
             DIModule.RegisterDomain(services, new List<string>
               {
+                  "MindBridgeCampServer",
                   "Application.Services",
                   "Domain.Services",
                   "Infrastructure.Data.Sql",
@@ -50,6 +52,10 @@ namespace MindBridgeCampServer
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseWebSockets();
+
+            app.UseWebSocketNotify();
 
             app.UseHttpsRedirection();
 
