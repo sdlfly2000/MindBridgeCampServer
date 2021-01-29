@@ -55,7 +55,7 @@ namespace MindBridgeCampServer
 
             app.UseWebSockets();
 
-            app.UseWebSocketNotify();
+            app.UseWebSocketRouter();
 
             app.UseHttpsRedirection();
 

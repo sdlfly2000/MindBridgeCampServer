@@ -8,8 +8,8 @@ using System;
 
 namespace MindBridgeCampServer.Middlewares
 {
-    [ServiceLocate(typeof(IWebSocketNotifyMiddleware))]
-    public class WebSocketNotifyMiddleware : IWebSocketNotifyMiddleware
+    [ServiceLocate(typeof(IWebSocketRouterMiddleware))]
+    public class WebSocketRouterMiddleware : IWebSocketRouterMiddleware
     {
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
@@ -34,9 +34,9 @@ namespace MindBridgeCampServer.Middlewares
 
     public static class WebSocketNotifyMiddlewareExtentions
     {
-        public static IApplicationBuilder UseWebSocketNotify(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseWebSocketRouter(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<IWebSocketNotifyMiddleware>();
+            return builder.UseMiddleware<IWebSocketRouterMiddleware>();
         }
     }
 }
