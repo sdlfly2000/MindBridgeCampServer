@@ -8,9 +8,20 @@ using System;
 
 namespace MindBridgeCampServer.Middlewares
 {
+    using System.Collections.Generic;
+
     [ServiceLocate(typeof(IWebSocketRouterMiddleware))]
     public class WebSocketRouterMiddleware : IWebSocketRouterMiddleware
     {
+        private readonly Dictionary<string, Type> _patternTypePairs;
+        private readonly IServiceProvider _provider;
+
+        public WebSocketRouterMiddleware(Dictionary<string, Type> patternTypePairs, IServiceProvider provider)
+        {
+            _patternTypePairs = patternTypePairs;
+            _provider = provider;
+        }
+
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             if (context.WebSockets.IsWebSocketRequest)
@@ -28,15 +39,16 @@ namespace MindBridgeCampServer.Middlewares
                     await socketFinishedTcs.Task;
                 }
             }
+
             await next(context);
         }
     }
 
     public static class WebSocketNotifyMiddlewareExtentions
     {
-        public static IApplicationBuilder UseWebSocketRouter(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseWebSocketRouter(this IApplicationBuilder builder, Dictionary<string, Type> patternTypePairs)
         {
-            return builder.UseMiddleware<IWebSocketRouterMiddleware>();
+            return builder.UseMiddleware<IWebSocketRouterMiddleware>(patternTypePairs, builder.ApplicationServices);
         }
     }
 }

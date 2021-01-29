@@ -12,6 +12,10 @@ using MindBridgeCampServer.Middlewares;
 
 namespace MindBridgeCampServer
 {
+    using System;
+
+    using MindBridgeCampServer.Controllers;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -55,7 +59,10 @@ namespace MindBridgeCampServer
 
             app.UseWebSockets();
 
-            app.UseWebSocketRouter();
+            app.UseWebSocketRouter(new Dictionary<string, Type>
+            {
+                { "ChatMessage", typeof(HomeController) }
+            });
 
             app.UseHttpsRedirection();
 
