@@ -4,6 +4,9 @@ using System.Net.WebSockets;
 using System.Threading;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
+using MindBridgeCampServer.Hubs;
 
 public static class WebSocketRouterMiddlewareExtentions
 {
@@ -14,17 +17,18 @@ public static class WebSocketRouterMiddlewareExtentions
             {
                 if (context.WebSockets.IsWebSocketRequest)
                 {
-                    using (var webSocket = await context.WebSockets.AcceptWebSocketAsync())
+                    var hub = GetService(builder, patternTypePairs, context.Request.Path) as IWebSocketHub;
+
+                    if (hub != null)
                     {
-                        var socketFinishedTcs = new TaskCompletionSource<object>();
+                        using (var webSocket = await context.WebSockets.AcceptWebSocketAsync())
+                        {
+                            var socketFinishedTcs = new TaskCompletionSource<object>();
 
-                        var buffer = WebSocket.CreateServerBuffer(255);
+                            hub.SetWebSocket(webSocket, socketFinishedTcs);
 
-                        var response = await webSocket.ReceiveAsync(buffer, CancellationToken.None);
-
-                        Console.WriteLine(buffer.ToString());
-
-                        await socketFinishedTcs.Task;
+                            await socketFinishedTcs.Task;
+                        }
                     }
                 }
 
@@ -32,4 +36,26 @@ public static class WebSocketRouterMiddlewareExtentions
             }
         );
     }
+
+    #region Private Methods
+
+    private static object GetService(IApplicationBuilder builder, Dictionary<string, Type> patternTypePairs, PathString requestPattern)
+    {
+        var registeredPatterns = patternTypePairs.Keys.Select(p => PathString.FromUriComponent(p)).ToList();
+        var matchedPattern = new PathString();
+        var remainingPattern = new PathString();
+
+        if (registeredPatterns.Any(r => requestPattern.StartsWithSegments(r, out matchedPattern, out remainingPattern)))
+        {
+            var service = patternTypePairs.GetValueOrDefault(matchedPattern);
+
+            return service != null
+                ? builder.ApplicationServices.GetService(service)
+                : null;
+        }
+
+        return null;
+    }
+
+    #endregion
 }

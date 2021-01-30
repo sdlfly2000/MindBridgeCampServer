@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MindBridgeCampServer.Hubs
+﻿namespace MindBridgeCampServer.Hubs
 {
-    public interface IChatMessageHub
+    public interface IChatMessageHub : IWebSocketHub
     {
     }
 }

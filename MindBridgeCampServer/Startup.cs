@@ -58,7 +58,7 @@ namespace MindBridgeCampServer
 
             app.UseWebSocketRouter(new Dictionary<string, Type>
             {
-                { "ChatMessage", typeof(IChatMessageHub) }
+                { "/ChatMessage", typeof(IChatMessageHub) }
             });
 
             app.UseHttpsRedirection();
