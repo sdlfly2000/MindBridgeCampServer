@@ -8,14 +8,11 @@ using Common.Core.DependencyInjection;
 using Infrastructure.Data.Sql;
 using Microsoft.EntityFrameworkCore;
 using Common.Core.LogService;
-using MindBridgeCampServer.Middlewares;
+using System;
+using MindBridgeCampServer.Hubs;
 
 namespace MindBridgeCampServer
 {
-    using System;
-
-    using MindBridgeCampServer.Controllers;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -61,7 +58,7 @@ namespace MindBridgeCampServer
 
             app.UseWebSocketRouter(new Dictionary<string, Type>
             {
-                { "ChatMessage", typeof(HomeController) }
+                { "ChatMessage", typeof(IChatMessageHub) }
             });
 
             app.UseHttpsRedirection();
