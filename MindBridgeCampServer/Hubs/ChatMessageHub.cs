@@ -1,6 +1,7 @@
 ﻿using Common.Core.Cache.Client.Utils;
 using Common.Core.DependencyInjection;
 using Common.Core.LogService;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Net.WebSockets;
 using System.Threading;
@@ -12,39 +13,59 @@ namespace MindBridgeCampServer.Hubs
     public class ChatMessageHub : IChatMessageHub
     {
         private WebSocket _webSocket;
-        private TaskCompletionSource<object> _tc;
 
-        private delegate void OnCreateWebSocketReceive();
+        private delegate Task OnCreateWebSocketReceive();
         private event OnCreateWebSocketReceive WebSocketReceiveEvent;
+
+        private delegate Task OnReceiveMessage(string connectionId, string message);
+        private event OnReceiveMessage OnReceiveMessageEvent;
+
+        private delegate Task OnDisconnect(string connectionId);
+        private event OnDisconnect OnDisconnectEvent;
 
         public ChatMessageHub()
         {
             WebSocketReceiveEvent += OnCreateWebSocketReceiveHandler;
+            OnReceiveMessageEvent += OnReceiveMessageHandler;
+            OnDisconnectEvent += OnDisconnectHandler;
         }
 
-        public void SetWebSocket(WebSocket webSocket, TaskCompletionSource<object> tc)
+        public async Task Execute(WebSocket webSocket, PathString patchString)
         {
             _webSocket = webSocket;
-            _tc = tc;
 
-            WebSocketReceiveEvent();
+            await OnCreateWebSocketReceiveHandler();
         }
 
-        private async void OnCreateWebSocketReceiveHandler()
+        private async Task OnDisconnectHandler(string connectionId)
+        {
+            LogService.Info<ChatMessageHub>(connectionId + ": " + "WebSocket Close" + Environment.NewLine);
+        }
+
+        private async Task OnReceiveMessageHandler(string connectionId, string message)
+        {
+            LogService.Info<ChatMessageHub>(connectionId + ": " + message + Environment.NewLine);
+        }
+
+        private async Task OnCreateWebSocketReceiveHandler()
         {
             var buffer = WebSocket.CreateServerBuffer(255);
 
-            await _webSocket.ReceiveAsync(buffer, CancellationToken.None);
+            var result = await _webSocket.ReceiveAsync(buffer, CancellationToken.None);
 
-            LogService.Info<ChatMessageHub>(ConvertTools.BytesToString(buffer.ToArray()) + Environment.NewLine);
+            if(result.MessageType != WebSocketMessageType.Close)
+            {
+                var message = ConvertTools.BytesToString(buffer.ToArray()).Trim();
+                await OnReceiveMessageHandler(_webSocket.GetHashCode().ToString(), message);
+            }
 
             if (_webSocket.State == WebSocketState.Open)
             {
-                WebSocketReceiveEvent();
+                await WebSocketReceiveEvent();
             }
             else
             {
-                LogService.Info<ChatMessageHub>("WebSocket Close" + Environment.NewLine);
+                await OnDisconnectEvent(_webSocket.GetHashCode().ToString());
             }
         }
     }

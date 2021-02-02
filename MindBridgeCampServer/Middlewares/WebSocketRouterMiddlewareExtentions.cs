@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using System.Threading.Tasks;
-using System.Net.WebSockets;
-using System.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +20,8 @@ public static class WebSocketRouterMiddlewareExtentions
                     {
                         using (var webSocket = await context.WebSockets.AcceptWebSocketAsync())
                         {
-                            var socketFinishedTcs = new TaskCompletionSource<object>();
-
-                            hub.SetWebSocket(webSocket, socketFinishedTcs);
-
-                            await socketFinishedTcs.Task;
+                            await hub.Execute(webSocket, context.Request.Path);
+                            return;
                         }
                     }
                 }

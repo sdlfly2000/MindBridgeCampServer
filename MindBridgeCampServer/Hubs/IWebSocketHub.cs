@@ -1,10 +1,12 @@
-﻿using System.Net.WebSockets;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 
 namespace MindBridgeCampServer.Hubs
 {
     public interface IWebSocketHub
     {
-        void SetWebSocket(WebSocket webSocket, TaskCompletionSource<object> tc);
+        Task Execute(WebSocket webSocket, PathString patchString);
     }
 }
