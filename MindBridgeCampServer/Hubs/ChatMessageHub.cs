@@ -12,10 +12,11 @@ namespace MindBridgeCampServer.Hubs
     [ServiceLocate(typeof(IChatMessageHub))]
     public class ChatMessageHub : IChatMessageHub
     {
+        private ArraySegment<byte> _buffer;
         private WebSocket _webSocket;
 
-        private delegate Task OnCreateWebSocketReceive();
-        private event OnCreateWebSocketReceive WebSocketReceiveEvent;
+        private delegate Task OnCreateWebSocketReceive(WebSocket websocket);
+        private event OnCreateWebSocketReceive OnConnectEvent;
 
         private delegate Task OnReceiveMessage(string connectionId, string message);
         private event OnReceiveMessage OnReceiveMessageEvent;
@@ -25,7 +26,7 @@ namespace MindBridgeCampServer.Hubs
 
         public ChatMessageHub()
         {
-            WebSocketReceiveEvent += OnCreateWebSocketReceiveHandler;
+            OnConnectEvent += OnConnectHandler;
             OnReceiveMessageEvent += OnReceiveMessageHandler;
             OnDisconnectEvent += OnDisconnectHandler;
         }
@@ -33,8 +34,9 @@ namespace MindBridgeCampServer.Hubs
         public async Task Execute(WebSocket webSocket, PathString patchString)
         {
             _webSocket = webSocket;
+            _buffer = WebSocket.CreateServerBuffer(255);
 
-            await OnCreateWebSocketReceiveHandler();
+            await WebsocketLifeCycle(webSocket);
         }
 
         private async Task OnDisconnectHandler(string connectionId)
@@ -47,26 +49,27 @@ namespace MindBridgeCampServer.Hubs
             LogService.Info<ChatMessageHub>(connectionId + ": " + message + Environment.NewLine);
         }
 
-        private async Task OnCreateWebSocketReceiveHandler()
+        private async Task OnConnectHandler(WebSocket webSocket)
         {
-            var buffer = WebSocket.CreateServerBuffer(255);
+            LogService.Info<ChatMessageHub>(webSocket.GetHashCode().ToString() + " Connected" + Environment.NewLine);
+        }
 
-            var result = await _webSocket.ReceiveAsync(buffer, CancellationToken.None);
+        private async Task WebsocketLifeCycle(WebSocket webSocket)
+        {
+            await OnConnectHandler(webSocket);
 
-            if(result.MessageType != WebSocketMessageType.Close)
+            while (webSocket.State == WebSocketState.Open) 
             {
-                var message = ConvertTools.BytesToString(buffer.ToArray()).Trim();
-                await OnReceiveMessageHandler(_webSocket.GetHashCode().ToString(), message);
+                var result = await webSocket.ReceiveAsync(_buffer, CancellationToken.None);
+
+                if (result.MessageType != WebSocketMessageType.Close)
+                {
+                    var message = ConvertTools.BytesToString(_buffer.ToArray()).Trim();
+                    await OnReceiveMessageHandler(webSocket.GetHashCode().ToString(), message);
+                }
             }
 
-            if (_webSocket.State == WebSocketState.Open)
-            {
-                await WebSocketReceiveEvent();
-            }
-            else
-            {
-                await OnDisconnectEvent(_webSocket.GetHashCode().ToString());
-            }
+            await OnDisconnectEvent(webSocket.GetHashCode().ToString());
         }
     }
 }
