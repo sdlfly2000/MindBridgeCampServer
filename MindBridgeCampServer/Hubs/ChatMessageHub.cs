@@ -3,6 +3,8 @@ using Common.Core.DependencyInjection;
 using Common.Core.LogService;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,15 +15,16 @@ namespace MindBridgeCampServer.Hubs
     public class ChatMessageHub : IChatMessageHub
     {
         private ArraySegment<byte> _buffer;
-        private WebSocket _webSocket;
 
-        private delegate Task OnCreateWebSocketReceive(WebSocket websocket);
+        private static Dictionary<string, List<WebSocket>> _websockets = new Dictionary<string, List<WebSocket>>(); 
+
+        private delegate Task OnCreateWebSocketReceive(WebSocket websocket, string roomId);
         private event OnCreateWebSocketReceive OnConnectEvent;
 
-        private delegate Task OnReceiveMessage(string connectionId, string message);
+        private delegate Task OnReceiveMessage(WebSocket websocket, string message);
         private event OnReceiveMessage OnReceiveMessageEvent;
 
-        private delegate Task OnDisconnect(string connectionId);
+        private delegate Task OnDisconnect(WebSocket websocket);
         private event OnDisconnect OnDisconnectEvent;
 
         public ChatMessageHub()
@@ -31,32 +34,52 @@ namespace MindBridgeCampServer.Hubs
             OnDisconnectEvent += OnDisconnectHandler;
         }
 
-        public async Task Execute(WebSocket webSocket, PathString patchString)
+        public async Task Execute(WebSocket webSocket, PathString pathString)
         {
-            _webSocket = webSocket;
+            var roomId = pathString.ToUriComponent().Split("/")[2];
+
             _buffer = WebSocket.CreateServerBuffer(255);
 
-            await WebsocketLifeCycle(webSocket);
+            await WebsocketLifeCycle(webSocket, roomId);
         }
 
-        private async Task OnDisconnectHandler(string connectionId)
+        #region Events
+
+        private async Task OnDisconnectHandler(WebSocket websocket)
         {
-            LogService.Info<ChatMessageHub>(connectionId + ": " + "WebSocket Close" + Environment.NewLine);
+            _websockets.Values.FirstOrDefault(ws => ws.Contains(websocket)).Remove(websocket);
+            LogService.Info<ChatMessageHub>(websocket.GetHashCode().ToString() + ": " + "WebSocket Close" + Environment.NewLine);
         }
 
-        private async Task OnReceiveMessageHandler(string connectionId, string message)
+        private async Task OnReceiveMessageHandler(WebSocket websocket, string message)
         {
-            LogService.Info<ChatMessageHub>(connectionId + ": " + message + Environment.NewLine);
+            LogService.Info<ChatMessageHub>(websocket.GetHashCode().ToString() + ": " + message + Environment.NewLine);
         }
 
-        private async Task OnConnectHandler(WebSocket webSocket)
+        private async Task OnConnectHandler(WebSocket webSocket, string roomId)
         {
+            var websockets = new List<WebSocket>();
+
+            if (_websockets.TryGetValue(roomId, out websockets))
+            {
+                websockets.Add(webSocket);
+            }
+            else
+            {
+                _websockets.Add(roomId, new List<WebSocket> { webSocket });
+            }
+
             LogService.Info<ChatMessageHub>(webSocket.GetHashCode().ToString() + " Connected" + Environment.NewLine);
+            LogService.Info<ChatMessageHub>(string.Format("Number of WebSockets Room {0}: {1}", roomId, _websockets[roomId].Count) + Environment.NewLine);
         }
 
-        private async Task WebsocketLifeCycle(WebSocket webSocket)
+        #endregion
+
+        #region LifeCycle
+
+        private async Task WebsocketLifeCycle(WebSocket webSocket, string roomId)
         {
-            await OnConnectHandler(webSocket);
+            await OnConnectEvent(webSocket, roomId);
 
             while (webSocket.State == WebSocketState.Open) 
             {
@@ -65,11 +88,13 @@ namespace MindBridgeCampServer.Hubs
                 if (result.MessageType != WebSocketMessageType.Close)
                 {
                     var message = ConvertTools.BytesToString(_buffer.ToArray()).Trim();
-                    await OnReceiveMessageHandler(webSocket.GetHashCode().ToString(), message);
+                    await OnReceiveMessageEvent(webSocket, message);
                 }
             }
 
-            await OnDisconnectEvent(webSocket.GetHashCode().ToString());
+            await OnDisconnectEvent(webSocket);
         }
+
+        #endregion
     }
 }
