@@ -21,7 +21,7 @@ namespace MindBridgeCampServer.Hubs
         private delegate Task OnCreateWebSocketReceive(WebSocket websocket, string roomId);
         private event OnCreateWebSocketReceive OnConnectEvent;
 
-        private delegate Task OnReceiveMessage(WebSocket websocket, string message);
+        private delegate Task OnReceiveMessage(string roomId, string message, string loginToken);
         private event OnReceiveMessage OnReceiveMessageEvent;
 
         private delegate Task OnDisconnect(WebSocket websocket);
@@ -37,10 +37,11 @@ namespace MindBridgeCampServer.Hubs
         public async Task Execute(WebSocket webSocket, PathString pathString)
         {
             var roomId = pathString.ToUriComponent().Split("/")[2];
+            var loginToken = pathString.ToUriComponent().Split("/")[3];
 
             _buffer = WebSocket.CreateServerBuffer(255);
 
-            await WebsocketLifeCycle(webSocket, roomId);
+            await WebsocketLifeCycle(webSocket, roomId, loginToken);
         }
 
         #region Events
@@ -51,9 +52,16 @@ namespace MindBridgeCampServer.Hubs
             LogService.Info<ChatMessageHub>(websocket.GetHashCode().ToString() + ": " + "WebSocket Close" + Environment.NewLine);
         }
 
-        private async Task OnReceiveMessageHandler(WebSocket websocket, string message)
+        private async Task OnReceiveMessageHandler(string roomId, string message, string loginToken)
         {
-            LogService.Info<ChatMessageHub>(websocket.GetHashCode().ToString() + ": " + message + Environment.NewLine);
+            var websockets = new List<WebSocket>();
+            var sendMessage = loginToken + ":" + message;
+            var buffer = new ArraySegment<byte>(ConvertTools.StringToBytes(sendMessage));
+
+            if(_websockets.TryGetValue(roomId, out websockets))
+            {
+                websockets.ForEach(w => w.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None));
+            }
         }
 
         private async Task OnConnectHandler(WebSocket webSocket, string roomId)
@@ -77,7 +85,7 @@ namespace MindBridgeCampServer.Hubs
 
         #region LifeCycle
 
-        private async Task WebsocketLifeCycle(WebSocket webSocket, string roomId)
+        private async Task WebsocketLifeCycle(WebSocket webSocket, string roomId, string loginToken)
         {
             await OnConnectEvent(webSocket, roomId);
 
@@ -88,7 +96,7 @@ namespace MindBridgeCampServer.Hubs
                 if (result.MessageType != WebSocketMessageType.Close)
                 {
                     var message = ConvertTools.BytesToString(_buffer.ToArray()).Trim();
-                    await OnReceiveMessageEvent(webSocket, message);
+                    await OnReceiveMessageEvent(roomId, message, loginToken);
                 }
             }
 
