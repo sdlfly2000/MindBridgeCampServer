@@ -1,6 +1,7 @@
 ﻿using Application.Services.LearningRoom.Contracts;
 using Application.LearningRoom;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Application.Services.LearningRoom
 {
@@ -19,5 +20,7 @@ namespace Application.Services.LearningRoom
         void SignInRoom(string loginToken, string roomId);
 
         IList<ParticipantModel> GetParticipants(string roomId);
+
+        Task CreateChatMessage(string loginToken, string roomId, string message);
     }
 }

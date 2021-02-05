@@ -3,6 +3,7 @@ using Application.Services.LearningRoom.Processes;
 using Common.Core.DependencyInjection;
 using Application.LearningRoom;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Application.Services.LearningRoom
 {
@@ -15,6 +16,7 @@ namespace Application.Services.LearningRoom
         private readonly IGetParticipantsProcess _getParticipantsProcess;
         private readonly IGetRoomsParticipatedProcess _getRoomsParticipatedProcess;
         private readonly ISignInRoomProcess _signInRoomProcess;
+        private readonly ICreateChatMessageProcess _createChatMessageProcess;
 
         public LearningRoomService(
             IGetAvailableRoomProcess getAvailableRoomProcess,
@@ -22,7 +24,8 @@ namespace Application.Services.LearningRoom
             IJoinRoomProcess joinRoomProcess,
             IGetParticipantsProcess getParticipantsProcess,
             IGetRoomsParticipatedProcess getRoomsParticipatedProcess,
-            ISignInRoomProcess signInRoomProcess)
+            ISignInRoomProcess signInRoomProcess,
+            ICreateChatMessageProcess createChatMessageProcess)
         {
             _getAvailableRoomProcess = getAvailableRoomProcess;
             _createRoomProcess = createRoomProcess;
@@ -30,6 +33,7 @@ namespace Application.Services.LearningRoom
             _getParticipantsProcess = getParticipantsProcess;
             _getRoomsParticipatedProcess = getRoomsParticipatedProcess;
             _signInRoomProcess = signInRoomProcess;
+            _createChatMessageProcess = createChatMessageProcess;
         }
 
         public GetResponse GetAvailableRooms()
@@ -65,6 +69,11 @@ namespace Application.Services.LearningRoom
         public bool IsJoinRoom(string loginToken, string roomId)
         {
             return _joinRoomProcess.IsJoin(loginToken, roomId);
+        }
+
+        public async Task CreateChatMessage(string loginToken, string roomId, string message)
+        {
+            await _createChatMessageProcess.CreateChatMessage(loginToken, roomId, message);
         }
     }
 }

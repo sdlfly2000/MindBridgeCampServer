@@ -1,4 +1,5 @@
-﻿using Common.Core.Cache.Client.Utils;
+﻿using Application.Services.LearningRoom;
+using Common.Core.Cache.Client.Utils;
 using Common.Core.DependencyInjection;
 using Common.Core.LogService;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +15,8 @@ namespace MindBridgeCampServer.Hubs
     [ServiceLocate(typeof(IChatMessageHub))]
     public class ChatMessageHub : IChatMessageHub
     {
+        private readonly ILearningRoomService _learningRoomService;
+
         private ArraySegment<byte> _buffer;
 
         private static Dictionary<string, List<WebSocket>> _websockets = new Dictionary<string, List<WebSocket>>(); 
@@ -27,11 +30,13 @@ namespace MindBridgeCampServer.Hubs
         private delegate Task OnDisconnect(WebSocket websocket);
         private event OnDisconnect OnDisconnectEvent;
 
-        public ChatMessageHub()
+        public ChatMessageHub(ILearningRoomService learningRoomService)
         {
             OnConnectEvent += OnConnectHandler;
             OnReceiveMessageEvent += OnReceiveMessageHandler;
             OnDisconnectEvent += OnDisconnectHandler;
+
+            _learningRoomService = learningRoomService;
         }
 
         public async Task Execute(WebSocket webSocket, PathString pathString)
@@ -60,7 +65,18 @@ namespace MindBridgeCampServer.Hubs
 
             if(_websockets.TryGetValue(roomId, out websockets))
             {
-                websockets.ForEach(w => w.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None));
+                websockets.ForEach(async w => await w.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None));
+            }
+
+            try
+            {
+                await _learningRoomService.CreateChatMessage(loginToken, roomId, message);
+            }
+            catch(Exception e)
+            {
+                LogService.Info<ChatMessageHub>(
+                    e.Message + Environment.NewLine +
+                    e.StackTrace);
             }
         }
 
