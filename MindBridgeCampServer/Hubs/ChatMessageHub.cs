@@ -19,15 +19,15 @@ namespace MindBridgeCampServer.Hubs
 
         private ArraySegment<byte> _buffer;
 
-        private static Dictionary<string, List<WebSocket>> _websockets = new Dictionary<string, List<WebSocket>>(); 
+        private static Dictionary<string, Dictionary<string, WebSocket>> _websockets = new Dictionary<string, Dictionary<string, WebSocket>>(); 
 
-        private delegate Task OnCreateWebSocketReceive(WebSocket websocket, string roomId);
+        private delegate Task OnCreateWebSocketReceive(WebSocket websocket, string roomId, string loginToken);
         private event OnCreateWebSocketReceive OnConnectEvent;
 
         private delegate Task OnReceiveMessage(string roomId, string message, string loginToken);
         private event OnReceiveMessage OnReceiveMessageEvent;
 
-        private delegate Task OnDisconnect(WebSocket websocket);
+        private delegate Task OnDisconnect(WebSocket websocket, string roomId, string loginToken);
         private event OnDisconnect OnDisconnectEvent;
 
         public ChatMessageHub(ILearningRoomService learningRoomService)
@@ -51,21 +51,26 @@ namespace MindBridgeCampServer.Hubs
 
         #region Events
 
-        private async Task OnDisconnectHandler(WebSocket websocket)
+        private async Task OnDisconnectHandler(WebSocket websocket, string roomId, string loginToken)
         {
-            _websockets.Values.FirstOrDefault(ws => ws.Contains(websocket)).Remove(websocket);
-            LogService.Info<ChatMessageHub>(websocket.GetHashCode().ToString() + ": " + "WebSocket Close" + Environment.NewLine);
+            var websockets = new Dictionary<string, WebSocket>();
+            _websockets.TryGetValue(roomId, out websockets);
+            websockets.Remove(loginToken);
+            LogService.Info<ChatMessageHub>(websocket.GetHashCode().ToString() + ": " + "WebSocket Close");
         }
 
         private async Task OnReceiveMessageHandler(string roomId, string message, string loginToken)
         {
-            var websockets = new List<WebSocket>();
+            var websockets = new Dictionary<string, WebSocket>();
             var sendMessage = loginToken + ":" + message;
             var buffer = new ArraySegment<byte>(ConvertTools.StringToBytes(sendMessage));
 
             if(_websockets.TryGetValue(roomId, out websockets))
             {
-                websockets.ForEach(async w => await w.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None));
+                websockets
+                    .Select(w => w.Value)
+                    .ToList()
+                    .ForEach(async w => await w.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None));
             }
 
             try
@@ -80,17 +85,18 @@ namespace MindBridgeCampServer.Hubs
             }
         }
 
-        private async Task OnConnectHandler(WebSocket webSocket, string roomId)
+        private async Task OnConnectHandler(WebSocket webSocket, string roomId, string loginToken)
         {
-            var websockets = new List<WebSocket>();
+            var websockets = new Dictionary<string, WebSocket>();
 
             if (_websockets.TryGetValue(roomId, out websockets))
             {
-                websockets.Add(webSocket);
+                websockets.Add(loginToken, webSocket);
             }
             else
             {
-                _websockets.Add(roomId, new List<WebSocket> { webSocket });
+                websockets.Add(loginToken, webSocket);
+                _websockets.Add(roomId, websockets);
             }
 
             LogService.Info<ChatMessageHub>(webSocket.GetHashCode().ToString() + " Connected" + Environment.NewLine);
@@ -103,7 +109,7 @@ namespace MindBridgeCampServer.Hubs
 
         private async Task WebsocketLifeCycle(WebSocket webSocket, string roomId, string loginToken)
         {
-            await OnConnectEvent(webSocket, roomId);
+            await OnConnectEvent(webSocket, roomId, loginToken);
 
             while (webSocket.State == WebSocketState.Open) 
             {
@@ -116,7 +122,7 @@ namespace MindBridgeCampServer.Hubs
                 }
             }
 
-            await OnDisconnectEvent(webSocket);
+            await OnDisconnectEvent(webSocket, roomId, loginToken);
         }
 
         #endregion
