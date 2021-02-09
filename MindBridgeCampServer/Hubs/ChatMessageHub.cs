@@ -87,18 +87,16 @@ namespace MindBridgeCampServer.Hubs
 
         private async Task OnConnectHandler(WebSocket webSocket, string roomId, string loginToken)
         {
-            var websockets = new Dictionary<string, WebSocket>();
+            var websockets = GetWebSocketByRoomId(roomId);
+            if (!websockets.TryAdd(loginToken, webSocket))
+            {
+                websockets[loginToken] = webSocket;
+            }
 
-            if (_websockets.Count > 0 &&
-                _websockets.TryGetValue(roomId, out websockets))
+            if (!_websockets.TryAdd(roomId, websockets))
             {
-                websockets.Add(loginToken, webSocket);
-            }
-            else
-            {
-                websockets.Add(loginToken, webSocket);
-                _websockets.Add(roomId, websockets);
-            }
+                _websockets[roomId] = websockets;
+            }    
 
             LogService.Info<ChatMessageHub>(webSocket.GetHashCode().ToString() + " Connected" + Environment.NewLine);
             LogService.Info<ChatMessageHub>(string.Format("Number of WebSockets Room {0}: {1}", roomId, _websockets[roomId].Count) + Environment.NewLine);
@@ -124,6 +122,22 @@ namespace MindBridgeCampServer.Hubs
             }
 
             await OnDisconnectEvent(webSocket, roomId, loginToken);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private Dictionary<string, WebSocket> GetWebSocketByRoomId(string roomId)
+        {
+            var websockets = new Dictionary<string, WebSocket>();
+
+            if (_websockets.TryGetValue(roomId, out websockets))
+            {
+                return websockets;
+            }
+
+            return new Dictionary<string, WebSocket>();
         }
 
         #endregion
