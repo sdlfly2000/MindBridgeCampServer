@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MindBridgeCampServer.Hubs
 {
-    [ServiceLocate(typeof(IChatMessageHub))]
+    [ServiceLocate(typeof(IChatMessageHub), ServiceType.Scoped)]
     public class ChatMessageHub : IChatMessageHub
     {
         private readonly ILearningRoomService _learningRoomService;
@@ -89,7 +89,8 @@ namespace MindBridgeCampServer.Hubs
         {
             var websockets = new Dictionary<string, WebSocket>();
 
-            if (_websockets.TryGetValue(roomId, out websockets))
+            if (_websockets.Count > 0 &&
+                _websockets.TryGetValue(roomId, out websockets))
             {
                 websockets.Add(loginToken, webSocket);
             }

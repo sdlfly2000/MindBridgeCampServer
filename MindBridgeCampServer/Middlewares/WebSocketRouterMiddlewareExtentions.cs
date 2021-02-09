@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using MindBridgeCampServer.Hubs;
+using Microsoft.Extensions.DependencyInjection;
 
 public static class WebSocketRouterMiddlewareExtentions
 {
@@ -43,9 +44,14 @@ public static class WebSocketRouterMiddlewareExtentions
         {
             var service = patternTypePairs.GetValueOrDefault(matchedPattern);
 
-            return service != null
-                ? builder.ApplicationServices.GetService(service)
-                : null;
+            var serviceScopeFactory = builder.ApplicationServices.GetService<IServiceScopeFactory>();
+
+            using (var scope = serviceScopeFactory.CreateScope())
+            {
+                return service != null
+                    ? scope.ServiceProvider.GetService(service)
+                    : null;
+            }
         }
 
         return null;
