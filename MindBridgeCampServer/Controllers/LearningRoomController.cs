@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Application.Services.LearningRoom;
 using Common.Core.LogService;
 using Microsoft.AspNetCore.Mvc;
+using MindBridgeCampServer.Hubs;
 using MindBridgeCampServer.Models;
 using Newtonsoft.Json;
 
@@ -13,11 +14,14 @@ namespace MindBridgeCampServer.Controllers
     public class LearningRoomController : ControllerBase
     {
         private readonly ILearningRoomService _learningRoomService;
+        private readonly IChatMessageHub _chatMessageHub;
 
         public LearningRoomController(
-            ILearningRoomService learningRoomService)
+            ILearningRoomService learningRoomService,
+            IChatMessageHub chatMessageHub)
         {
             _learningRoomService = learningRoomService;
+            _chatMessageHub = chatMessageHub;
         }
 
         [HttpGet]
@@ -93,6 +97,23 @@ namespace MindBridgeCampServer.Controllers
                 return Ok(responseMessage);
             }
             catch(Exception e)
+            {
+                LogService.Info<LearningRoomController>(e.StackTrace);
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{roomId}")]
+        [LogService]
+        public IActionResult GetParticipantsOnlineCount(string roomId)
+        {
+            try
+            {
+                var count = _chatMessageHub.GetParticpantsOnlineCount(roomId);
+
+                return Ok(count);
+            }
+            catch (Exception e)
             {
                 LogService.Info<LearningRoomController>(e.StackTrace);
                 return BadRequest(e.Message);

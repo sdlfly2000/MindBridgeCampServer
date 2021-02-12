@@ -39,6 +39,18 @@ namespace MindBridgeCampServer.Hubs
             _learningRoomService = learningRoomService;
         }
 
+        public int GetParticpantsOnlineCount(string roomId)
+        {
+            var clients = new Dictionary<string, WebSocket>();
+
+            if(_websockets.TryGetValue(roomId, out clients))
+            {
+                return clients.Count;
+            }
+
+            return 0;
+        }
+
         public async Task Execute(WebSocket webSocket, PathString pathString)
         {
             var roomId = pathString.ToUriComponent().Split("/")[2];

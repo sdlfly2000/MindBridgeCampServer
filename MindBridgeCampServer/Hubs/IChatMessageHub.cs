@@ -2,5 +2,6 @@
 {
     public interface IChatMessageHub : IWebSocketHub
     {
+        int GetParticpantsOnlineCount(string roomId);
     }
 }
