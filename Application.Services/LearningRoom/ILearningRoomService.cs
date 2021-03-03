@@ -22,5 +22,7 @@ namespace Application.Services.LearningRoom
         IList<ParticipantModel> GetParticipants(string roomId);
 
         Task CreateChatMessage(string loginToken, string roomId, string message);
+
+        IList<LearningRoomMessageModel> GetMessagesByRoom(string loginToken, string roomId);
     }
 }

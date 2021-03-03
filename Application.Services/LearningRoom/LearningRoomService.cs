@@ -17,6 +17,7 @@ namespace Application.Services.LearningRoom
         private readonly IGetRoomsParticipatedProcess _getRoomsParticipatedProcess;
         private readonly ISignInRoomProcess _signInRoomProcess;
         private readonly ICreateChatMessageProcess _createChatMessageProcess;
+        private readonly IGetMessagesByRoomProcess _getMessagesByRoomProcess;
 
         public LearningRoomService(
             IGetAvailableRoomProcess getAvailableRoomProcess,
@@ -25,7 +26,8 @@ namespace Application.Services.LearningRoom
             IGetParticipantsProcess getParticipantsProcess,
             IGetRoomsParticipatedProcess getRoomsParticipatedProcess,
             ISignInRoomProcess signInRoomProcess,
-            ICreateChatMessageProcess createChatMessageProcess)
+            ICreateChatMessageProcess createChatMessageProcess,
+            IGetMessagesByRoomProcess getMessagesByRoomProcess)
         {
             _getAvailableRoomProcess = getAvailableRoomProcess;
             _createRoomProcess = createRoomProcess;
@@ -34,6 +36,7 @@ namespace Application.Services.LearningRoom
             _getRoomsParticipatedProcess = getRoomsParticipatedProcess;
             _signInRoomProcess = signInRoomProcess;
             _createChatMessageProcess = createChatMessageProcess;
+            _getMessagesByRoomProcess = getMessagesByRoomProcess;
         }
 
         public GetResponse GetAvailableRooms()
@@ -74,6 +77,11 @@ namespace Application.Services.LearningRoom
         public async Task CreateChatMessage(string loginToken, string roomId, string message)
         {
             await _createChatMessageProcess.CreateChatMessage(loginToken, roomId, message);
+        }
+
+        public IList<LearningRoomMessageModel> GetMessagesByRoom(string loginToken, string roomId)
+        {
+            return _getMessagesByRoomProcess.Get(loginToken, roomId);
         }
     }
 }

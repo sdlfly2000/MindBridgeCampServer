@@ -170,5 +170,22 @@ namespace MindBridgeCampServer.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("{loginToken}/{roomId}")]
+        [LogService]
+        public IActionResult GetAllMessagesByRoom(string loginToken, string roomId)
+        {
+            try
+            {
+                var messageModels = _learningRoomService.GetMessagesByRoom(loginToken, roomId);
+
+                return Ok(messageModels);
+            }
+            catch (Exception e)
+            {
+                LogService.Info<LearningRoomController>(e.StackTrace);
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

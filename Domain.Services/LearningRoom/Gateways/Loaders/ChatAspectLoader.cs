@@ -26,7 +26,7 @@ namespace Domain.Services.LearningRoom.Gateways.Loaders
             return _chatAspectMapper.Map(_chatRepository.FindById(reference.Code));
         }
 
-        IList<IChatAspect> IChatAspectLoader.Load(RoomReference reference)
+        public IList<IChatAspect> Load(RoomReference reference)
         {
             return _chatRepository
                 .FindByRoom(reference.Code)
