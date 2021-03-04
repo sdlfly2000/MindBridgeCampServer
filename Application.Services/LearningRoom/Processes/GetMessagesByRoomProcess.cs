@@ -1,4 +1,5 @@
 ﻿using Application.LearningRoom;
+using Common.Core.DependencyInjection;
 using Domain.LearningRoom;
 using Domain.Services.LearningRoom.Gateways;
 using Domain.Services.LoginToken;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace Application.Services.LearningRoom.Processes
 {
+    [ServiceLocate(typeof(IGetMessagesByRoomProcess))]
     public class GetMessagesByRoomProcess : IGetMessagesByRoomProcess
     {
         private readonly ILoginTokenGateway _loginTokenGateway;
