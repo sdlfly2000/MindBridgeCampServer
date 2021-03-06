@@ -8,5 +8,6 @@ namespace Application.LearningRoom
         public string CreatedByNickName { get; set; }
         public string Content { get; set; }
         public bool IsCreatedByRequester { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

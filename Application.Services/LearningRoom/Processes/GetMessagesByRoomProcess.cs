@@ -37,8 +37,9 @@ namespace Application.Services.LearningRoom.Processes
                     {
                         Content = aspect.Content,
                         CreatedByNickName = user.NickName,
-                        IsCreatedByRequester = aspect.CreatedBy.Equals(login.OpenId)
-                    }).ToList()
+                        IsCreatedByRequester = aspect.CreatedBy.Equals(login.OpenId),
+                        CreatedOn = aspect.CreatedOn
+                    }).OrderBy(model => model.CreatedOn).ToList()
                 : new List<LearningRoomMessageModel>();
         }
     }
