@@ -53,8 +53,8 @@ namespace MindBridgeCampServer.Hubs
 
         public async Task Execute(WebSocket webSocket, PathString pathString)
         {
-            var roomId = pathString.ToUriComponent().Split("/")[2];
-            var loginToken = pathString.ToUriComponent().Split("/")[3];
+            var roomId = pathString.ToUriComponent().Split("/")[1];
+            var loginToken = pathString.ToUriComponent().Split("/")[2];
 
             _buffer = WebSocket.CreateServerBuffer(255);
 
@@ -73,8 +73,9 @@ namespace MindBridgeCampServer.Hubs
 
         private async Task OnReceiveMessageHandler(string roomId, string message, string loginToken)
         {
+            var messageContent = message.Replace("\u0000", string.Empty).Trim();
             var websockets = new Dictionary<string, WebSocket>();
-            var sendMessage = loginToken + ":" + message;
+            var sendMessage = loginToken + ":" + messageContent;
             var buffer = new ArraySegment<byte>(ConvertTools.StringToBytes(sendMessage));
 
             if(_websockets.TryGetValue(roomId, out websockets))
@@ -83,6 +84,17 @@ namespace MindBridgeCampServer.Hubs
                     .Select(w => w.Value)
                     .ToList()
                     .ForEach(async w => await w.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None));
+            }
+
+            try
+            {
+                await _learningRoomService.CreateChatMessage(loginToken, roomId, messageContent);
+            }
+            catch (Exception e)
+            {
+                LogService.Info<ChatMessageHub>(
+                    e.Message + Environment.NewLine +
+                    e.StackTrace);
             }
         }
 

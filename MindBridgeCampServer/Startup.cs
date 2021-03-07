@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Common.Core.LogService;
 using System;
 using MindBridgeCampServer.Hubs;
+using MindBridgeCampServer.Middlewares;
 
 namespace MindBridgeCampServer
 {
@@ -56,10 +57,17 @@ namespace MindBridgeCampServer
 
             app.UseWebSockets();
 
-            app.UseWebSocketRouter(new Dictionary<string, Type>
+            //app.UseWebSocketRouter(new Dictionary<string, Type>
+            //{
+            //    { "/ChatMessage", typeof(IChatMessageHub) }
+            //});
+
+            app.Map("/ChatMessage", (builder) =>
             {
-                { "/ChatMessage", typeof(IChatMessageHub) }
+                builder.UseMiddleware<IWebsocketMiddleware>();
             });
+
+            //app.UseMiddleware<IWebsocketMiddleware>();
 
             app.UseHttpsRedirection();
 
