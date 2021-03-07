@@ -57,17 +57,10 @@ namespace MindBridgeCampServer
 
             app.UseWebSockets();
 
-            //app.UseWebSocketRouter(new Dictionary<string, Type>
-            //{
-            //    { "/ChatMessage", typeof(IChatMessageHub) }
-            //});
-
             app.Map("/ChatMessage", (builder) =>
             {
                 builder.UseMiddleware<IWebsocketMiddleware>();
             });
-
-            //app.UseMiddleware<IWebsocketMiddleware>();
 
             app.UseHttpsRedirection();
 
