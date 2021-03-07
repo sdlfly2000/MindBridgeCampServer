@@ -84,17 +84,6 @@ namespace MindBridgeCampServer.Hubs
                     .ToList()
                     .ForEach(async w => await w.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None));
             }
-
-            try
-            {
-                await _learningRoomService.CreateChatMessage(loginToken, roomId, message);
-            }
-            catch(Exception e)
-            {
-                LogService.Info<ChatMessageHub>(
-                    e.Message + Environment.NewLine +
-                    e.StackTrace);
-            }
         }
 
         private async Task OnConnectHandler(WebSocket webSocket, string roomId, string loginToken)

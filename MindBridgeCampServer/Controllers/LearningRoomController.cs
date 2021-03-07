@@ -187,5 +187,23 @@ namespace MindBridgeCampServer.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPost]
+        [LogService]
+        public async Task<IActionResult> SaveMessage([FromBody] NewMessageRequestModel model)
+        {
+            try
+            {
+                await _learningRoomService.CreateChatMessage(model.loginToken, model.roomId, model.content);
+                return Ok(@"Save Message successfully.");
+            }
+            catch (Exception e)
+            {
+                LogService.Info<ChatMessageHub>(
+                    e.Message + Environment.NewLine +
+                    e.StackTrace);
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

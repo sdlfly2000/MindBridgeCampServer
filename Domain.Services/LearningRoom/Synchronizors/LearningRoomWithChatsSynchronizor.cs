@@ -28,7 +28,7 @@ namespace Domain.Services.LearningRoom.Synchronizors
         {
             var learningRoomWithChat = _learningRoomWithChatsGateway.Load(learningRoom.Reference);
             var chatsAdded = learningRoom.ChatAspects
-                .Where(chat => learningRoomWithChat.ChatAspects.Any(c => c.Reference.Equals(chat.Reference)))
+                .Where(chat => !learningRoomWithChat.ChatAspects.Any(c => c.Reference.Equals(chat.Reference)))
                 .ToList();
 
             chatsAdded.ForEach(c => _chatPersistor.Add(c));
