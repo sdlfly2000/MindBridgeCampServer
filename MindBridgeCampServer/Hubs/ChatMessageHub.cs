@@ -1,8 +1,13 @@
-﻿using Application.Services.LearningRoom;
+﻿using Application.LearningRoom;
+using Application.Services.LearningRoom;
+using Application.Services.User;
+using Application.Services.User.Contracts;
 using Common.Core.Cache.Client.Utils;
 using Common.Core.DependencyInjection;
 using Common.Core.LogService;
+using Core;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +21,7 @@ namespace MindBridgeCampServer.Hubs
     public class ChatMessageHub : IChatMessageHub
     {
         private readonly ILearningRoomService _learningRoomService;
+        private readonly IUserService _userService;
 
         private ArraySegment<byte> _buffer;
 
@@ -30,13 +36,16 @@ namespace MindBridgeCampServer.Hubs
         private delegate Task OnDisconnect(WebSocket websocket, string roomId, string loginToken);
         private event OnDisconnect OnDisconnectEvent;
 
-        public ChatMessageHub(ILearningRoomService learningRoomService)
+        public ChatMessageHub(
+            ILearningRoomService learningRoomService,
+            IUserService userService)
         {
             OnConnectEvent += OnConnectHandler;
             OnReceiveMessageEvent += OnReceiveMessageHandler;
             OnDisconnectEvent += OnDisconnectHandler;
 
             _learningRoomService = learningRoomService;
+            _userService = userService;
         }
 
         public int GetParticpantsOnlineCount(string roomId)
@@ -68,6 +77,7 @@ namespace MindBridgeCampServer.Hubs
             var websockets = new Dictionary<string, WebSocket>();
             _websockets.TryGetValue(roomId, out websockets);
             websockets.Remove(loginToken);
+            websocket.Dispose();
             LogService.Info<ChatMessageHub>(websocket.GetHashCode().ToString() + ": " + "WebSocket Close");
         }
 
@@ -75,20 +85,48 @@ namespace MindBridgeCampServer.Hubs
         {
             var messageContent = message.Replace("\u0000", string.Empty).Trim();
             var websockets = new Dictionary<string, WebSocket>();
-            var sendMessage = loginToken + ":" + messageContent;
-            var buffer = new ArraySegment<byte>(ConvertTools.StringToBytes(sendMessage));
+
+            var userModel = _userService.Get(new GetByLoginTokenRequest 
+            { 
+                LoginToken = loginToken
+            }).User;
+
+            var messageModel = new LearningRoomMessageModel
+            {
+                CreatedByNickName = userModel.NickName,
+                Content = messageContent,
+                CreatedOn = DateTimeUtil.GetNow(),
+                IsCreatedByRequester = false
+            };
+
+            var bufferToMember = new ArraySegment<byte>(ConvertTools.StringToBytes(JsonConvert.SerializeObject(messageModel)));
+
+            messageModel.IsCreatedByRequester = true;
+            var bufferToRequester = new ArraySegment<byte>(ConvertTools.StringToBytes(JsonConvert.SerializeObject(messageModel)));
 
             if(_websockets.TryGetValue(roomId, out websockets))
             {
                 websockets
+                    .Where(w => !w.Key.Equals(loginToken))
                     .Select(w => w.Value)
                     .ToList()
-                    .ForEach(async w => await w.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None));
+                    .ForEach(async w => await w.SendAsync(bufferToMember, 
+                        WebSocketMessageType.Text, true, CancellationToken.None));
+
+                await websockets
+                    .FirstOrDefault(w => w.Key.Equals(loginToken)).Value
+                    .SendAsync(bufferToRequester,
+                        WebSocketMessageType.Text, true, CancellationToken.None);
             }
 
             try
             {
                 await _learningRoomService.CreateChatMessage(loginToken, roomId, messageContent);
+                LogService.Info<ChatMessageHub>(
+                    "Message Saved" + Environment.NewLine +
+                    "Message: " + messageContent + Environment.NewLine +
+                    "Room Id: " + roomId + Environment.NewLine + 
+                    "login Token: " + loginToken);
             }
             catch (Exception e)
             {
@@ -129,7 +167,8 @@ namespace MindBridgeCampServer.Hubs
 
                 if (result.MessageType != WebSocketMessageType.Close)
                 {
-                    var message = ConvertTools.BytesToString(_buffer.ToArray()).Trim();
+                    var byteReceive = _buffer.AsSpan<byte>().Slice(0, result.Count).ToArray();
+                    var message = ConvertTools.BytesToString(byteReceive).Trim();
                     await OnReceiveMessageEvent(roomId, message, loginToken);
                 }
             }
