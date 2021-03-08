@@ -2,6 +2,7 @@
 using Infrastructure.Data.Sql.User.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Sql
 {
@@ -23,6 +24,6 @@ namespace Infrastructure.Data.Sql
 
         EntityEntry<TEntity> GetEntry<TEntity>(TEntity entity) where TEntity: class;
 
-        void Save();
+        Task<int> Save();
     }
 }

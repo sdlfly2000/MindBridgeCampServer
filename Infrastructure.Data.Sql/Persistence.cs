@@ -1,5 +1,6 @@
 ﻿using Common.Core.Data.Sql;
 using Common.Core.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Sql
 {
@@ -13,9 +14,9 @@ namespace Infrastructure.Data.Sql
             _context = context;
         }
 
-        public void Complete()
+        public async Task<int> Complete()
         {
-            _context.Save();
+            return await _context.Save();
         }
     }
 }

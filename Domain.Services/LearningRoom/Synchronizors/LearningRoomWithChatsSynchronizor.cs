@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Common.Core.Data.Sql;
 using Common.Core.DependencyInjection;
 using Domain.LearningRoom;
@@ -24,7 +25,7 @@ namespace Domain.Services.LearningRoom.Synchronizors
             _persistence = persistence;
         }
 
-        public void Update(ILearningRoomWithChats learningRoom)
+        public async Task Update(ILearningRoomWithChats learningRoom)
         {
             var learningRoomWithChat = _learningRoomWithChatsGateway.Load(learningRoom.Reference);
             var chatsAdded = learningRoom.ChatAspects
@@ -32,7 +33,7 @@ namespace Domain.Services.LearningRoom.Synchronizors
                 .ToList();
 
             chatsAdded.ForEach(c => _chatPersistor.Add(c));
-            _persistence.Complete();
+            await _persistence.Complete();
         }
     }
 }

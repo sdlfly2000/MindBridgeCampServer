@@ -1,9 +1,10 @@
 ﻿using Domain.LearningRoom;
+using System.Threading.Tasks;
 
 namespace Domain.Services.LearningRoom.Synchronizors
 {
     public interface ILearningRoomWithChatsSynchronizor
     {
-        void Update(ILearningRoomWithChats learningRoom);
+        Task Update(ILearningRoomWithChats learningRoom);
     }
 }

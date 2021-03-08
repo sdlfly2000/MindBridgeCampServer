@@ -15,7 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.3" />
-    <PackageReference Include="IdeaActivator.Common.Core" Version="1.0.18" />
+    <PackageReference Include="IdeaActivator.Common.Core" Version="1.0.19" />
   </ItemGroup>
   
   <ItemGroup>

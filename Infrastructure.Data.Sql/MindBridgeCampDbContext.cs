@@ -3,6 +3,7 @@ using Infrastructure.Data.Sql.LearningRoom.Entities;
 using Infrastructure.Data.Sql.User.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Sql
 {
@@ -31,9 +32,9 @@ namespace Infrastructure.Data.Sql
             return Entry<TEntity>(entity);
         }
 
-        public void Save()
+        public async Task<int> Save()
         {
-            SaveChanges();
+            return await SaveChangesAsync();
         }
     }
 }
