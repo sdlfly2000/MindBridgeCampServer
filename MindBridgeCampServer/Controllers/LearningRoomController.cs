@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Application.Services.LearningRoom;
 using Common.Core.LogService;
@@ -179,7 +180,7 @@ namespace MindBridgeCampServer.Controllers
             {
                 var messageModels = _learningRoomService.GetMessagesByRoom(loginToken, roomId);
 
-                return Ok(messageModels);
+                return Ok(JsonConvert.SerializeObject(messageModels));
             }
             catch (Exception e)
             {
