@@ -34,7 +34,8 @@ namespace Application.Services.LearningRoom.Processes
             {
                 Name = p.Name,
                 NickName = p.NickName,
-                Gender = (int)p.Gender
+                Gender = (int)p.Gender,
+                AvatarUrl = p.AvatarUrl
             }).ToList();
         }
     }

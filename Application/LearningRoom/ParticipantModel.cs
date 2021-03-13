@@ -9,5 +9,7 @@ namespace Application.LearningRoom
         public string NickName { get; set; }
 
         public int Gender { get; set; }
+
+        public string AvatarUrl { get; set; }
     }
 }
