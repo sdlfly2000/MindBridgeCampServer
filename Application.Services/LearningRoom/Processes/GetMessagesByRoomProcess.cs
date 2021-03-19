@@ -29,14 +29,13 @@ namespace Application.Services.LearningRoom.Processes
         public IList<LearningRoomMessageModel> Get(string loginToken, string roomId)
         {
             var login = _loginTokenGateway.Get(loginToken);
-            var user = _userGateway.Load(login.OpenId.Code);
             var roomWithChats = _learningRoomWithChatsGateway.Load(new RoomReference(roomId));
 
             return roomWithChats.ChatAspects != null
                 ? roomWithChats.ChatAspects.Select(aspect => new LearningRoomMessageModel
                     {
                         Content = aspect.Content,
-                        CreatedByNickName = user.NickName,
+                        CreatedByNickName = _userGateway.Load(aspect.CreatedBy.Code).NickName,
                         IsCreatedByRequester = aspect.CreatedBy.Equals(login.OpenId),
                         CreatedOn = aspect.CreatedOn
                     }).OrderBy(model => model.CreatedOn).ToList()
