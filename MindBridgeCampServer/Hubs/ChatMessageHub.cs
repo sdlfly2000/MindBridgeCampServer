@@ -99,13 +99,9 @@ namespace MindBridgeCampServer.Hubs
                 IsCreatedByRequester = false
             };
 
-            var bufferToMember = new ArraySegment<byte>(ConvertTools.StringToBytes(JsonConvert.SerializeObject(messageModel)));
-
-            messageModel.IsCreatedByRequester = true;
-            var bufferToRequester = new ArraySegment<byte>(ConvertTools.StringToBytes(JsonConvert.SerializeObject(messageModel)));
-
-            if(_websockets.TryGetValue(roomId, out websockets))
+            if (_websockets.TryGetValue(roomId, out websockets))
             {
+                var bufferToMember = new ArraySegment<byte>(ConvertTools.StringToBytes(JsonConvert.SerializeObject(messageModel)));
                 websockets
                     .Where(w => !w.Key.Equals(loginToken))
                     .Select(w => w.Value)
@@ -113,6 +109,8 @@ namespace MindBridgeCampServer.Hubs
                     .ForEach(async w => await w.SendAsync(bufferToMember, 
                         WebSocketMessageType.Text, true, CancellationToken.None));
 
+                messageModel.IsCreatedByRequester = true;
+                var bufferToRequester = new ArraySegment<byte>(ConvertTools.StringToBytes(JsonConvert.SerializeObject(messageModel)));
                 await websockets
                     .FirstOrDefault(w => w.Key.Equals(loginToken)).Value
                     .SendAsync(bufferToRequester,
