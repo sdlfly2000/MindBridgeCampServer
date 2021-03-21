@@ -51,13 +51,11 @@ namespace Application.Services.LearningRoom.Processes
                 {
                     Reference = new ParticipantReference(Guid.NewGuid().ToString()),
                     IsDeleted = false,
-                    Room = new RoomReference(roomId),
+                    Room = new RoomReference(roomId, CacheField.Room),
                     User = user.OpenId
                 };
 
-                room.Participants.Add(participant);
-
-                _learningRoomSynchronizor.Update(room);
+                _learningRoomSynchronizor.AddParticipant(participant);
             }
 
             var roomUpdate = _learningRoomGateway.Load(new RoomReference(room.Reference.Code, CacheField.Room));

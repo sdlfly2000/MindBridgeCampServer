@@ -7,7 +7,10 @@ using System.Linq;
 namespace Domain.Services.LearningRoom.Synchronizors
 {
     using Common.Core.Data.Sql;
+    using Common.Core.LogService;
     using Microsoft.Extensions.Caching.Memory;
+    using Newtonsoft.Json;
+    using System;
 
     [ServiceLocate(typeof(ILearningRoomSynchronizor))]
     public class LearningRoomSynchronizor : ILearningRoomSynchronizor
@@ -37,6 +40,13 @@ namespace Domain.Services.LearningRoom.Synchronizors
             _roomPersistor.Add(learningRoom);
             learningRoom.Participants.ToList().ForEach(p => _participantPersistor.Add(p));
             _persistence.Complete();
+        }
+
+        public void AddParticipant(Participant participant)
+        {
+            _participantPersistor.Add(participant);
+            _persistence.Complete();
+            _memoryCache.Remove(participant.Room.CacheCode);
         }
 
         public void Update(ILearningRoom learningRoom)

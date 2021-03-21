@@ -7,5 +7,7 @@ namespace Domain.Services.LearningRoom.Synchronizors
         void Add(ILearningRoom learningRoom);
 
         void Update(ILearningRoom learningRoom);
+
+        void AddParticipant(Participant participant);
     }
 }
