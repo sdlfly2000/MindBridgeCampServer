@@ -9,7 +9,7 @@ namespace Infrastructure.Data.Sql.Note.Entities
         [Key]
         public string tagId { get; set; }
 
-        public string note { get; set; }
+        public string noteId { get; set; }
 
         public DateTime createdOn { get; set; }
 
