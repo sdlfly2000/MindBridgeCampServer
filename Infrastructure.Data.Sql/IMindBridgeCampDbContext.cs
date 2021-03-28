@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Data.Sql.LearningRoom.Entities;
+using Infrastructure.Data.Sql.Note.Entities;
 using Infrastructure.Data.Sql.User.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -19,6 +20,14 @@ namespace Infrastructure.Data.Sql
         DbSet<ChatEntity> Chats { get; set; }
 
         DbSet<ParticipantEntity> Participants { get; set; }
+
+        DbSet<CommentEntity> NoteComments { get; set; }
+
+        DbSet<NoteEntity> Notes { get; set; }
+
+        DbSet<TagEntity> NoteTags { get; set; }
+
+        DbSet<ViewerEntity> NoteViewers { get; set; } 
 
         DbSet<TEntity> Get<TEntity>() where TEntity : class;
 

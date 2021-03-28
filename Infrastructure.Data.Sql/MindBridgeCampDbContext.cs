@@ -1,5 +1,6 @@
 ﻿using Common.Core.DependencyInjection;
 using Infrastructure.Data.Sql.LearningRoom.Entities;
+using Infrastructure.Data.Sql.Note.Entities;
 using Infrastructure.Data.Sql.User.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -21,6 +22,10 @@ namespace Infrastructure.Data.Sql
         public DbSet<SignInEntity> SignIns { get; set; }
         public DbSet<ChatEntity> Chats { get; set; }
         public DbSet<ParticipantEntity> Participants { get; set; }
+        public DbSet<CommentEntity> NoteComments { get; set; }
+        public DbSet<NoteEntity> Notes { get; set; }
+        public DbSet<TagEntity> NoteTags { get; set; }
+        public DbSet<ViewerEntity> NoteViewers { get; set; }
 
         public DbSet<TEntity> Get<TEntity>() where TEntity : class
         {
