@@ -10,5 +10,6 @@
         public static string Image => "ImageAspect";
         public static string Comment => "CommentAspect";
         public static string Viewer => "ViewerAspect";
+        public static string Tag => "TagAspect";
     }
 }
