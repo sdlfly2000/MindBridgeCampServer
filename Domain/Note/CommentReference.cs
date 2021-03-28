@@ -1,14 +1,14 @@
 ﻿using Common.Core.AOP;
 using Core;
 
-namespace Domain.Image
+namespace Domain.Note
 {
-    public class ImageReference : IReference
+    public class CommentReference : IReference
     {
-        public ImageReference(string code, string fieldName = null)
+        public CommentReference(string code, string fieldName = null)
         {
             Code = code;
-            CacheFieldName = fieldName ?? CacheField.Image;
+            CacheFieldName = fieldName ?? CacheField.Comment;
         }
 
         public string Code { get; set; }
@@ -27,7 +27,7 @@ namespace Domain.Image
 
         public override bool Equals(object obj)
         {
-            return Code.Equals(((ImageReference)obj).Code);
+            return Code.Equals(((CommentReference)obj).Code);
         }
 
         public override int GetHashCode()
