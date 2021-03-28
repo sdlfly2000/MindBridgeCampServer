@@ -6,5 +6,6 @@
         public static string Chat => "ChatAspect";
         public static string SignIn => "SignInAspect";
         public static string Participant => "Participant";
+        public static string Note => "NoteAspect";
     }
 }
