@@ -1,6 +1,7 @@
 ﻿using Domain.Image;
 using Domain.User;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Note
 {
@@ -11,6 +12,6 @@ namespace Domain.Note
         DateTime CreatedOn { get; set; }
         string Content { get; set; }
         string Title { get; set; }
-        ImageReference Image { get; set; }
+        IList<ImageReference> Images { get; set; }
     }
 }
