@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Infrastructure.Data.Sql.Note.Repositories
 {
-    public interface IViewerResposity
+    public interface IViewerRepository
     {
         ViewerEntity FindById(string id);
 

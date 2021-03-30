@@ -5,8 +5,8 @@ using System.Linq;
 
 namespace Infrastructure.Data.Sql.Note.Repositories
 {
-    [ServiceLocate(typeof(IViewerResposity))]
-    public class ViewerRepository : IViewerResposity
+    [ServiceLocate(typeof(IViewerRepository))]
+    public class ViewerRepository : IViewerRepository
     {
         private readonly IMindBridgeCampDbContext _context;
 
