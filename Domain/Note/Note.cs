@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Domain.Note
 {
-    public class Note : INote
+    public class NoteDomain : INote
     {
         private readonly INoteAspect _noteAspect;
 
-        public Note(INoteAspect noteAspect)
+        public NoteDomain(INoteAspect noteAspect)
         {
             _noteAspect = noteAspect;
             Comments = new List<ICommentAspect>();
@@ -25,6 +25,6 @@ namespace Domain.Note
         public DateTime CreatedOn { get => _noteAspect.CreatedOn; set => _noteAspect.CreatedOn = value; }
         public string Content { get => _noteAspect.Content; set => _noteAspect.Content = value; }
         public string Title { get => _noteAspect.Title; set => _noteAspect.Title = value; }
-        public ImageReference Image { get => _noteAspect.Image; set => _noteAspect.Image = value; }
+        public IList<ImageReference> Images { get => _noteAspect.Images; set => _noteAspect.Images = value; }
     }
 }
