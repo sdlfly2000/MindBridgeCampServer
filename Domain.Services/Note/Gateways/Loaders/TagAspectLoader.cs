@@ -1,4 +1,5 @@
-﻿using Common.Core.DependencyInjection;
+﻿using Common.Core.AOP;
+using Common.Core.DependencyInjection;
 using Domain.Note;
 using Domain.Services.Note.Gateways.Loaders.Mappers;
 using Infrastructure.Data.Sql.Note.Repositories;
@@ -21,9 +22,9 @@ namespace Domain.Services.Note.Gateways.Loaders
             _tagAspectMapper = tagAspectMapper;
         }
 
-        public ITagAspect Load(TagReference tag)
+        public ITagAspect Load(IReference reference)
         {
-            return _tagAspectMapper.Map(_tagRepository.FindById(tag.Code));
+            return _tagAspectMapper.Map(_tagRepository.FindById(reference.Code));
         }
 
         public IList<ITagAspect> LoadByNote(NoteReference note)

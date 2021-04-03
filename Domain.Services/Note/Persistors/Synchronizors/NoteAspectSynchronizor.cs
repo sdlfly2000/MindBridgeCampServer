@@ -10,20 +10,12 @@ using System.Text;
 namespace Domain.Services.Note.Persistors.Synchronizors
 {
     [ServiceLocate(typeof(INoteAspectSynchronizor))]
-    public class NoteAspectSynchronizor : Persistor<INoteAspect, NoteEntity>, INoteAspectSynchronizor
+    public class NoteAspectSynchronizor : Synchronizor<INoteAspect, NoteEntity>, INoteAspectSynchronizor
     {
-        private readonly INoteAspectLoader _noteAspectLoader;
-
         public NoteAspectSynchronizor(
             IUnitOfWork<NoteEntity> uow,
-            INoteAspectLoader noteAspectLoader) : base(uow)
+            INoteAspectLoader noteAspectLoader) : base(uow, noteAspectLoader)
         {
-            _noteAspectLoader = noteAspectLoader;
-        }
-
-        public void Synchronize(INoteAspect aspect)
-        {
-            throw new NotImplementedException();
         }
 
         protected override NoteEntity Map(INoteAspect aspect)

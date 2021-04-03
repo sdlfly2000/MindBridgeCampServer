@@ -1,4 +1,5 @@
-﻿using Common.Core.DependencyInjection;
+﻿using Common.Core.AOP;
+using Common.Core.DependencyInjection;
 using Domain.Note;
 using Domain.Services.Note.Gateways.Loaders.Mappers;
 using Infrastructure.Data.Sql.Note.Repositories;
@@ -19,9 +20,9 @@ namespace Domain.Services.Note.Gateways.Loaders
             _aspectMapper = aspectMapper;
         }
 
-        public INoteAspect Load(NoteReference note)
+        public INoteAspect Load(IReference reference)
         {
-            return _aspectMapper.Map(_noteRespository.FindById(note.Code));
+            return _aspectMapper.Map(_noteRespository.FindById(reference.Code));
         }
     }
 }

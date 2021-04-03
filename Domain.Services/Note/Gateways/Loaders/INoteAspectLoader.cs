@@ -1,9 +1,9 @@
-﻿using Domain.Note;
+﻿using Common.Core.Data.Sql;
+using Domain.Note;
 
 namespace Domain.Services.Note.Gateways.Loaders
 {
-    public interface INoteAspectLoader
+    public interface INoteAspectLoader : IAspectLoader<INoteAspect>
     {
-        INoteAspect Load(NoteReference note);
     }
 }
