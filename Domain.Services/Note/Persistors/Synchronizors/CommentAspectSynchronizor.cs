@@ -11,8 +11,7 @@ namespace Domain.Services.Note.Persistors.Synchronizors
     {
         public CommentAspectSynchronizor(
             IUnitOfWork<CommentEntity> uow,
-            ICommentAspectLoader commentAspectLoader)
-            : base(uow, commentAspectLoader)
+            ICommentAspectLoader commentAspectLoader) : base(uow, commentAspectLoader)
         {
         }
 

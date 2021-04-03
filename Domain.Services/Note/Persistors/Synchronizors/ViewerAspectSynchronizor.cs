@@ -1,6 +1,7 @@
 ﻿using Common.Core.Data.Sql;
 using Common.Core.DependencyInjection;
 using Domain.Note;
+using Domain.Services.Note.Gateways.Loaders;
 using Infrastructure.Data.Sql.Note.Entities;
 
 namespace Domain.Services.Note.Persistors.Synchronizors
@@ -10,7 +11,7 @@ namespace Domain.Services.Note.Persistors.Synchronizors
     {
         public ViewerAspectSynchronizor(
             IUnitOfWork<ViewerEntity> uow, 
-            IAspectLoader<IViewerAspect> aspectLoader) : base(uow, aspectLoader)
+            IViewerAspectLoader aspectLoader) : base(uow, aspectLoader)
         {
         }
 
