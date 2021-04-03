@@ -7,6 +7,8 @@ namespace Infrastructure.Data.Sql.Image.Entities
         [Key]
         public string imageId { get; set; }
 
+        public string imageRef { get; set; }
+
         public string imageName { get; set; }
 
         public string imageDirectory { get; set; }

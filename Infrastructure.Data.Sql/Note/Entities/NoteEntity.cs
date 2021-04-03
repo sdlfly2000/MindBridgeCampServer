@@ -1,6 +1,5 @@
 ﻿using Common.Core.Data.Sql;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Sql.Note.Entities
@@ -17,7 +16,5 @@ namespace Infrastructure.Data.Sql.Note.Entities
         public string content { get; set; }
 
         public string title { get; set; }
-
-        public IList<string> images { get; set; }
     }
 }

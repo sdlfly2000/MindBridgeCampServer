@@ -18,8 +18,7 @@ namespace Domain.Services.Note.Gateways.Loaders.Mappers
                 Title = entity.title,
                 Content = entity.content,
                 CreatedBy = new UserReference(entity.createdBy),
-                CreatedOn = entity.createdOn,
-                Images = entity.images?.Select(i => new ImageReference(i)).ToList()
+                CreatedOn = entity.createdOn
             };
         }
     }
