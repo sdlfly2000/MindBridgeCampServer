@@ -3,9 +3,6 @@ using Common.Core.DependencyInjection;
 using Domain.Note;
 using Domain.Services.Note.Gateways.Loaders;
 using Infrastructure.Data.Sql.Note.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Services.Note.Persistors.Synchronizors
 {
