@@ -1,12 +1,11 @@
-﻿using Domain.Note;
+﻿using Common.Core.Data.Sql;
+using Domain.Note;
 using System.Collections.Generic;
 
 namespace Domain.Services.Note.Gateways.Loaders
 {
-    public interface ICommentAspectLoader
+    public interface ICommentAspectLoader : IAspectLoader<ICommentAspect>
     {
-        ICommentAspect Load(CommentReference comment);
-
         IList<ICommentAspect> LoadByNote(NoteReference note);
     }
 }

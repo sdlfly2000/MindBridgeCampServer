@@ -1,13 +1,13 @@
-﻿using Domain.Image;
+﻿using Common.Core.Domain;
+using Domain.Image;
 using Domain.User;
 using System;
 using System.Collections.Generic;
 
 namespace Domain.Note
 {
-    public interface INoteAspect
+    public interface INoteAspect : IAspect
     {
-        NoteReference Reference { get; set; }
         UserReference CreatedBy { get; set; }
         DateTime CreatedOn { get; set; }
         string Content { get; set; }

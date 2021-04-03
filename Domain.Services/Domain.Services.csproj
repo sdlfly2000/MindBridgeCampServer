@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Infrastructure.Data.Sql\Infrastructure.Data.Sql.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Note\Persistors\" />
-  </ItemGroup>
-
 </Project>

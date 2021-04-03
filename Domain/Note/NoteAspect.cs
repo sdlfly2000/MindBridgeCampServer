@@ -1,4 +1,5 @@
-﻿using Domain.Image;
+﻿using Common.Core.AOP;
+using Domain.Image;
 using Domain.User;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Domain.Note
             Images = new List<ImageReference>();
         }
 
-        public NoteReference Reference { get; set; }
+        public IReference Reference { get; set; }
         public UserReference CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public string Content { get; set; }

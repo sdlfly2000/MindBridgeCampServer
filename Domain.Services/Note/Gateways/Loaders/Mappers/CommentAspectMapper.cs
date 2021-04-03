@@ -10,15 +10,17 @@ namespace Domain.Services.Note.Gateways.Loaders.Mappers
     {
         public ICommentAspect Map(CommentEntity entity)
         {
-            return new CommentAspect
-            {
-                Referece = new CommentReference(entity.commentId),
-                Content = entity.content,
-                CreatedBy = new UserReference(entity.createdBy),
-                CreatedOn = entity.createdOn,
-                Note = new NoteReference(entity.noteId),
-                Rate = entity.rate
-            };
+            return entity != null
+                ? new CommentAspect
+                    {
+                        Reference = new CommentReference(entity.commentId),
+                        Content = entity.content,
+                        CreatedBy = new UserReference(entity.createdBy),
+                        CreatedOn = entity.createdOn,
+                        Note = new NoteReference(entity.noteId),
+                        Rate = entity.rate
+                    }
+                : default(ICommentAspect);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Common.Core.DependencyInjection;
+﻿using Common.Core.AOP;
+using Common.Core.DependencyInjection;
 using Domain.Note;
 using Domain.Services.Note.Gateways.Loaders.Mappers;
 using Infrastructure.Data.Sql.Note.Repositories;
@@ -21,9 +22,9 @@ namespace Domain.Services.Note.Gateways.Loaders
             _commentAspectMapper = commentAspectMapper;
         }
 
-        public ICommentAspect Load(CommentReference comment)
+        public ICommentAspect Load(IReference reference)
         {
-            return _commentAspectMapper.Map(_commentRepository.FindById(comment.Code));
+            return _commentAspectMapper.Map(_commentRepository.FindById(reference.Code));
         }
 
         public IList<ICommentAspect> LoadByNote(NoteReference note)

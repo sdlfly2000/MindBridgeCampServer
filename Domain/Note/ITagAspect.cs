@@ -1,12 +1,11 @@
-﻿using Domain.User;
+﻿using Common.Core.Domain;
+using Domain.User;
 using System;
 
 namespace Domain.Note
 {
-    public interface ITagAspect
+    public interface ITagAspect : IAspect
     {
-        TagReference Reference { get; set; }
-        NoteReference Note { get; set; }
         DateTime CreatedOn { get; set; }
         UserReference CreatedBy { get; set; }
         string Caption { get; set; }

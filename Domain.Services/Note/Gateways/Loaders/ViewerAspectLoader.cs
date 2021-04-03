@@ -1,4 +1,5 @@
-﻿using Common.Core.DependencyInjection;
+﻿using Common.Core.AOP;
+using Common.Core.DependencyInjection;
 using Domain.Note;
 using Domain.Services.Note.Gateways.Loaders.Mappers;
 using Infrastructure.Data.Sql.Note.Repositories;
@@ -21,7 +22,7 @@ namespace Domain.Services.Note.Gateways.Loaders
             _viewerAspectMapper = viewerAspectMapper;
         }
 
-        public IViewerAspect Load(ViewerReference viewer)
+        public IViewerAspect Load(IReference viewer)
         {
             return _viewerAspectMapper.Map(_viewerRepository.FindById(viewer.Code));
         }

@@ -1,4 +1,5 @@
-﻿using Domain.Image;
+﻿using Common.Core.AOP;
+using Domain.Image;
 using Domain.User;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Domain.Note
         public IList<ICommentAspect> Comments { get; set; }
         public IList<IViewerAspect> Viewers { get; set; }
         public IList<ITagAspect> Tags { get; set; }
-        public NoteReference Reference { get => _noteAspect.Reference; set => _noteAspect.Reference = value; }
+        public IReference Reference { get => _noteAspect.Reference; set => _noteAspect.Reference = value; }
         public UserReference CreatedBy { get => _noteAspect.CreatedBy; set => _noteAspect.CreatedBy = value; }
         public DateTime CreatedOn { get => _noteAspect.CreatedOn; set => _noteAspect.CreatedOn = value; }
         public string Content { get => _noteAspect.Content; set => _noteAspect.Content = value; }

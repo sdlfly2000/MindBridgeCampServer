@@ -1,11 +1,11 @@
-﻿using Domain.User;
+﻿using Common.Core.Domain;
+using Domain.User;
 using System;
 
 namespace Domain.Note
 {
-    public interface ICommentAspect
+    public interface ICommentAspect : IAspect
     {
-        CommentReference Referece { get; set; }
         NoteReference Note { get; set; }
         DateTime CreatedOn { get; set; }
         UserReference CreatedBy { get; set; }
