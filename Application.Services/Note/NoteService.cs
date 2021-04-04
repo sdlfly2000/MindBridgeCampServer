@@ -1,24 +1,20 @@
 ﻿using Application.Note;
+using Application.Services.Note.Processes;
 using Common.Core.DependencyInjection;
-using Core;
-using Domain.Image;
-using Domain.Note;
-using Domain.Services.LoginToken;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Application.Services.Note
 {
     [ServiceLocate(typeof(INoteService))]
     public class NoteService : INoteService
     {
-        private readonly ILoginTokenGateway _loginTokenGateway;
+        private readonly ICreateNoteProcess _createNoteProcess;
 
         public NoteService(
-            ILoginTokenGateway loginTokenGateway)
+            ICreateNoteProcess createNoteProcess)
         {
-            _loginTokenGateway = loginTokenGateway;
+            _createNoteProcess = createNoteProcess;
         }
 
         public void CreateComment(string loginToken, string noteId, CommentModel model)
@@ -28,7 +24,7 @@ namespace Application.Services.Note
 
         public void CreateNote(string loginToken, NoteModel model)
         {
-            var login = _loginTokenGateway.Get(loginToken);
+            _createNoteProcess.Create(loginToken, model);
         }
 
         public void CreateTag(string loginToken, string noteId, TagModel model)

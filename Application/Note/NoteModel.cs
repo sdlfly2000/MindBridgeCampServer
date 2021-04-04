@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Application.Note
 {
@@ -10,9 +11,16 @@ namespace Application.Note
             Images = new List<string>();
         }
 
+        public string NoteId { get; set; }
+
         public string Title { get; set; }
+
         public string Content { get; set; }
+
+        [DataMember(IsRequired = false)]
         public IList<string> Tags { get; set; }
+
+        [DataMember(IsRequired = false)]
         public IList<string> Images { get; set; }
     }
 }

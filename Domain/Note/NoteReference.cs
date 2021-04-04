@@ -1,5 +1,6 @@
 ﻿using Common.Core.AOP;
 using Core;
+using System;
 
 namespace Domain.Note
 {
@@ -33,6 +34,11 @@ namespace Domain.Note
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public static NoteReference Create()
+        {
+            return new NoteReference(Guid.NewGuid().ToString());
         }
     }
 }
