@@ -1,7 +1,7 @@
-﻿using Application.Note;
-using Application.Services.Note;
+﻿using Application.Services.Note;
 using Common.Core.LogService;
 using Microsoft.AspNetCore.Mvc;
+using MindBridgeCampServer.Models;
 using System;
 
 namespace MindBridgeCampServer.Controllers
@@ -19,11 +19,11 @@ namespace MindBridgeCampServer.Controllers
 
         [HttpPost("{loginToken}")]
         [LogService]
-        public IActionResult Create(string loginToken, [FromBody] NoteModel model)
+        public IActionResult Create(string loginToken, [FromBody] CreateNoteRequest request)
         {
             try
             {
-                _noteService.CreateNote(loginToken, model);
+                _noteService.CreateNote(loginToken, request.model);
             }
             catch (Exception e)
             {
