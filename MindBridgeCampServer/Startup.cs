@@ -8,8 +8,6 @@ using Common.Core.DependencyInjection;
 using Infrastructure.Data.Sql;
 using Microsoft.EntityFrameworkCore;
 using Common.Core.LogService;
-using System;
-using MindBridgeCampServer.Hubs;
 using MindBridgeCampServer.Middlewares;
 
 namespace MindBridgeCampServer
