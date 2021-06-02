@@ -3,14 +3,16 @@ using System;
 using Infrastructure.Data.Sql;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data.Sql.Migrations
 {
     [DbContext(typeof(MindBridgeCampDbContext))]
-    partial class MindBridgeCampDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210602165306_add ImageEntity")]
+    partial class addImageEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

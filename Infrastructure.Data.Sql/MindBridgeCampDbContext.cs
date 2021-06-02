@@ -1,4 +1,5 @@
 ﻿using Common.Core.DependencyInjection;
+using Infrastructure.Data.Sql.Image.Entities;
 using Infrastructure.Data.Sql.LearningRoom.Entities;
 using Infrastructure.Data.Sql.Note.Entities;
 using Infrastructure.Data.Sql.User.Entities;
@@ -26,6 +27,7 @@ namespace Infrastructure.Data.Sql
         public DbSet<NoteEntity> Notes { get; set; }
         public DbSet<TagEntity> NoteTags { get; set; }
         public DbSet<ViewerEntity> NoteViewers { get; set; }
+        public DbSet<ImageEntity> Images { get; set; }
 
         public DbSet<TEntity> Get<TEntity>() where TEntity : class
         {

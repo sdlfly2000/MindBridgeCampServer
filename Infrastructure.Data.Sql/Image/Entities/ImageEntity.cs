@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Sql.Image.Entities
 {
@@ -7,12 +8,12 @@ namespace Infrastructure.Data.Sql.Image.Entities
         [Key]
         public string imageId { get; set; }
 
-        public string imageRef { get; set; }
+        public string extension { get; set; }
 
-        public string imageName { get; set; }
+        public string createdBy { get; set; }
 
-        public string imageDirectory { get; set; }
+        public DateTime createdOn { get; set; }
 
-        public int imageStatus { get; set; }
+        public int status { get; set; }
     }
 }
