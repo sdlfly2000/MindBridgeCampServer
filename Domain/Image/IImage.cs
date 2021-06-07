@@ -1,6 +1,6 @@
 ﻿namespace Domain.Image
 {
-    public interface IImage : IImageAspect
+    public interface IImage : IImageAspect, IImageStreamAspect
     {
     }
 }

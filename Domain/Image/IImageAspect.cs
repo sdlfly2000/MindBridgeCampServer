@@ -1,11 +1,11 @@
-﻿using Domain.User;
+﻿using Common.Core.Domain;
+using Domain.User;
 using System;
 
 namespace Domain.Image
 {
-    public interface IImageAspect
+    public interface IImageAspect : IAspect
     {
-        ImageReference Reference { get; set; }
         string ImageName { get;}
         string Extention { get; set; }
         UserReference CreatedBy { get; set; }

@@ -1,18 +1,22 @@
-﻿using Domain.User;
+﻿using Common.Core.AOP;
+using Domain.User;
 using System;
+using System.IO;
 
 namespace Domain.Image
 {
     public class Image : IImage
     {
         private readonly IImageAspect _imageAspect;
+        private readonly IImageStreamAspect _streamAspect;
 
-        public Image(IImageAspect imageAspet)
+        public Image(IImageAspect imageAspet, IImageStreamAspect streamAspect)
         {
             _imageAspect = imageAspet;
+            _streamAspect = streamAspect;
         }
 
-        public ImageReference Reference
+        public IReference Reference
         {
             get { return _imageAspect.Reference; }
             set { _imageAspect.Reference = value; }
@@ -45,6 +49,12 @@ namespace Domain.Image
         {
             get { return _imageAspect.Status; }
             set { _imageAspect.Status = value; }
+        }
+
+        public Stream ImageStream
+        {
+            get { return _streamAspect.ImageStream; }
+            set { _streamAspect.ImageStream = value; }
         }
     }
 }

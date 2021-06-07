@@ -8,6 +8,7 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure.Data.CacheAgent\Infrastructure.Data.CacheAgent.csproj" />
     <ProjectReference Include="..\Infrastructure.Data.Sql\Infrastructure.Data.Sql.csproj" />
+    <ProjectReference Include="..\Infrastructure.File\Infrastructure.File.csproj" />
   </ItemGroup>
 
 </Project>

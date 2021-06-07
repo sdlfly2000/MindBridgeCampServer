@@ -1,4 +1,5 @@
-﻿using Common.Core.DependencyInjection;
+﻿using Common.Core.AOP;
+using Common.Core.DependencyInjection;
 using Domain.Image;
 using Domain.Services.Image.Gateways.Loaders.Mappers;
 using Infrastructure.Data.Sql.Image.Repositories;
@@ -19,7 +20,7 @@ namespace Domain.Services.Image.Gateways.Loaders
             _imageAspectMapper = imageAspectMapper;
         }
 
-        public IImageAspect Load(ImageReference refernce)
+        public IImageAspect Load(IReference refernce)
         {
             return _imageAspectMapper.Map(_imageRepository.FindById(refernce.Code));
         }
