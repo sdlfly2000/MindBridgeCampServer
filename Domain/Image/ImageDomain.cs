@@ -5,14 +5,20 @@ using System.IO;
 
 namespace Domain.Image
 {
-    public class Image : IImage
+    public class ImageDomain : IImage
     {
         private readonly IImageAspect _imageAspect;
         private readonly IImageStreamAspect _streamAspect;
 
-        public Image(IImageAspect imageAspet, IImageStreamAspect streamAspect)
+        public ImageDomain(IImageAspect imageAspect)
         {
-            _imageAspect = imageAspet;
+            _imageAspect = imageAspect;
+            _streamAspect = default(IImageStreamAspect);
+        }
+
+        public ImageDomain(IImageAspect imageAspect, IImageStreamAspect streamAspect)
+        {
+            _imageAspect = imageAspect;
             _streamAspect = streamAspect;
         }
 
