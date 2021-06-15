@@ -8,7 +8,10 @@ using System.Linq;
 
 namespace Domain.Services.Note.Gateways.Loaders
 {
+    using Core;
+
     [ServiceLocate(typeof(ICommentAspectLoader))]
+    [AspectCache("class")]
     public class CommentAspectLoader : ICommentAspectLoader
     {
         private readonly ICommentRepository _commentRepository;
@@ -22,11 +25,13 @@ namespace Domain.Services.Note.Gateways.Loaders
             _commentAspectMapper = commentAspectMapper;
         }
 
+        [AspectCache("load")]
         public ICommentAspect Load(IReference reference)
         {
             return _commentAspectMapper.Map(_commentRepository.FindById(reference.Code));
         }
 
+        [AspectCache("LoadByNote")]
         public IList<ICommentAspect> LoadByNote(NoteReference note)
         {
             return _commentRepository
