@@ -5,11 +5,10 @@ using Domain.Services.Note.Gateways.Loaders.Mappers;
 using Infrastructure.Data.Sql.Note.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using Core;
 
 namespace Domain.Services.Note.Gateways.Loaders
 {
-    using Core;
-
     [ServiceLocate(typeof(ICommentAspectLoader))]
     [AspectCache("class")]
     public class CommentAspectLoader : ICommentAspectLoader
@@ -25,7 +24,7 @@ namespace Domain.Services.Note.Gateways.Loaders
             _commentAspectMapper = commentAspectMapper;
         }
 
-        [AspectCache("load")]
+        [AspectCache("Load")]
         public ICommentAspect Load(IReference reference)
         {
             return _commentAspectMapper.Map(_commentRepository.FindById(reference.Code));

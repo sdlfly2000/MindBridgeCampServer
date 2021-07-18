@@ -9,6 +9,7 @@ using Infrastructure.Data.Sql;
 using Microsoft.EntityFrameworkCore;
 using Common.Core.LogService;
 using MindBridgeCampServer.Middlewares;
+using Core;
 
 namespace MindBridgeCampServer
 {
@@ -44,6 +45,11 @@ namespace MindBridgeCampServer
                   "Infrastructure.Data.CacheAgent",
                   "Infrastructure.File"
               });
+
+            RegisterCache.Register(services, new List<string>
+            {
+                "Domain.Services"
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

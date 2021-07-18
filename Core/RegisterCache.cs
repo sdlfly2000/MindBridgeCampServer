@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Common.Core.AOP;
 
 namespace Core
 {
-    using Common.Core.AOP;
-
     public static class RegisterCache
     {
         public static void Register(IServiceCollection services, IList<string> domains)
@@ -27,7 +23,6 @@ namespace Core
                 .SelectMany(implement => implement.GetMethods()).ToList();
 
             var proxy = new CacheProxy();
-
         }
     }
 }
